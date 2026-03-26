@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOMEPROJETO - Área do Aluno</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/pages/main.css">
+</head>
+<body>
+
+<header id="area-cabecalho">
+        <div class="container-topo">
+            <div class="logo-container">
+                <div id="area-logo">
+                    <h1>NOME<span class="destaque">PROJETO</span></h1>
+                </div>
+            </div>
+            
+            <nav id="area-menu">
+                <a href="/pages/dashboards/dashboard-aluno.html">Início</a>
+                <a href="#">Trilhas</a>
+                <a href="/pages/contato.html">Contato</a>
+            </nav>
+
+            <div class="settings-container">
+                <button id="btn-settings" class="btn-icon" aria-label="Configurações">⚙️</button>
+                
+                <div id="settings-dropdown" class="dropdown-menu hidden">
+                    <p class="dropdown-title">Configurações</p>
+                    
+                    <div class="config-item">
+                        <span>Modo Noturno</span>
+                        <label class="theme-switch" for="checkbox">
+                            <input type="checkbox" id="checkbox" />
+                            <div class="slider round">
+                                <span class="slider-icon sun">☀️</span>
+                                <span class="slider-icon moon">🌙</span>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="config-item mt-10">
+                        <span>Fonte Acessível</span>
+                        <label class="theme-switch" for="dyslexia-checkbox">
+                            <input type="checkbox" id="dyslexia-checkbox" />
+                            <div class="slider round slider-dyslexia">
+                                <span class="slider-icon">a</span>
+                                <span class="slider-icon">A</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <main id="area-principal">
+        <section id="area-postagens">
+            <div class="ludico-card">
+                <h2 class="titulo-login">Olá, Explorador! 🚀</h2>
+                <p>Que bom te ver por aqui! Escolha uma trilha para começar a brincadeira.</p>
+            </div>
+
+            <article class="postagem ludico-card">
+                <h2>Conhecendo as Vogais! 🅰️</h2>
+                <span class="data-postagem">Postado em 10 de Março</span>
+                <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&q=80&w=800&h=300" alt="Crianças aprendendo" class="img-postagem">
+                <p>Aprender as vogais é o primeiro passo para a grande jornada da leitura!</p>
+                <a href="#" class="btn-secundario">Começar atividade</a>
+            </article>
+        </section>
+
+        <aside id="area-lateral">
+            <div class="conteudo-lateral ludico-card">
+                <h3>Mochila de Novidades 🎒</h3>
+                <div class="postagem-lateral">
+                    <p>O número 10 chegou para brincar!</p>
+                    <a href="#">Ver mais</a>
+                </div>
+                <div class="postagem-lateral sem-borda">
+                    <p>Músicas para aprender as cores.</p>
+                    <a href="#">Ouvir agora</a>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <footer id="rodape">...</footer>
+
+    <script src="/pages/theme.js"></script>
+</body>
+</html>

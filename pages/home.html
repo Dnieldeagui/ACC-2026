@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOMEPROJETO - Quem é você?</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+
+    <header id="area-cabecalho">
+        <div class="container-topo">
+            <div class="logo-container">
+                <div id="area-logo">
+                    <h1>NOME<span class="destaque">PROJETO</span></h1>
+                </div>
+            </div>
+            
+            <nav id="area-menu">
+                <a href="home.html">Início</a>
+                <a href="#">Trilhas</a>
+                <a href="contato.html">Contato</a>
+            </nav>
+
+            <div class="settings-container">
+                <button id="btn-settings" class="btn-icon" aria-label="Configurações">⚙️</button>
+                
+                <div id="settings-dropdown" class="dropdown-menu hidden">
+                    <p class="dropdown-title">Configurações</p>
+                    
+                    <div class="config-item">
+                        <span>Modo Noturno</span>
+                        <label class="theme-switch" for="checkbox">
+                            <input type="checkbox" id="checkbox" />
+                            <div class="slider round">
+                                <span class="slider-icon sun">☀️</span>
+                                <span class="slider-icon moon">🌙</span>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="config-item mt-10">
+                        <span>Fonte Acessível</span>
+                        <label class="theme-switch" for="dyslexia-checkbox">
+                            <input type="checkbox" id="dyslexia-checkbox" />
+                            <div class="slider round slider-dyslexia">
+                                <span class="slider-icon">a</span>
+                                <span class="slider-icon">A</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main id="area-principal-home">
+        <div class="selecao-perfil">
+            <h2 class="titulo-selecao">Quem está entrando?</h2>
+            <p class="subtitulo-selecao">Escolha seu perfil para continuar</p>
+
+            <div class="cards-perfil">
+                <!-- Card Professor -->
+                <div class="card-perfil">
+                    <div class="icone-perfil">👨‍🏫</div>
+                    <h3>Professor</h3>
+                    <p>Acesse o painel do educador, crie atividades e acompanhe o progresso.</p>
+                    <a href="/pages/login/login-professor.html" class="btn-perfil">Sou Professor</a>
+                </div>
+
+                <!-- Card Aluno -->
+                <div class="card-perfil">
+                    <div class="icone-perfil">🧒</div>
+                    <h3>Aluno</h3>
+                    <p>Entre no mundo do aprendizado brincando, explore trilhas e desafios.</p>
+                    <a href="/pages/login/login-aluno.html" class="btn-perfil">Sou Aluno</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer id="rodape">
+        <p>✨ Feito com carinho para pequenos grandes pensadores ✨</p>
+    </footer>
+
+    <script src="theme.js"></script>
+</body>
+</html>

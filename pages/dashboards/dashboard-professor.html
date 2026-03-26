@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOMEPROJETO - Painel Professor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/pages/main.css">
+</head>
+<body>
+
+<header id="area-cabecalho">
+        <div class="container-topo">
+            <div class="logo-container">
+                <div id="area-logo">
+                    <h1>NOME<span class="destaque">PROJETO</span></h1>
+                </div>
+            </div>
+            
+            <nav id="area-menu">
+                <a href="/pages/dashboards/dashboard-professor.html">Início</a>
+                <a href="#">Trilhas</a>
+                <a href="/pages/contato.html">Contato</a>
+            </nav>
+
+            <div class="settings-container">
+                <button id="btn-settings" class="btn-icon" aria-label="Configurações">⚙️</button>
+                
+                <div id="settings-dropdown" class="dropdown-menu hidden">
+                    <p class="dropdown-title">Configurações</p>
+                    
+                    <div class="config-item">
+                        <span>Modo Noturno</span>
+                        <label class="theme-switch" for="checkbox">
+                            <input type="checkbox" id="checkbox" />
+                            <div class="slider round">
+                                <span class="slider-icon sun">☀️</span>
+                                <span class="slider-icon moon">🌙</span>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="config-item mt-10">
+                        <span>Fonte Acessível</span>
+                        <label class="theme-switch" for="dyslexia-checkbox">
+                            <input type="checkbox" id="dyslexia-checkbox" />
+                            <div class="slider round slider-dyslexia">
+                                <span class="slider-icon">a</span>
+                                <span class="slider-icon">A</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <main id="area-principal">
+        <section id="area-postagens">
+            <div class="ludico-card">
+                <h2 class="titulo-login">Olá, Professor! 👋</h2>
+                <p>Este é seu painel de controle. Aqui você pode criar novas atividades, acompanhar o progresso dos alunos e muito mais.</p>
+                <div style="margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap;">
+                    <a href="#" class="btn-secundario">Criar Atividade</a>
+                    <a href="#" class="btn-secundario">Ver Turmas</a>
+                    <a href="#" class="btn-secundario">Relatórios</a>
+                </div>
+            </div>
+
+            <div class="ludico-card">
+                <h3>Últimas atividades criadas</h3>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="padding: 10px 0; border-bottom: 1px dashed var(--border-color);">📚 Alfabeto divertido - 20/03</li>
+                    <li style="padding: 10px 0; border-bottom: 1px dashed var(--border-color);">🧮 Números de 1 a 10 - 18/03</li>
+                    <li style="padding: 10px 0;">🎨 Cores primárias - 15/03</li>
+                </ul>
+            </div>
+        </section>
+
+        <aside id="area-lateral">
+            <div class="conteudo-lateral ludico-card">
+                <h3>Turmas ativas</h3>
+                <div class="postagem-lateral">
+                    <p>🌱 1º Ano A - 15 alunos</p>
+                    <a href="#">Ver</a>
+                </div>
+                <div class="postagem-lateral sem-borda">
+                    <p>🌿 2º Ano B - 12 alunos</p>
+                    <a href="#">Ver</a>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <footer id="rodape">...</footer>
+
+    <script src="/pages/theme.js"></script>
+</body>
+</html>
