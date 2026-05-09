@@ -1,15 +1,52 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="main.css">
+    <title>Plataforma de Aprendizado</title>
+    <link rel="stylesheet" href="Prot.CSS">
 </head>
 <body>
-    <div class="Container">
-        <div class="Home">Home</div>
-        <div class="Login">LOgin</div>
+    
+<!-- Barra lateral -->
+<div class="sidebar">
+    <div class="icone" onclick="handleSidebarClick('Home')">🏠</div>
+    <div class="icone" onclick="handleSidebarClick('Troféus')">🏆</div>
+    <div class="icone" onclick="handleSidebarClick('Ofensiva')">📅</div>
+</div>
+
+    <!-- Conteúdo principal -->
+    <div class="main-container">
+
+        <div class="header">
+            <h1>Use condicionais no presente simples</h1>
+        </div>
+
+        <div class="activity-path">
+
+            <div class="activity completed" onclick="toggleActivity(this)">
+                ✓
+            </div>
+
+            <div class="activity" onclick="toggleActivity(this)">
+                📖
+            </div>
+
+            <div class="activity active" onclick="toggleActivity(this)">
+                ▶
+            </div>
+
+            <div class="activity" onclick="toggleActivity(this)">
+                📘
+            </div>
+
+            <div class="activity locked">
+                🔒
+            </div>
+
+        </div>
+
     </div>
+
+<script src="Prot.js"></script>
 </body>
 </html>
