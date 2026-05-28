@@ -3,33 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NOMEPROJETO - Área do Aluno</title>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+    <title>OctorLer - Área do Aluno</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/pages/main.css">
+    <link rel="stylesheet" href="../main.css">
+    <link rel="stylesheet" href="dashboard-aluno.css">
 </head>
 <body>
 
-<header id="area-cabecalho">
+    <header id="area-cabecalho">
         <div class="container-topo">
             <div class="logo-container">
                 <div id="area-logo">
-                    <h1>NOME<span class="destaque">PROJETO</span></h1>
+                    <h1>Octor<span class="destaque">Ler</span></h1>
                 </div>
             </div>
-            
             <nav id="area-menu">
-                <a href="/pages/dashboards/dashboard-aluno.html">Início</a>
-                <a href="#">Trilhas</a>
-                <a href="/pages/contato.html">Contato</a>
+                <a href="dashboard-aluno.html" class="ativo">Início</a>
+                <a href="../Mapa.html">Trilhas</a>
+                <a href="../Perfil.html">Perfil</a>
+                <a href="../Ofensiva.html">🔥 Ofensiva</a>
             </nav>
-
             <div class="settings-container">
                 <button id="btn-settings" class="btn-icon" aria-label="Configurações">⚙️</button>
-                
                 <div id="settings-dropdown" class="dropdown-menu hidden">
                     <p class="dropdown-title">Configurações</p>
-                    
                     <div class="config-item">
                         <span>Modo Noturno</span>
                         <label class="theme-switch" for="checkbox">
@@ -40,7 +38,6 @@
                             </div>
                         </label>
                     </div>
-
                     <div class="config-item mt-10">
                         <span>Fonte Acessível</span>
                         <label class="theme-switch" for="dyslexia-checkbox">
@@ -56,40 +53,169 @@
         </div>
     </header>
 
+    <main class="dash-main">
 
-    <main id="area-principal">
-        <section id="area-postagens">
-            <div class="ludico-card">
-                <h2 class="titulo-login">Olá, Explorador! 🚀</h2>
-                <p>Que bom te ver por aqui! Escolha uma trilha para começar a brincadeira.</p>
+        <!-- SAUDAÇÃO PERSONALIZADA -->
+        <section class="dash-hero">
+            <div class="hero-texto">
+                <h2 class="hero-titulo" id="hero-titulo">Olá, Explorador! 👋</h2>
+                <p class="hero-sub" id="hero-sub">Pronto para aprender algo novo hoje?</p>
             </div>
-
-            <article class="postagem ludico-card">
-                <h2>Conhecendo as Vogais! 🅰️</h2>
-                <span class="data-postagem">Postado em 10 de Março</span>
-                <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&q=80&w=800&h=300" alt="Crianças aprendendo" class="img-postagem">
-                <p>Aprender as vogais é o primeiro passo para a grande jornada da leitura!</p>
-                <a href="#" class="btn-secundario">Começar atividade</a>
-            </article>
+            <div class="hero-avatar" id="hero-avatar">🦊</div>
         </section>
 
-        <aside id="area-lateral">
-            <div class="conteudo-lateral ludico-card">
-                <h3>Mochila de Novidades 🎒</h3>
-                <div class="postagem-lateral">
-                    <p>O número 10 chegou para brincar!</p>
-                    <a href="#">Ver mais</a>
-                </div>
-                <div class="postagem-lateral sem-borda">
-                    <p>Músicas para aprender as cores.</p>
-                    <a href="#">Ouvir agora</a>
+        <!-- STATS RÁPIDOS -->
+        <section class="dash-stats-row">
+            <div class="dstat-card">
+                <span class="dstat-icon">⭐</span>
+                <div>
+                    <p class="dstat-val" id="dstat-xp">0</p>
+                    <p class="dstat-label">XP Total</p>
                 </div>
             </div>
-        </aside>
+            <div class="dstat-card">
+                <span class="dstat-icon">🔥</span>
+                <div>
+                    <p class="dstat-val" id="dstat-streak">0</p>
+                    <p class="dstat-label">Ofensiva</p>
+                </div>
+            </div>
+            <div class="dstat-card">
+                <span class="dstat-icon">🏆</span>
+                <div>
+                    <p class="dstat-val" id="dstat-licoes">0</p>
+                    <p class="dstat-label">Lições</p>
+                </div>
+            </div>
+            <div class="dstat-card">
+                <span class="dstat-icon">📊</span>
+                <div>
+                    <p class="dstat-val" id="dstat-nivel">1</p>
+                    <p class="dstat-label">Nível</p>
+                </div>
+            </div>
+            <div class="dstat-card">
+                <span class="dstat-icon">💎</span>
+                <div>
+                    <p class="dstat-val" id="dstat-gemas">50</p>
+                    <p class="dstat-label">Gemas</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- BARRA DE XP -->
+        <section class="dash-xp-section">
+            <div class="dash-xp-info">
+                <span id="dash-nivel-txt">Nível 1</span>
+                <span id="dash-xp-txt">0 / 100 XP</span>
+                <span id="dash-nivel-prox">Nível 2</span>
+            </div>
+            <div class="dash-xp-bar">
+                <div class="dash-xp-fill" id="dash-xp-fill" style="width: 0%"></div>
+            </div>
+        </section>
+
+        <div class="dash-grid">
+
+            <!-- CONTINUAR TRILHA -->
+            <div class="dash-card dash-continuar">
+                <p class="dc-titulo">🗺️ Continuar Trilha</p>
+                <div class="proxima-licao" id="proxima-licao">
+                    <div class="pl-icone" id="pl-icone">📚</div>
+                    <div class="pl-info">
+                        <p class="pl-titulo" id="pl-titulo">Carregando...</p>
+                        <p class="pl-desc" id="pl-desc">Próxima lição disponível</p>
+                        <div class="pl-xp-badge" id="pl-xp-badge">+0 XP</div>
+                    </div>
+                </div>
+                <a href="../Mapa.html" class="btn-primario btn-continuar">
+                    🚀 Ir para o Mapa
+                </a>
+            </div>
+
+            <!-- MISSÃO DIÁRIA -->
+            <div class="dash-card dash-missao">
+                <p class="dc-titulo">📜 Missão Diária</p>
+                <div class="missao-item" id="dmissao-1">
+                    <span class="missao-check" id="dmcheck-1">○</span>
+                    <div>
+                        <p class="missao-nome">Complete 1 lição</p>
+                        <p class="missao-reward">+10 🔥</p>
+                    </div>
+                </div>
+                <div class="missao-item" id="dmissao-2">
+                    <span class="missao-check" id="dmcheck-2">○</span>
+                    <div>
+                        <p class="missao-nome">Complete 2 lições</p>
+                        <p class="missao-reward">+5 💎</p>
+                    </div>
+                </div>
+                <div class="missao-item" id="dmissao-3">
+                    <span class="missao-check" id="dmcheck-3">○</span>
+                    <div>
+                        <p class="missao-nome">Ganhe 30 XP hoje</p>
+                        <p class="missao-reward">+20 ⭐</p>
+                    </div>
+                </div>
+                <div class="missao-prog-wrap">
+                    <div class="missao-prog-bar-d">
+                        <div class="missao-prog-fill-d" id="missao-prog-fill-d" style="width: 0%"></div>
+                    </div>
+                    <span class="missao-prog-txt" id="missao-prog-txt">0/3</span>
+                </div>
+            </div>
+
+            <!-- OFENSIVA RESUMO -->
+            <div class="dash-card dash-streak-resumo">
+                <p class="dc-titulo">🔥 Sua Ofensiva</p>
+                <div class="streak-big">
+                    <span class="streak-fogo">🔥</span>
+                    <span class="streak-num-big" id="streak-num-big">0</span>
+                    <span class="streak-dias-label">dias</span>
+                </div>
+                <p class="streak-msg-small" id="streak-msg-small">Comece hoje!</p>
+                <a href="../Ofensiva.html" class="btn-streak-ver">Ver detalhes →</a>
+            </div>
+
+            <!-- ÚLTIMAS LIÇÕES -->
+            <div class="dash-card dash-recentes">
+                <p class="dc-titulo">🕒 Atividade Recente</p>
+                <ul class="recentes-lista" id="recentes-lista">
+                    <li class="recente-vazio">Nenhuma lição concluída ainda.<br>
+                        <a href="../Mapa.html">Comece agora! 🚀</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- CONQUISTAS RÁPIDAS -->
+            <div class="dash-card dash-conquistas-quick">
+                <p class="dc-titulo">🎖️ Conquistas</p>
+                <div class="cq-grid" id="cq-grid">
+                    <!-- Geradas por JS -->
+                </div>
+                <a href="../Perfil.html" class="btn-ver-todas">Ver todas →</a>
+            </div>
+
+            <!-- RANKING RÁPIDO -->
+            <div class="dash-card dash-ranking-quick">
+                <p class="dc-titulo">🏅 Top da Turma</p>
+                <ul class="rq-lista">
+                    <li class="rq-item rq-1"><span>🥇</span><span class="rq-nome">Sofia</span><span class="rq-pts">840 XP</span></li>
+                    <li class="rq-item rq-2"><span>🥈</span><span class="rq-nome">Miguel</span><span class="rq-pts">710 XP</span></li>
+                    <li class="rq-item rq-3"><span>🥉</span><span class="rq-nome">Ana</span><span class="rq-pts">650 XP</span></li>
+                    <li class="rq-item rq-me"><span>👋</span><span class="rq-nome">Você</span><span class="rq-pts" id="rq-voce">0 XP</span></li>
+                </ul>
+            </div>
+
+        </div>
+
     </main>
 
-    <footer id="rodape">...</footer>
+    <footer id="rodape">
+        <p>✨ Feito com carinho para pequenos grandes pensadores ✨</p>
+    </footer>
 
-    <script src="/pages/theme.js"></script>
+    <script src="../theme.js"></script>
+    <script src="dashboard-aluno.js"></script>
 </body>
 </html>

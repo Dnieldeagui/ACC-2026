@@ -2,51 +2,283 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Plataforma de Aprendizado</title>
-    <link rel="stylesheet" href="Prot.CSS">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OctorLer - Mapa de Aprendizado</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="mapa.css">
 </head>
 <body>
-    
-<!-- Barra lateral -->
-<div class="sidebar">
-    <div class="icone" onclick="handleSidebarClick('Home')">🏠</div>
-    <div class="icone" onclick="handleSidebarClick('Troféus')">🏆</div>
-    <div class="icone" onclick="handleSidebarClick('Ofensiva')">📅</div>
-</div>
 
-    <!-- Conteúdo principal -->
-    <div class="main-container">
-
-        <div class="header">
-            <h1>Use condicionais no presente simples</h1>
+    <!-- CABEÇALHO -->
+    <header id="area-cabecalho">
+        <div class="container-topo">
+            <div class="logo-container">
+                <div id="area-logo">
+                    <h1>Octor<span class="destaque">Ler</span></h1>
+                </div>
+            </div>
+            <nav id="area-menu">
+                <a href="/pages/dashboards/dashboard-aluno.html">Início</a>
+                <a href="Mapa.html" class="ativo">Trilhas</a>
+                <a href="Perfil.html">Perfil</a>
+                <a href="Ofensiva.html">🔥 Ofensiva</a>
+            </nav>
+            <div class="settings-container">
+                <button id="btn-settings" class="btn-icon" aria-label="Configurações">⚙️</button>
+                <div id="settings-dropdown" class="dropdown-menu hidden">
+                    <p class="dropdown-title">Configurações</p>
+                    <div class="config-item">
+                        <span>Modo Noturno</span>
+                        <label class="theme-switch" for="checkbox">
+                            <input type="checkbox" id="checkbox" />
+                            <div class="slider round">
+                                <span class="slider-icon sun">☀️</span>
+                                <span class="slider-icon moon">🌙</span>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="config-item mt-10">
+                        <span>Fonte Acessível</span>
+                        <label class="theme-switch" for="dyslexia-checkbox">
+                            <input type="checkbox" id="dyslexia-checkbox" />
+                            <div class="slider round slider-dyslexia">
+                                <span class="slider-icon">a</span>
+                                <span class="slider-icon">A</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
         </div>
+    </header>
 
-        <div class="activity-path">
+    <!-- LAYOUT PRINCIPAL -->
+    <main id="mapa-principal">
 
-            <div class="activity completed" onclick="toggleActivity(this)">
-                ✓
+        <!-- SIDEBAR LATERAL -->
+        <aside id="mapa-sidebar">
+            <div class="sidebar-perfil">
+                <div class="sidebar-avatar">🦊</div>
+                <div class="sidebar-info">
+                    <p class="sidebar-nome" id="sb-nome">Explorador</p>
+                    <p class="sidebar-nivel">Nível <span id="sb-nivel">1</span></p>
+                </div>
             </div>
 
-            <div class="activity" onclick="toggleActivity(this)">
-                📖
+            <div class="sidebar-xp-bloco">
+                <div class="sidebar-xp-topo">
+                    <span>⭐ XP Total</span>
+                    <span id="sb-xp-total">0</span>
+                </div>
+                <div class="xp-bar-container">
+                    <div class="xp-bar-fill" id="sb-xp-bar" style="width: 0%"></div>
+                </div>
+                <p class="xp-proximo" id="sb-xp-proximo">0 / 100 XP para próximo nível</p>
             </div>
 
-            <div class="activity active" onclick="toggleActivity(this)">
-                ▶
+            <div class="sidebar-stats">
+                <div class="stat-item">
+                    <span class="stat-icon">🔥</span>
+                    <div>
+                        <p class="stat-val" id="sb-streak">0</p>
+                        <p class="stat-label">Ofensiva</p>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-icon">🏆</span>
+                    <div>
+                        <p class="stat-val" id="sb-licoes">0</p>
+                        <p class="stat-label">Lições</p>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-icon">💎</span>
+                    <div>
+                        <p class="stat-val" id="sb-gemas">50</p>
+                        <p class="stat-label">Gemas</p>
+                    </div>
+                </div>
             </div>
 
-            <div class="activity" onclick="toggleActivity(this)">
-                📘
+            <nav class="sidebar-nav">
+                <a href="dashboards/dashboard-aluno.html" class="nav-item">
+                    <span class="nav-icon">🏠</span> Início
+                </a>
+                <a href="Mapa.html" class="nav-item active">
+                    <span class="nav-icon">🗺️</span> Trilha
+                </a>
+                <a href="Perfil.html" class="nav-item">
+                    <span class="nav-icon">👤</span> Perfil
+                </a>
+                <a href="Ofensiva.html" class="nav-item">
+                    <span class="nav-icon">🔥</span> Ofensiva
+                </a>
+                <a href="#ligas" class="nav-item">
+                    <span class="nav-icon">🏅</span> Ligas
+                </a>
+                <a href="#missoes" class="nav-item">
+                    <span class="nav-icon">📜</span> Missões
+                </a>
+                <a href="#loja" class="nav-item">
+                    <span class="nav-icon">🛒</span> Loja
+                </a>
+            </nav>
+
+            <div class="sidebar-missao-diaria">
+                <p class="missao-titulo">📜 Missão Diária</p>
+                <p class="missao-desc" id="missao-desc">Complete 2 lições hoje!</p>
+                <div class="missao-prog-bar">
+                    <div class="missao-prog-fill" id="missao-prog" style="width: 0%"></div>
+                </div>
+                <p class="missao-status" id="missao-status">0/2 concluídas</p>
+            </div>
+        </aside>
+
+        <!-- ÁREA DO MAPA -->
+        <section id="mapa-area">
+
+            <div class="mapa-header">
+                <h2 class="mapa-titulo">🗺️ Trilha do Conhecimento</h2>
+                <p class="mapa-subtitulo">Explore cada fase e desbloqueie novos saberes!</p>
+                <div class="mapa-progresso-global">
+                    <span id="mapa-fases-texto">0 de 10 fases concluídas</span>
+                    <div class="mapa-prog-bar">
+                        <div class="mapa-prog-fill" id="mapa-prog-fill" style="width: 0%"></div>
+                    </div>
+                </div>
             </div>
 
-            <div class="activity locked">
-                🔒
+            <div class="mapa-caminho" id="mapa-caminho">
+                <!-- Nós gerados por JavaScript (Não sei se estão corretos- Analisar)-->
             </div>
 
+        </section>
+
+        <!-- PAINEL DIREITO: RANKING -->
+        <aside id="mapa-ranking">
+            <div class="ranking-card">
+                <h3 class="ranking-titulo">🏆 Ranking da Turma</h3>
+                <ul class="ranking-lista" id="ranking-lista">
+                    <li class="rank-item rank-1">
+                        <span class="rank-pos">🥇</span>
+                        <span class="rank-nome">Sofia</span>
+                        <span class="rank-xp">840 XP</span>
+                    </li>
+                    <li class="rank-item rank-2">
+                        <span class="rank-pos">🥈</span>
+                        <span class="rank-nome">Miguel</span>
+                        <span class="rank-xp">710 XP</span>
+                    </li>
+                    <li class="rank-item rank-3">
+                        <span class="rank-pos">🥉</span>
+                        <span class="rank-nome">Ana</span>
+                        <span class="rank-xp">650 XP</span>
+                    </li>
+                    <li class="rank-item">
+                        <span class="rank-pos">4</span>
+                        <span class="rank-nome">João</span>
+                        <span class="rank-xp">520 XP</span>
+                    </li>
+                    <li class="rank-item rank-me" id="rank-me">
+                        <span class="rank-pos">5</span>
+                        <span class="rank-nome">Você 👋</span>
+                        <span class="rank-xp" id="rank-meu-xp">0 XP</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="conquistas-card">
+                <h3 class="ranking-titulo">🎖️ Conquistas</h3>
+                <div class="conquistas-grid" id="conquistas-grid">
+                    <div class="conquista-item desbloqueada" title="Primeiro passo!">
+                        <span class="conquista-icon">🌱</span>
+                        <p>Iniciante</p>
+                    </div>
+                    <div class="conquista-item bloqueada" title="Complete 5 lições">
+                        <span class="conquista-icon">⭐</span>
+                        <p>5 Lições</p>
+                    </div>
+                    <div class="conquista-item bloqueada" title="7 dias seguidos">
+                        <span class="conquista-icon">🔥</span>
+                        <p>Semana</p>
+                    </div>
+                    <div class="conquista-item bloqueada" title="Complete todas as fases">
+                        <span class="conquista-icon">🏆</span>
+                        <p>Mestre</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dica-card">
+                <p class="dica-titulo">💡 Dica do Dia</p>
+                <p class="dica-texto" id="dica-texto">Praticar um pouco todo dia é melhor do que estudar muito de vez em quando!</p>
+            </div>
+        </aside>
+    </main>
+
+    <!-- MODAL DE LIÇÃO -->
+    <div id="modal-overlay" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
+        <div class="modal-container" id="modal-container">
+            <button class="modal-fechar" id="modal-fechar" aria-label="Fechar">✕</button>
+            
+            <div class="modal-icone-wrap">
+                <div class="modal-icone" id="modal-icone">📚</div>
+            </div>
+            
+            <div class="modal-badge" id="modal-badge">FASE 1</div>
+            <h2 class="modal-titulo" id="modal-titulo">Título da Lição</h2>
+            <p class="modal-desc" id="modal-desc">Descrição da lição aqui.</p>
+            
+            <div class="modal-info-row">
+                <div class="modal-info-item">
+                    <span class="modal-info-icon">⭐</span>
+                    <div>
+                        <p class="modal-info-val" id="modal-xp">+20 XP</p>
+                        <p class="modal-info-label">Recompensa</p>
+                    </div>
+                </div>
+                <div class="modal-info-item">
+                    <span class="modal-info-icon">⏱️</span>
+                    <div>
+                        <p class="modal-info-val" id="modal-tempo">~5 min</p>
+                        <p class="modal-info-label">Duração</p>
+                    </div>
+                </div>
+                <div class="modal-info-item">
+                    <span class="modal-info-icon">📊</span>
+                    <div>
+                        <p class="modal-info-val" id="modal-nivel-txt">Básico</p>
+                        <p class="modal-info-label">Nível</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-progresso-bloco" id="modal-progresso-bloco">
+                <p class="modal-prog-label">Seu progresso nesta lição</p>
+                <div class="modal-prog-bar-wrap">
+                    <div class="modal-prog-bar-fill" id="modal-prog-bar-fill" style="width: 0%"></div>
+                </div>
+            </div>
+                <p class="modal-prog-pct" id="modal-prog-pct">0% concluído</p>
+
+            <div class="modal-botoes">
+                <button class="btn-modal-iniciar" id="btn-modal-iniciar">🚀 Começar!</button>
+                <button class="btn-modal-secundario" id="btn-modal-secundario" style="display:none">📖 Continuar</button>
+            </div>
         </div>
-
     </div>
 
-<script src="Prot.js"></script>
+    <!-- TOTAL DE XP   (COnfigurar a partir da finalização das atividades)-->
+    <div id="xp-toast" class="xp-toast hidden" role="alert" aria-live="polite">
+        <span id="xp-toast-msg">+20 XP!</span>
+    </div>
+
+    <!-- CONFETE CONTAINER -->
+    <div id="confete-container" class="confete-container" aria-hidden="true"></div>
+
+    <script src="theme.js"></script>
+    <script src="mapa.js"></script>
 </body>
 </html>

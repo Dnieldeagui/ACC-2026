@@ -1,0 +1,626 @@
+/* ============================================================
+   PERFIL.CSS — Página de Perfil estilo Duolingo
+   ============================================================ */
+
+.perfil-main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px 40px;
+}
+
+/* Banner + Avatar */
+.perfil-banner-area {
+    position: relative;
+    margin-bottom: 60px;
+}
+
+.perfil-banner {
+    width: 100%;
+    height: 180px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 60%, #b8b5e8 100%);
+    border-radius: 0 0 24px 24px;
+    border-bottom: 4px solid var(--primary-dark);
+}
+
+.perfil-avatar-wrap {
+    position: absolute;
+    bottom: -50px;
+    left: 40px;
+}
+
+.perfil-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: var(--bg-card);
+    border: 5px solid var(--bg-card);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 52px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.perfil-avatar:hover {
+    transform: scale(1.05) rotate(-5deg);
+}
+
+.btn-editar-avatar {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: white;
+    border: 3px solid var(--bg-card);
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.btn-editar-avatar:hover {
+    transform: scale(1.2);
+    background: var(--primary-dark);
+}
+
+/* Layout */
+.perfil-content {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 24px;
+    align-items: start;
+}
+
+.perfil-col-esquerda,
+.perfil-col-direita {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Cards */
+.perfil-card {
+    background: var(--bg-card);
+    border-radius: 20px;
+    padding: 20px;
+    border: 2px solid var(--border-color);
+    box-shadow: 0 4px 16px var(--shadow-color);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.perfil-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px var(--shadow-color);
+}
+
+.pcard-titulo {
+    font-size: 0.9em;
+    font-weight: 800;
+    color: var(--text-main);
+    margin-bottom: 16px;
+    border-bottom: 2px dashed var(--border-color);
+    padding-bottom: 8px;
+}
+
+/* Info do perfil */
+.perfil-nome {
+    font-size: 1.8em;
+    font-weight: 900;
+    color: var(--text-main);
+    margin-bottom: 2px;
+}
+
+.perfil-username {
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 0.9em;
+    margin-bottom: 16px;
+}
+
+.perfil-stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.pstat-item {
+    background: var(--bg-body);
+    border-radius: 12px;
+    padding: 10px 6px;
+    text-align: center;
+    border: 2px solid var(--border-color);
+    transition: all 0.2s;
+}
+
+.pstat-item:hover {
+    border-color: var(--primary);
+    transform: translateY(-2px);
+}
+
+.pstat-val {
+    font-size: 1.3em;
+    font-weight: 900;
+    color: var(--primary);
+    line-height: 1;
+    margin-bottom: 2px;
+}
+
+.pstat-label {
+    font-size: 0.65em;
+    font-weight: 700;
+    color: var(--text-muted);
+}
+
+.perfil-social {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+    padding: 12px;
+    background: var(--bg-body);
+    border-radius: 12px;
+    border: 2px solid var(--border-color);
+}
+
+.social-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex: 1;
+    justify-content: center;
+}
+
+.social-num {
+    font-size: 1.2em;
+    font-weight: 800;
+    color: var(--primary);
+}
+
+.social-label {
+    font-size: 0.8em;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.social-divider {
+    width: 2px;
+    height: 30px;
+    background: var(--border-color);
+    border-radius: 2px;
+}
+
+.btn-editar-perfil {
+    width: 100%;
+    padding: 12px;
+    background: var(--bg-body);
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    border-radius: 12px;
+    font-size: 0.95em;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Nunito', sans-serif;
+}
+
+.btn-editar-perfil:hover {
+    background: var(--primary);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* XP Bar */
+.p-nivel-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85em;
+    font-weight: 700;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+.p-xp-bar-wrap {
+    background: var(--border-color);
+    border-radius: 20px;
+    height: 14px;
+    overflow: hidden;
+    margin-bottom: 6px;
+}
+
+.p-xp-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #f7c948, #e8a000);
+    border-radius: 20px;
+    transition: width 0.8s cubic-bezier(0.4,0,0.2,1);
+    position: relative;
+}
+
+.p-xp-bar-fill::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 8px;
+    right: 8px;
+    height: 4px;
+    background: rgba(255,255,255,0.4);
+    border-radius: 2px;
+}
+
+.p-xp-texto {
+    text-align: center;
+    font-size: 0.8em;
+    font-weight: 700;
+    color: var(--text-muted);
+}
+
+/* Trilhas */
+.trilhas-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.trilha-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.trilha-icon {
+    font-size: 1.6em;
+    flex-shrink: 0;
+}
+
+.trilha-info {
+    flex: 1;
+}
+
+.trilha-info p {
+    font-size: 0.85em;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 4px;
+}
+
+.trilha-prog-bar {
+    background: var(--border-color);
+    border-radius: 20px;
+    height: 8px;
+    overflow: hidden;
+}
+
+.trilha-prog-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    border-radius: 20px;
+    transition: width 0.8s ease;
+}
+
+.trilha-pct {
+    font-size: 0.8em;
+    font-weight: 800;
+    color: var(--primary);
+    min-width: 36px;
+    text-align: right;
+}
+
+/* Conquistas */
+.conquistas-grid-perfil {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.conquista-perfil {
+    background: var(--bg-body);
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    padding: 12px 6px;
+    text-align: center;
+    transition: all 0.2s;
+    cursor: default;
+}
+
+.conquista-perfil.desbloqueada {
+    border-color: #f5c842;
+    background: rgba(245,200,66,0.08);
+}
+
+.conquista-perfil.bloqueada {
+    filter: grayscale(1) opacity(0.4);
+}
+
+.conquista-perfil.desbloqueada:hover {
+    transform: scale(1.06);
+    box-shadow: 0 4px 12px rgba(245,200,66,0.3);
+}
+
+.conquista-perfil .c-icon {
+    font-size: 1.8em;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.conquista-perfil p {
+    font-size: 0.68em;
+    font-weight: 700;
+    color: var(--text-muted);
+}
+
+.conquista-perfil.desbloqueada p {
+    color: var(--text-main);
+}
+
+/* Gráfico de atividade */
+.atividade-grafico {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    height: 100px;
+    padding: 0 4px;
+}
+
+.ativ-barra-wrap {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    height: 100%;
+    justify-content: flex-end;
+}
+
+.ativ-barra {
+    width: 100%;
+    background: linear-gradient(to top, var(--primary), var(--secondary));
+    border-radius: 6px 6px 2px 2px;
+    min-height: 4px;
+    transition: height 0.8s cubic-bezier(0.4,0,0.2,1);
+}
+
+.ativ-barra.vazia {
+    background: var(--border-color);
+}
+
+.ativ-dia {
+    font-size: 0.65em;
+    font-weight: 700;
+    color: var(--text-muted);
+}
+
+/* Histórico */
+.historico-lista {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.historico-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px;
+    background: var(--bg-body);
+    border-radius: 12px;
+    border: 2px solid var(--border-color);
+    font-size: 0.9em;
+    transition: all 0.2s;
+}
+
+.historico-item:hover {
+    border-color: var(--primary);
+    transform: translateX(4px);
+}
+
+.historico-icon {
+    font-size: 1.4em;
+    flex-shrink: 0;
+}
+
+.historico-info {
+    flex: 1;
+}
+
+.historico-titulo {
+    font-weight: 700;
+    color: var(--text-main);
+    font-size: 0.95em;
+}
+
+.historico-data {
+    font-size: 0.75em;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.historico-xp {
+    font-weight: 800;
+    color: #e8a000;
+    font-size: 0.9em;
+}
+
+.historico-vazio {
+    color: var(--text-muted);
+    font-size: 0.9em;
+    font-weight: 600;
+    text-align: center;
+    padding: 16px;
+    font-style: italic;
+}
+
+/* Modal editar */
+.modal-editar-container {
+    max-width: 460px;
+}
+
+.form-grupo {
+    margin-bottom: 16px;
+}
+
+.form-grupo label {
+    display: block;
+    font-weight: 800;
+    font-size: 0.9em;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+}
+
+.form-grupo input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 2px solid var(--border-color);
+    background: var(--bg-body);
+    color: var(--text-main);
+    font-family: 'Nunito', sans-serif;
+    font-size: 1em;
+    font-weight: 600;
+    transition: border-color 0.2s;
+    outline: none;
+}
+
+.form-grupo input:focus {
+    border-color: var(--primary);
+}
+
+.avatar-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 8px;
+}
+
+.avatar-opcao {
+    font-size: 1.8em;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    text-align: center;
+    transition: all 0.2s;
+    background: var(--bg-body);
+}
+
+.avatar-opcao:hover {
+    transform: scale(1.2);
+    border-color: var(--primary);
+}
+
+.avatar-opcao.selecionado {
+    border-color: var(--primary);
+    background: rgba(80,78,128,0.12);
+}
+
+.btn-salvar-perfil {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.05em;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Nunito', sans-serif;
+    box-shadow: 0 5px 0 var(--primary-dark);
+    margin-top: 8px;
+}
+
+.btn-salvar-perfil:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 0 var(--primary-dark);
+}
+
+.btn-salvar-perfil:active {
+    transform: translateY(3px);
+    box-shadow: 0 2px 0 var(--primary-dark);
+}
+
+/* Modal overlay (reutiliza estilos de mapa.css se ambos estiverem na mesma página) */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.modal-overlay.hidden { display: none; }
+
+.modal-container {
+    background: var(--bg-card);
+    border-radius: 24px;
+    padding: 32px 28px;
+    width: 100%;
+    position: relative;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.25);
+    border: 2px solid var(--border-color);
+    animation: modal-slide-up 0.3s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+@keyframes modal-slide-up {
+    from { opacity: 0; transform: translateY(30px) scale(0.92); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.modal-fechar {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: var(--bg-body);
+    border: 2px solid var(--border-color);
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    font-size: 0.9em;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.modal-fechar:hover {
+    background: var(--primary);
+    color: white;
+    transform: scale(1.1);
+}
+
+.modal-titulo {
+    font-size: 1.4em;
+    font-weight: 900;
+    color: var(--text-main);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Responsivo */
+@media (max-width: 860px) {
+    .perfil-content {
+        grid-template-columns: 1fr;
+    }
+    .conquistas-grid-perfil {
+        grid-template-columns: repeat(6, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .perfil-stats-row { grid-template-columns: repeat(2, 1fr); }
+    .conquistas-grid-perfil { grid-template-columns: repeat(4, 1fr); }
+    .avatar-grid { grid-template-columns: repeat(5, 1fr); }
+    .perfil-avatar-wrap { left: 20px; }
+}

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OctorLer - Ofensiva</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="ofensiva.css">
+</head>
+<body>
+
+    <header id="area-cabecalho">
+        <div class="container-topo">
+            <div class="logo-container">
+                <div id="area-logo">
+                    <h1>Octor<span class="destaque">Ler</span></h1>
+                </div>
+            </div>
+            <nav id="area-menu">
+                <a href="/pages/dashboards/dashboard-aluno.html">Início</a>
+                <a href="Mapa.html" >Trilhas</a>
+                <a href="Perfil.html">Perfil</a>
+                <a href="Ofensiva.html" class="ativo">🔥 Ofensiva</a>
+            </nav>
+            <div class="settings-container">
+                <button id="btn-settings" class="btn-icon" aria-label="Configurações">⚙️</button>
+                <div id="settings-dropdown" class="dropdown-menu hidden">
+                    <p class="dropdown-title">Configurações</p>
+                    <div class="config-item">
+                        <span>Modo Noturno</span>
+                        <label class="theme-switch" for="checkbox">
+                            <input type="checkbox" id="checkbox" />
+                            <div class="slider round"><span class="slider-icon sun">☀️</span><span class="slider-icon moon">🌙</span></div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="ofensiva-main">
+
+        <!-- HERO DA OFENSIVA -->
+        <section class="ofensiva-hero">
+            <div class="chama-container" aria-hidden="true">
+                <div class="chama chama-1">🔥</div>
+                <div class="chama chama-2">🔥</div>
+                <div class="chama chama-3">🔥</div>
+            </div>
+            <div class="streak-contador">
+                <p class="streak-numero" id="streak-numero">0</p>
+                <p class="streak-label">dias de ofensiva</p>
+            </div>
+            <p class="streak-mensagem" id="streak-mensagem">Comece sua jornada hoje!</p>
+            <div class="streak-ring-wrap" aria-label="Progresso diário">
+                <svg class="streak-ring" viewBox="0 0 120 120" width="120" height="120">
+                    <circle class="ring-bg" cx="60" cy="60" r="52" />
+                    <circle class="ring-fill" id="ring-fill" cx="60" cy="60" r="52"
+                        stroke-dasharray="327" stroke-dashoffset="327" />
+                </svg>
+                <div class="ring-inner">
+                    <p class="ring-pct" id="ring-pct">0%</p>
+                    <p class="ring-label">meta</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="ofensiva-grid">
+
+            <!-- Meta Diária -->
+            <div class="ofensiva-card meta-card">
+                <p class="ocard-titulo">🎯 Meta Diária</p>
+                <div class="meta-lista">
+                    <div class="meta-item" id="meta-1">
+                        <div class="meta-check" id="check-1">✓</div>
+                        <div class="meta-info">
+                            <p class="meta-titulo-item">Complete 1 lição</p>
+                            <p class="meta-desc-item">Qualquer lição conta!</p>
+                        </div>
+                        <span class="meta-recomp">+10 🔥</span>
+                    </div>
+                    <div class="meta-item" id="meta-2">
+                        <div class="meta-check pendente" id="check-2">○</div>
+                        <div class="meta-info">
+                            <p class="meta-titulo-item">Complete 2 lições</p>
+                            <p class="meta-desc-item">Dobro de aprendizado!</p>
+                        </div>
+                        <span class="meta-recomp">+5 💎</span>
+                    </div>
+                    <div class="meta-item" id="meta-3">
+                        <div class="meta-check pendente" id="check-3">○</div>
+                        <div class="meta-info">
+                            <p class="meta-titulo-item">Ganhe 30 XP</p>
+                            <p class="meta-desc-item">Mestre do dia!</p>
+                        </div>
+                        <span class="meta-recomp">+20 ⭐</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Calendário de Streak -->
+            <div class="ofensiva-card calendario-card">
+                <p class="ocard-titulo">📅 Calendário da Ofensiva</p>
+                <div class="calendario-grid" id="calendario-grid">
+                    <!-- Gerado por JS -->
+                </div>
+            </div>
+
+            <!-- Histórico Semanal -->
+            <div class="ofensiva-card historico-card">
+                <p class="ocard-titulo">📊 Semana Atual</p>
+                <div class="semana-grafico" id="semana-grafico">
+                    <!-- Gerado por JS -->
+                </div>
+            </div>
+
+            <!-- Recordes -->
+            <div class="ofensiva-card recordes-card">
+                <p class="ocard-titulo">🏅 Recordes</p>
+                <div class="recordes-lista">
+                    <div class="recorde-item">
+                        <span class="recorde-icon">🔥</span>
+                        <div>
+                            <p class="recorde-val" id="recorde-atual">0</p>
+                            <p class="recorde-label">Ofensiva Atual</p>
+                        </div>
+                    </div>
+                    <div class="recorde-item">
+                        <span class="recorde-icon">🏆</span>
+                        <div>
+                            <p class="recorde-val" id="recorde-max">0</p>
+                            <p class="recorde-label">Maior Ofensiva</p>
+                        </div>
+                    </div>
+                    <div class="recorde-item">
+                        <span class="recorde-icon">📅</span>
+                        <div>
+                            <p class="recorde-val" id="total-dias">0</p>
+                            <p class="recorde-label">Dias Totais</p>
+                        </div>
+                    </div>
+                    <div class="recorde-item">
+                        <span class="recorde-icon">⭐</span>
+                        <div>
+                            <p class="recorde-val" id="total-xp">0</p>
+                            <p class="recorde-label">XP Total</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Badges de Ofensiva -->
+            <div class="ofensiva-card badges-card">
+                <p class="ocard-titulo">🎖️ Badges de Ofensiva</p>
+                <div class="badges-grid" id="badges-grid">
+                    <!-- Gerado por JS -->
+                </div>
+            </div>
+
+            <!-- Ranking de Ofensiva -->
+            <div class="ofensiva-card ranking-streak-card">
+                <p class="ocard-titulo">🔥 Ranking de Ofensiva</p>
+                <ul class="ranking-streak-lista">
+                    <li class="rs-item rs-1">
+                        <span class="rs-pos">🥇</span>
+                        <div class="rs-info">
+                            <p class="rs-nome">Sofia</p>
+                            <div class="rs-bar-wrap"><div class="rs-bar" style="width: 90%"></div></div>
+                        </div>
+                        <span class="rs-dias">32 dias</span>
+                    </li>
+                    <li class="rs-item rs-2">
+                        <span class="rs-pos">🥈</span>
+                        <div class="rs-info">
+                            <p class="rs-nome">Miguel</p>
+                            <div class="rs-bar-wrap"><div class="rs-bar" style="width: 70%"></div></div>
+                        </div>
+                        <span class="rs-dias">24 dias</span>
+                    </li>
+                    <li class="rs-item rs-3">
+                        <span class="rs-pos">🥉</span>
+                        <div class="rs-info">
+                            <p class="rs-nome">Ana</p>
+                            <div class="rs-bar-wrap"><div class="rs-bar" style="width: 55%"></div></div>
+                        </div>
+                        <span class="rs-dias">18 dias</span>
+                    </li>
+                    <li class="rs-item rs-me" id="rs-me-item">
+                        <span class="rs-pos">👋</span>
+                        <div class="rs-info">
+                            <p class="rs-nome">Você</p>
+                            <div class="rs-bar-wrap"><div class="rs-bar" id="rs-bar-me" style="width: 0%"></div></div>
+                        </div>
+                        <span class="rs-dias" id="rs-me-dias">0 dias</span>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="ofensiva-btn-wrap">
+            <a href="Mapa.html" class="btn-primario btn-comecar-hoje" style="display:inline-block; width:auto; padding: 16px 40px;">
+                🚀 Praticar Agora!
+            </a>
+        </div>
+
+    </main>
+
+    <script src="theme.js"></script>
+    <script src="ofensiva.js"></script>
+</body>
+</html>
