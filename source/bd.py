@@ -1,9 +1,9 @@
 import sqlite3
 
-con = sqlite3.connect("data.db")
-cursor = con.cursor()
+connectbd = sqlite3.connect("dataBase.db")
+sqlrunner = connectbd.cursor()
 
-cursor.executescript("""
+sqlrunner.executescript("""
 DROP TABLE IF EXISTS alunos;
 DROP TABLE IF EXISTS professor;
 DROP TABLE IF EXISTS turmas;
@@ -77,7 +77,5 @@ CREATE TABLE suporte (
 );
 """)
 
-con.commit()
-con.close()
-
-print("Banco recriado com sucesso!")
+connectbd.commit()
+connectbd.close()
