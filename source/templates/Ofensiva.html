@@ -6,8 +6,8 @@
     <title>OctorLer - Ofensiva</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="main.css">
-    <link rel="stylesheet" href="ofensiva.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ofensiva.css') }}">
 </head>
 <body>
 
@@ -19,10 +19,10 @@
                 </div>
             </div>
             <nav id="area-menu">
-                <a href="/pages/dashboards/dashboard-aluno.html">Início</a>
-                <a href="Mapa.html" >Trilhas</a>
-                <a href="Perfil.html">Perfil</a>
-                <a href="Ofensiva.html" class="ativo">🔥 Ofensiva</a>
+                <a href={{url_for('home') }} class="ativo" >Início</a>
+                <a href={{url_for('mapa') }}>Mapa</a>
+                <a href={{url_for('perfil') }}>Perfil</a>
+                <a href={{url_for('ofensiva') }}>🔥 Ofensiva</a>
             </nav>
             <div class="settings-container">
                 <button id="btn-settings" class="btn-icon" aria-label="Configurações">⚙️</button>
@@ -201,14 +201,14 @@
         </div>
 
         <div class="ofensiva-btn-wrap">
-            <a href="Mapa.html" class="btn-primario btn-comecar-hoje" style="display:inline-block; width:auto; padding: 16px 40px;">
+            <a href="{{url_for('mapa') }}" class="btn-primario btn-comecar-hoje" style="display:inline-block; width:auto; padding: 16px 40px;">
                 🚀 Praticar Agora!
             </a>
         </div>
 
     </main>
 
-    <script src="theme.js"></script>
-    <script src="ofensiva.js"></script>
+    <script src="{{ url_for('static', filename='js/theme.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/ofensiva.js') }}"></script>
 </body>
 </html>

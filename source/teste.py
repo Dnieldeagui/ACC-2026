@@ -1,55 +1,69 @@
 import sqlite3
-import flask
-#isso aqui so é util se as paginas tiverem dentro de uma pasta chamada templates(nao da pra usar caminho absolutos)
-#site = flask.Flask(__name__)
-#ja resolvi nessa branch pelo menos
+from flask import Flask, render_template, request
 
-#puta merda 
-site = flask.Flask(__name__)
+site = Flask(__name__)
 
 @site.route("/")
 def home():
-    #return flask.render_template("/workspaces/ACC-2026/pages/home.html")
-    return flask.render_template("home.html")
+    return render_template("home.html")
+
 
 @site.route("/mapa")
 def mapa():
-    return flask.render_template("Mapa.html")
+    return render_template("Mapa.html")
+
 
 @site.route("/perfil")
 def perfil():
-    return flask.render_template("Perfil.html")
+    return render_template("Perfil.html")
+
 
 @site.route("/ofensiva")
 def ofensiva():
-    return flask.render_template("Ofensiva.html")
+    return render_template("Ofensiva.html")
 
-@site.route("/login/aluno", methods=["GET","POST"])
+
+@site.route("/login/aluno", methods=["GET", "POST"])
 def login_aluno():
-    if flask.request.method == "POST":
-        email = flask.request.form["email"]
-        senha = flask.request.form["senha"]
-    
-        print(email)
-        print(senha)
+    if request.method == "POST":
+        email = request.form["email"]
+        senha = request.form["senha"]
 
-    return flask.render_template("login/login-aluno.html")
+        print(f"Email: {email}")
+        print(f"Senha: {senha}")
 
-#a cada segundo estou mas perto da insanidade completa
+        # Aqui você fará a consulta ao banco futuramente
 
-@site.route("/login/professor")
+    return render_template("login/login-aluno.html")
+
+
+@site.route("/login/professor", methods=["GET", "POST"])
 def login_professor():
-    return flask.render_template("login/login-professor.html")
+    if request.method == "POST":
+        email = request.form["email"]
+        senha = request.form["senha"]
+
+        print(f"Email: {email}")
+        print(f"Senha: {senha}")
+
+    return render_template("login/login-professor.html")
 
 
-
-@site.route("/register/aluno")
+@site.route("/register/aluno", methods=["GET", "POST"])
 def register_aluno():
-    return flask.render_template("register/register-aluno.html")
+    if request.method == "POST":
+        pass
 
-@site.route("/register/professor")
+    return render_template("register/register-aluno.html")
+
+
+@site.route("/register/professor", methods=["GET", "POST"])
 def register_professor():
-    return flask.render_template("register/register-professor.html")
+    if request.method == "POST":
+        pass
 
-site.run()
-#vai tomar no cu na proxima reuniao tem que separar essas porras por pasta caralho
+    return render_template("register/register-professor.html")
+
+
+if __name__ == "__main__":
+    site.run(host="0.0.0.0", port=5000, debug=True)
