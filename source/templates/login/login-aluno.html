@@ -60,25 +60,43 @@
             <h2 class="titulo-login">Acesso do Aluno 🧒</h2>
             <p class="subtitulo-cadastro">Peça ajuda a um adulto para fazer login</p>
 
-            <form id="login-aluno-form">
-                <div class="dados">
-                    <label for="email-aluno">E-mail do Responsável</label>
-                    <input type="email" id="email-aluno" placeholder="exemplo@email.com" required>
-                </div>
-                <div class="dados">
-                    <label for="senha-aluno">Senha Secreta</label>
-                    <input type="password" id="senha-aluno" placeholder="********" required>
-                </div>
-                <div class="btn-cadastrar">
-                    <button type="submit" class="btn-primario">Entrar na Brincadeira</button>
-                </div>
-                <div class="link-rodape-card">
-                    <span>Ainda não tem conta?</span> <a href="/pages/register/cadastro-aluno.html">Cadastre-se aqui!</a>
-                </div>
-                <div class="link-rodape-card">
-                    <a href="/pages/home.html">← Voltar</a>
-                </div>
-            </form>
+<form id="login-aluno-form" action="{{ url_for('login_aluno') }}" method="POST">
+    <div class="dados">
+        <label for="email-aluno">E-mail do Responsável</label>
+        <input
+            type="email"
+            id="email-aluno"
+            name="email"
+            placeholder="exemplo@email.com"
+            required
+        >
+    </div>
+
+    <div class="dados">
+        <label for="senha-aluno">Senha Secreta</label>
+        <input
+            type="password"
+            id="senha-aluno"
+            name="senha"
+            placeholder="********"
+            required
+        >
+    </div>
+
+    <div class="btn-cadastrar">
+        <button type="submit" class="btn-primario">Entrar na Brincadeira</button>
+    </div>
+
+    <div class="link-rodape-card">
+        <span>Ainda não tem conta?</span>
+        <a href="{{ url_for('register_aluno') }}">Cadastre-se aqui!</a>
+    </div>
+
+    <div class="link-rodape-card">
+        <a href="{{ url_for('home') }}">← Voltar</a>
+    </div>
+</form>
+
         </div>
     </main>
 
