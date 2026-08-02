@@ -51,8 +51,11 @@ def login_professor():
 
 @site.route("/register/aluno", methods=["GET", "POST"])
 def register_aluno():
+    print("Método:", request.method)
+
     if request.method == "POST":
-        pass
+        print("Recebi um POST!")
+        print(request.form)
 
     return render_template("register/register-aluno.html")
 
@@ -61,7 +64,9 @@ def register_aluno():
 def register_professor():
     if request.method == "POST":
         pass
-
+#        if valid_login(request.form['email'],request.form['password']):
+#            return log_the_user_in(request.form['email'])
+        
     return render_template("register/register-professor.html")
 
 
