@@ -5,9 +5,6 @@ import hashlib
 
 site = flask.Flask(__name__)
 
-connectbd = sqlite3.connect("dataBase.db")
-sqlrunner = connectbd.cursor()
-
 @site.route("/")
 def home():
     return flask.render_template("home.html")
@@ -37,8 +34,6 @@ def login_aluno():
         print(f"Email: {email}")
         print(f"Senha: {senha}")
 
-        # Aqui você fará a consulta ao banco futuramente
-
     return flask.render_template("login/login-aluno.html")
 
 
@@ -62,19 +57,16 @@ def register_aluno():
         email = flask.request.form["email"]
         senha = hashlib.sha256(flask.request.form["senha"].encode("utf-8")).hexdigest()
         
+        connectbd = sqlite3.connect("dataBase.db")
+        sqlrunner = connectbd.cursor()
+
         sqlrunner.execute("""
-            INSERT INTO alunos (
-                nome,
-                email,
-                senha,
-            )
+            INSERT INTO alunos (nome, email, senha)
             VALUES (?, ?, ?)
-            """, (
-                nome,
-                email,
-                senha
-            ))
-        
+        """, (nome, email, senha))
+
+        connectbd.commit()
+        connectbd.close()
         return flask.redirect(flask.url_for("home"))
     return flask.render_template("register/register-aluno.html")
 
