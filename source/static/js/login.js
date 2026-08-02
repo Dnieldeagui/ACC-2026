@@ -17,22 +17,5 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // CADASTRO PROFESSOR
-    const professorCadastro = document.getElementById('cadastro-professor-form');
-    if (professorCadastro) {
-        professorCadastro.addEventListener('submit', (e) => {
-            e.preventDefault();
-            // redireciona para o dashboard (já logado)
-            window.location.href = '/acc234.v4/pages/dashboards/dashboard-professor.html';
-        });
-    }
-
-    // CADASTRO ALUNO
-    const alunoCadastro = document.getElementById('cadastro-aluno-form');
-    if (alunoCadastro) {
-        alunoCadastro.addEventListener('submit', (e) => {
-            e.preventDefault();
-            window.location.href = 'dashboard-aluno.html';
-        });
-    }
+    
 });

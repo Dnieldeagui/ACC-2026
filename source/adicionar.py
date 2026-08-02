@@ -8,20 +8,12 @@ INSERT INTO alunos (
     nome,
     email,
     senha,
-    idade,
-    turma,
-    professor,
-    atividades
 )
-VALUES (?, ?, ?, ?, ?, ?, ?)
+VALUES (?, ?, ?)
 """, (
-    "João",
-    "joao@email.com",
-    "123456",
-    16,
-    101,
-    "Carlos",
-    ""
+    nome,
+    email,
+    senha
 ))
 
 con.commit()

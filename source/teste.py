@@ -1,73 +1,95 @@
 import sqlite3
-from flask import Flask, render_template, request
+import flask 
+import hashlib
 
-site = Flask(__name__)
+
+site = flask.Flask(__name__)
+
+connectbd = sqlite3.connect("dataBase.db")
+sqlrunner = connectbd.cursor()
 
 @site.route("/")
 def home():
-    return render_template("home.html")
+    return flask.render_template("home.html")
 
 
 @site.route("/mapa")
 def mapa():
-    return render_template("Mapa.html")
+    return flask.render_template("Mapa.html")
 
 
 @site.route("/perfil")
 def perfil():
-    return render_template("Perfil.html")
+    return flask.render_template("Perfil.html")
 
 
 @site.route("/ofensiva")
 def ofensiva():
-    return render_template("Ofensiva.html")
+    return flask.render_template("Ofensiva.html")
 
 
 @site.route("/login/aluno", methods=["GET", "POST"])
 def login_aluno():
-    if request.method == "POST":
-        email = request.form["email"]
-        senha = request.form["senha"]
+    if flask.request.method == "POST":
+        email = flask.request.form["email"]
+        senha = flask.request.form["senha"]
 
         print(f"Email: {email}")
         print(f"Senha: {senha}")
 
         # Aqui você fará a consulta ao banco futuramente
 
-    return render_template("login/login-aluno.html")
+    return flask.render_template("login/login-aluno.html")
 
 
 @site.route("/login/professor", methods=["GET", "POST"])
 def login_professor():
-    if request.method == "POST":
-        email = request.form["email"]
-        senha = request.form["senha"]
+    if flask.request.method == "POST":
+        email = flask.request.form["email"]
+        senha = flask.request.form["senha"]
 
         print(f"Email: {email}")
         print(f"Senha: {senha}")
 
-    return render_template("login/login-professor.html")
+    return flask.render_template("login/login-professor.html")
 
 
 @site.route("/register/aluno", methods=["GET", "POST"])
 def register_aluno():
-    print("Método:", request.method)
-
-    if request.method == "POST":
-        print("Recebi um POST!")
-        print(request.form)
-
-    return render_template("register/register-aluno.html")
+    if flask.request.method == "POST":
+        
+        nome = flask.request.form["nome"]
+        email = flask.request.form["email"]
+        senha = hashlib.sha256(flask.request.form["senha"].encode("utf-8")).hexdigest()
+        
+        sqlrunner.execute("""
+            INSERT INTO alunos (
+                nome,
+                email,
+                senha,
+            )
+            VALUES (?, ?, ?)
+            """, (
+                nome,
+                email,
+                senha
+            ))
+        
+        return flask.redirect(flask.url_for("home"))
+    return flask.render_template("register/register-aluno.html")
 
 
 @site.route("/register/professor", methods=["GET", "POST"])
 def register_professor():
-    if request.method == "POST":
-        pass
-#        if valid_login(request.form['email'],request.form['password']):
-#            return log_the_user_in(request.form['email'])
+    if flask.request.method == "POST":
+        nome = flask.request.form["nome"]
+        email = flask.request.form["email"]
+        senha = hash(flask.request.form["senha"])
         
-    return render_template("register/register-professor.html")
+        
+    
+        return flask.redirect(flask.url_for("home"))
+    return flask.render_template("register/register-professor.html")
 
 
 if __name__ == "__main__":
