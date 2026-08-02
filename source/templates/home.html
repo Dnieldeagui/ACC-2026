@@ -6,7 +6,7 @@
     <title>OctorLer - Quem é você?</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
 <body>
 
@@ -19,10 +19,10 @@
             </div>
             
             <nav id="area-menu">
-                <a href="/pages/dashboards/dashboard-aluno.html" class="ativo" >Início</a>
-                <a href="Mapa.html" >Trilhas</a>
-                <a href="Perfil.html">Perfil</a>
-                <a href="Ofensiva.html">🔥 Ofensiva</a>
+                <a href={{url_for('home') }} class="ativo" >Início</a>
+                <a href={{url_for('mapa') }}>Mapa</a>
+                <a href={{url_for('perfil') }}>Perfil</a>
+                <a href={{url_for('ofensiva') }}>🔥 Ofensiva</a>
             </nav>
 
             <div class="settings-container">
@@ -68,7 +68,7 @@
                     <div class="icone-perfil">👨‍🏫</div>
                     <h3>Professor</h3>
                     <p>Acesse o painel do educador, crie atividades e acompanhe o progresso.</p>
-                    <a href="/pages/login/login-professor.html" class="btn-perfil">Sou Professor</a>
+                    <a href={{url_for('login_professor') }} class="btn-perfil">Sou Professor</a>
                 </div>
 
                 <!-- Card Aluno -->
@@ -76,7 +76,7 @@
                     <div class="icone-perfil">🧒</div>
                     <h3>Aluno</h3>
                     <p>Entre no mundo do aprendizado brincando, explore trilhas e desafios.</p>
-                    <a href="/pages/login/login-aluno.html" class="btn-perfil">Sou Aluno</a>
+                    <a href={{url_for('login_aluno') }} class="btn-perfil">Sou Aluno</a>
                 </div>
             </div>
         </div>
@@ -86,6 +86,6 @@
         <p>✨ Feito com carinho para pequenos grandes pensadores ✨</p>
     </footer>
 
-    <script src="theme.js"></script>
+    <script src="{{ url_for('static', filename='js/theme.js') }}"></script>
 </body>
 </html>
