@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OctorLer - Contato</title>
+    <title>OCTOLER - Contato</title>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;800&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="/pages/main.css">
 </head>
 <body>
 
@@ -13,14 +13,14 @@
         <div class="container-topo">
             <div class="logo-container">
                 <div id="area-logo">
-                    <h1>Octor<span class="destaque">Ler</span></h1>
+                    <h1>OCTO<span class="destaque">LER</span></h1>
                 </div>
             </div>
             
             <nav id="area-menu">
-                <a href="home.html">Início</a>
-                <a href="Mapa.html">Trilhas</a>
-                <a href="contato.html">Contato</a>
+                <a href="/pages/home.html">Início</a>
+                <a href="#">Trilhas</a>
+                <a href="/pages/contato.html" class="ativo">Contato</a>
             </nav>
     
             <div class="settings-container">
@@ -50,7 +50,6 @@
                             </div>
                         </label>
                     </div>
-    
                 </div>
             </div>
         </div>
@@ -64,17 +63,17 @@
             <form action="#" method="post">
                 <div class="dados">
                     <label for="nome-contato">Seu Nome:</label>
-                    <input type="text" id="nome-contato" placeholder="Quem está enviando a cartinha?" />
+                    <input type="text" id="nome-contato" placeholder="Quem está enviando a cartinha?" required />
                 </div>
 
                 <div class="dados">
                     <label for="email-contato">E-mail para resposta:</label>
-                    <input type="email" id="email-contato" placeholder="E-mail do responsável" />
+                    <input type="email" id="email-contato" placeholder="E-mail do responsável" required />
                 </div>
 
                 <div class="dados">
                     <label for="mensagem">Sua Mensagem:</label>
-                    <textarea id="mensagem" rows="5" placeholder="Escreva aqui com muito carinho..."></textarea>
+                    <textarea id="mensagem" rows="4" placeholder="Escreva aqui com muito carinho..." required></textarea>
                 </div>
 
                 <div class="btn-cadastrar">
@@ -88,6 +87,6 @@
         <p>✨ Feito com carinho para pequenos grandes pensadores ✨</p>
     </footer>
 
-    <script src="theme.js"></script>
+    <script src="/pages/theme.js"></script>
 </body>
 </html>

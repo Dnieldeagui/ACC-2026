@@ -3,10 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OctorLer - Quem é você?</title>
+    <title>Welcome - OCTOLER</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="/pages/main.css">
+    <link rel="icon" type="image/png" sizes="16x16" href="/pages/logos/Otto-minimal.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/pages/logos/Otto-minimal.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/pages/logos/Otto-minimal.png">
 </head>
 <body>
 
@@ -14,15 +17,14 @@
         <div class="container-topo">
             <div class="logo-container">
                 <div id="area-logo">
-                    <h1>Octor<span class="destaque">Ler</span></h1>
+                    <h1>OCTO<span class="destaque">LER</span></h1>
                 </div>
             </div>
             
             <nav id="area-menu">
-                <a href="/pages/dashboards/dashboard-aluno.html" class="ativo" >Início</a>
-                <a href="Mapa.html" >Trilhas</a>
-                <a href="Perfil.html">Perfil</a>
-                <a href="Ofensiva.html">🔥 Ofensiva</a>
+                <a href="/pages/home.html" class="ativo">Início</a>
+                <a href="#">Trilhas</a>
+                <a href="/pages/contato.html">Contato</a>
             </nav>
 
             <div class="settings-container">
@@ -63,19 +65,21 @@
             <p class="subtitulo-selecao">Escolha seu perfil para continuar</p>
 
             <div class="cards-perfil">
-                <!-- Card Professor -->
                 <div class="card-perfil">
-                    <div class="icone-perfil">👨‍🏫</div>
-                    <h3>Professor</h3>
-                    <p>Acesse o painel do educador, crie atividades e acompanhe o progresso.</p>
+                    <div class="conteudo-card-topo">
+                        <div class="icone-perfil">👨‍🏫</div>
+                        <h3>Professor</h3>
+                        <p>Acesse o painel do educador, crie atividades e acompanhe o progresso.</p>
+                    </div>
                     <a href="/pages/login/login-professor.html" class="btn-perfil">Sou Professor</a>
                 </div>
 
-                <!-- Card Aluno -->
                 <div class="card-perfil">
-                    <div class="icone-perfil">🧒</div>
-                    <h3>Aluno</h3>
-                    <p>Entre no mundo do aprendizado brincando, explore trilhas e desafios.</p>
+                    <div class="conteudo-card-topo">
+                        <div class="icone-perfil">🧒</div>
+                        <h3>Aluno</h3>
+                        <p>Entre no mundo do aprendizado brincando, explore trilhas e desafios.</p>
+                    </div>
                     <a href="/pages/login/login-aluno.html" class="btn-perfil">Sou Aluno</a>
                 </div>
             </div>
@@ -86,6 +90,6 @@
         <p>✨ Feito com carinho para pequenos grandes pensadores ✨</p>
     </footer>
 
-    <script src="theme.js"></script>
+    <script src="/pages/theme.js"></script>
 </body>
-</html>
+</html> 

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Trilha - OCTOLER</title>
+    <link rel="stylesheet" href="main.css">
+    <!-- Importando fontes para o modo dislexia/padrão -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&family=Lexend:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <header id="area-cabecalho">
+        <div class="container-topo">
+            <div class="logo-container">
+                <div id="area-logo">
+                    <h1>OCTO<span class="destaque">LER</span></h1>
+                </div>
+            </div>
+            
+            <nav id="area-menu">
+                <a href="#" class="ativo">Início</a>
+                <a href="#">Trilhas</a>
+                <a href="#">Contato</a>
+            </nav>
+
+            <div class="settings-container">
+                <button id="btn-settings" class="btn-icon" aria-label="Configurações">⚙️</button>
+                <div id="settings-dropdown" class="dropdown-menu hidden">
+                    <div class="dropdown-title">Acessibilidade</div>
+                    <div class="config-item">
+                        <span>Tema Escuro</span>
+                        <label class="theme-switch">
+                            <input type="checkbox" id="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="config-item mt-10">
+                        <span>Modo Dislexia</span>
+                        <label class="theme-switch">
+                            <input type="checkbox" id="dyslexia-checkbox">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main id="area-principal">
+        <!-- O Mapa será gerado aqui pelo JavaScript -->
+        <div class="map-container" id="mapa-trilha"></div>
+    </main>
+
+    <script src="map.js"></script>
+</body>
+</html>
