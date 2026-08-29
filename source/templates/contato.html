@@ -18,9 +18,9 @@
             </div>
             
             <nav id="area-menu">
-                <a href="/pages/home.html">Início</a>
+                <a href="{{ url_for('home')}}">Início</a>
                 <a href="#">Trilhas</a>
-                <a href="/pages/contato.html" class="ativo">Contato</a>
+                <a href="{{ url_for('contato')}}" class="ativo">Contato</a>
             </nav>
     
             <div class="settings-container">
@@ -87,6 +87,6 @@
         <p>✨ Feito com carinho para pequenos grandes pensadores ✨</p>
     </footer>
 
-    <script src="/pages/theme.js"></script>
+    <script src="{{ url_for('static', filename='js/theme.js')}}"></script>
 </body>
 </html>

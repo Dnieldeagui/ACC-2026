@@ -19,9 +19,9 @@
             </div>
             
             <nav id="area-menu">
-                <a href="/pages/home.html">Início</a>
+                <a href="{{ url_for('home')}}">Início</a>
                 <a href="#">Trilhas</a>
-                <a href="/pages/contato.html">Contato</a>
+                <a href="{{ url_for('contato')}}">Contato</a>
             </nav>
     
             <div class="settings-container">
@@ -75,10 +75,10 @@
                     <button type="submit" class="btn-primario">Entrar na Brincadeira</button>
                 </div>
                 <div class="link-rodape-card">
-                    <span>Ainda não tem conta?</span> <a href="/pages/register/cadastro-aluno.html">Cadastre-se aqui!</a>
+                    <span>Ainda não tem conta?</span> <a href="{{ url_for('register_aluno')}}">Cadastre-se aqui!</a>
                 </div>
                 <div class="link-rodape-card">
-                    <a href="/pages/home.html">← Voltar</a>
+                    <a href="{{ url_for('home')}}">← Voltar</a>
                 </div>
             </form>
         </div>
@@ -88,7 +88,7 @@
         <p>✨ Feito com carinho para pequenos grandes pensadores ✨</p>
     </footer>
 
-    <script src="/pages/theme.js"></script>
-    <script src="/pages/login.js"></script>
+    <script src="{{ url_for('static', filename='js/theme.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/login.js')}}"></script>
 </body>
 </html>

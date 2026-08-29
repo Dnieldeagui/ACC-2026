@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OCTOLER - Cadastro Aluno</title>
+    <title>OCTOLER - Cadastro Professor</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
@@ -58,31 +58,35 @@
 
     <main id="area-principal-cadastro">
         <div class="card-central ludico-card">
-            <h2 class="titulo-login">Crie seu Passaporte! 🎟️</h2>
-            <p class="subtitulo-cadastro">Peça ajuda a um adulto para preencher os dados.</p>
+            <h2 class="titulo-login">Criar conta de Professor 📚</h2>
+            <p class="subtitulo-cadastro">Preencha os dados para começar a usar.</p>
 
-            <form id="cadastro-aluno-form">
+            <form id="cadastro-professor-form">
                 <div class="dados">
-                    <label for="name-aluno">Nome do Explorador(a):</label>
-                    <input type="text" id="name-aluno" placeholder="Como você se chama?" required>
+                    <label for="nome-professor">Nome completo</label>
+                    <input type="text" id="nome-professor" placeholder="Seu nome" required>
                 </div>
                 <div class="dados">
-                    <label for="email-aluno-cadastro">E-mail do Responsável:</label>
-                    <input type="email" id="email-aluno-cadastro" placeholder="E-mail do papai ou da mamãe" required>
+                    <label for="email-professor">E-mail</label>
+                    <input type="email" id="email-professor" placeholder="seu@email.com" required>
                 </div>
                 <div class="dados">
-                    <label for="senha-aluno-cadastro">Crie uma Senha Secreta:</label>
-                    <input type="password" id="senha-aluno-cadastro" placeholder="Pense em algo seguro" required>
+                    <label for="disciplina-professor">Disciplina (opcional)</label>
+                    <input type="text" id="disciplina-professor" placeholder="Ex: Matemática">
                 </div>
                 <div class="dados">
-                    <label for="confirmar-senha-aluno">Repita a Senha:</label>
-                    <input type="password" id="confirmar-senha-aluno" placeholder="Confirme a senha secreta" required>
+                    <label for="senha-professor">Senha</label>
+                    <input type="password" id="senha-professor" placeholder="********" required>
+                </div>
+                <div class="dados">
+                    <label for="confirmar-senha-professor">Confirmar senha</label>
+                    <input type="password" id="confirmar-senha-professor" placeholder="********" required>
                 </div>
                 <div class="btn-cadastrar">
-                    <button type="submit" class="btn-primario">Criar Passaporte</button>
+                    <button type="submit" class="btn-primario">Cadastrar</button>
                 </div>
                 <div class="link-rodape-card">
-                    <span>Já tem um passaporte?</span> <a href="/pages/login/login-aluno.html">Entre aqui!</a>
+                    <span>Já tem conta?</span> <a href="/pages/login/login-professor.html">Faça login</a>
                 </div>
             </form>
         </div>
@@ -92,7 +96,7 @@
         <p>✨ Feito com carinho para pequenos grandes pensadores ✨</p>
     </footer>
 
-    <script src="/pages/theme.js"></script>
-    <script src="/pages/login.js"></script>
+    <script src="{{ url_for('static', filename='js/theme.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/login.js')}}"></script>
 </body>
 </html>

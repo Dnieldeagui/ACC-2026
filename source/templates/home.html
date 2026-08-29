@@ -22,9 +22,9 @@
             </div>
             
             <nav id="area-menu">
-                <a href="/pages/home.html" class="ativo">Início</a>
+                <a href="{{ url_for('home')}}" class="ativo">Início</a>
                 <a href="#">Trilhas</a>
-                <a href="/pages/contato.html">Contato</a>
+                <a href="{{ url_for('contato')}}">Contato</a>
             </nav>
 
             <div class="settings-container">
@@ -71,7 +71,7 @@
                         <h3>Professor</h3>
                         <p>Acesse o painel do educador, crie atividades e acompanhe o progresso.</p>
                     </div>
-                    <a href="/source/templates/login-professor.html" class="btn-perfil">Sou Professor</a>
+                    <a href="{{ url_for('login_professor')}}" class="btn-perfil">Sou Professor</a>
                 </div>
 
                 <div class="card-perfil">
