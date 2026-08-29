@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home - OCTOLER</title>
+    <title>OCTOLER - Cadastro Professor</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/pages/main.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
 <body>
 
@@ -19,11 +19,11 @@
             </div>
             
             <nav id="area-menu">
-                <a href="/pages/dashboards/dashboard-professor.html">Início</a>
+                <a href="/pages/home.html">Início</a>
                 <a href="#">Trilhas</a>
                 <a href="/pages/contato.html">Contato</a>
             </nav>
-
+    
             <div class="settings-container">
                 <button id="btn-settings" class="btn-icon" aria-label="Configurações">⚙️</button>
                 
@@ -40,7 +40,7 @@
                             </div>
                         </label>
                     </div>
-
+    
                     <div class="config-item mt-10">
                         <span>Fonte Acessível</span>
                         <label class="theme-switch" for="dyslexia-checkbox">
@@ -56,41 +56,40 @@
         </div>
     </header>
 
-    <main id="area-principal">
-        <section id="area-postagens">
-            <div class="ludico-card">
-                <h2 class="titulo-login">Olá, Professor! 👋</h2>
-                <p>Este é seu painel de controle. Aqui você pode criar novas atividades, acompanhar o progresso dos alunos e muito mais.</p>
-                <div style="margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap;">
-                    <a href="#" class="btn-secundario">Criar Atividade</a>
-                    <a href="#" class="btn-secundario">Ver Turmas</a>
-                    <a href="#" class="btn-secundario">Relatórios</a>
-                </div>
-            </div>
+    <main id="area-principal-cadastro">
+        <div class="card-central ludico-card">
+            <h2 class="titulo-login">Criar conta de Professor 📚</h2>
+            <p class="subtitulo-cadastro">Preencha os dados para começar a usar.</p>
 
-            <div class="ludico-card">
-                <h3>Últimas atividades criadas</h3>
-                <ul style="list-style: none; padding: 0;">
-                    <li style="padding: 10px 0; border-bottom: 1px dashed var(--border-color);">📚 Alfabeto divertido - 20/03</li>
-                    <li style="padding: 10px 0; border-bottom: 1px dashed var(--border-color);">🧮 Números de 1 a 10 - 18/03</li>
-                    <li style="padding: 10px 0;">🎨 Cores primárias - 15/03</li>
-                </ul>
-            </div>
-        </section>
-
-        <aside id="area-lateral">
-            <div class="conteudo-lateral ludico-card">
-                <h3>Turmas ativas</h3>
-                <div class="postagem-lateral">
-                    <p>🌱 1º Ano A - 15 alunos</p>
-                    <a href="#">Ver</a>
+            <form id="cadastro-professor-form">
+                <div class="dados">
+                    <label for="nome-professor">Nome completo</label>
+                    <input type="text" id="nome-professor" placeholder="Seu nome" required>
                 </div>
-                <div class="postagem-lateral sem-borda">
-                    <p>🌿 2º Ano B - 12 alunos</p>
-                    <a href="#">Ver</a>
+                <div class="dados">
+                    <label for="email-professor">E-mail</label>
+                    <input type="email" id="email-professor" placeholder="seu@email.com" required>
                 </div>
-            </div>
-        </aside>
+                <div class="dados">
+                    <label for="disciplina-professor">Disciplina (opcional)</label>
+                    <input type="text" id="disciplina-professor" placeholder="Ex: Matemática">
+                </div>
+                <div class="dados">
+                    <label for="senha-professor">Senha</label>
+                    <input type="password" id="senha-professor" placeholder="********" required>
+                </div>
+                <div class="dados">
+                    <label for="confirmar-senha-professor">Confirmar senha</label>
+                    <input type="password" id="confirmar-senha-professor" placeholder="********" required>
+                </div>
+                <div class="btn-cadastrar">
+                    <button type="submit" class="btn-primario">Cadastrar</button>
+                </div>
+                <div class="link-rodape-card">
+                    <span>Já tem conta?</span> <a href="/pages/login/login-professor.html">Faça login</a>
+                </div>
+            </form>
+        </div>
     </main>
 
     <footer id="rodape">
@@ -98,5 +97,6 @@
     </footer>
 
     <script src="/pages/theme.js"></script>
+    <script src="/pages/login.js"></script>
 </body>
 </html>

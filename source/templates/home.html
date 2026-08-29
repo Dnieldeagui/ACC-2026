@@ -6,10 +6,10 @@
     <title>Welcome - OCTOLER</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/pages/main.css">
-    <link rel="icon" type="image/png" sizes="16x16" href="/pages/logos/Otto-minimal.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/pages/logos/Otto-minimal.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="/pages/logos/Otto-minimal.png">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='pages/images/Otto-minimal.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='pages/images/Otto-minimal.png') }}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ url_for('static', filename='pages/images/Otto-minimal.png') }}">
 </head>
 <body>
 
@@ -71,7 +71,7 @@
                         <h3>Professor</h3>
                         <p>Acesse o painel do educador, crie atividades e acompanhe o progresso.</p>
                     </div>
-                    <a href="/pages/login/login-professor.html" class="btn-perfil">Sou Professor</a>
+                    <a href="/source/templates/login-professor.html" class="btn-perfil">Sou Professor</a>
                 </div>
 
                 <div class="card-perfil">
@@ -80,7 +80,7 @@
                         <h3>Aluno</h3>
                         <p>Entre no mundo do aprendizado brincando, explore trilhas e desafios.</p>
                     </div>
-                    <a href="/pages/login/login-aluno.html" class="btn-perfil">Sou Aluno</a>
+                    <a href="{{ url_for('login_aluno')}}" class="btn-perfil">Sou Aluno</a>
                 </div>
             </div>
         </div>
@@ -90,6 +90,6 @@
         <p>✨ Feito com carinho para pequenos grandes pensadores ✨</p>
     </footer>
 
-    <script src="/pages/theme.js"></script>
+    <script src="{{ url_for('static', filename='js/theme.js')}}"></script>
 </body>
 </html> 

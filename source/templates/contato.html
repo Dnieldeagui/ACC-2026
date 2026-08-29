@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OCTOLER - Cadastro Aluno</title>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/pages/main.css">
+    <title>OCTOLER - Contato</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;800&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
 <body>
 
@@ -21,7 +20,7 @@
             <nav id="area-menu">
                 <a href="/pages/home.html">Início</a>
                 <a href="#">Trilhas</a>
-                <a href="/pages/contato.html">Contato</a>
+                <a href="/pages/contato.html" class="ativo">Contato</a>
             </nav>
     
             <div class="settings-container">
@@ -58,31 +57,27 @@
 
     <main id="area-principal-cadastro">
         <div class="card-central ludico-card">
-            <h2 class="titulo-login">Crie seu Passaporte! 🎟️</h2>
-            <p class="subtitulo-cadastro">Peça ajuda a um adulto para preencher os dados.</p>
+            <h2 class="titulo-login">Caixa de Correio 📬</h2>
+            <p class="subtitulo-cadastro">Tem alguma dúvida ou quer nos mandar um desenho? Escreva sua cartinha abaixo!</p>
 
-            <form id="cadastro-aluno-form">
+            <form action="#" method="post">
                 <div class="dados">
-                    <label for="name-aluno">Nome do Explorador(a):</label>
-                    <input type="text" id="name-aluno" placeholder="Como você se chama?" required>
+                    <label for="nome-contato">Seu Nome:</label>
+                    <input type="text" id="nome-contato" placeholder="Quem está enviando a cartinha?" required />
                 </div>
+
                 <div class="dados">
-                    <label for="email-aluno-cadastro">E-mail do Responsável:</label>
-                    <input type="email" id="email-aluno-cadastro" placeholder="E-mail do papai ou da mamãe" required>
+                    <label for="email-contato">E-mail para resposta:</label>
+                    <input type="email" id="email-contato" placeholder="E-mail do responsável" required />
                 </div>
+
                 <div class="dados">
-                    <label for="senha-aluno-cadastro">Crie uma Senha Secreta:</label>
-                    <input type="password" id="senha-aluno-cadastro" placeholder="Pense em algo seguro" required>
+                    <label for="mensagem">Sua Mensagem:</label>
+                    <textarea id="mensagem" rows="4" placeholder="Escreva aqui com muito carinho..." required></textarea>
                 </div>
-                <div class="dados">
-                    <label for="confirmar-senha-aluno">Repita a Senha:</label>
-                    <input type="password" id="confirmar-senha-aluno" placeholder="Confirme a senha secreta" required>
-                </div>
+
                 <div class="btn-cadastrar">
-                    <button type="submit" class="btn-primario">Criar Passaporte</button>
-                </div>
-                <div class="link-rodape-card">
-                    <span>Já tem um passaporte?</span> <a href="/pages/login/login-aluno.html">Entre aqui!</a>
+                    <button type="submit" class="btn-primario">Enviar Cartinha 🕊️</button>
                 </div>
             </form>
         </div>
@@ -93,6 +88,5 @@
     </footer>
 
     <script src="/pages/theme.js"></script>
-    <script src="/pages/login.js"></script>
 </body>
 </html>
