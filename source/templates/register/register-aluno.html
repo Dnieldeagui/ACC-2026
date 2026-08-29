@@ -61,7 +61,7 @@
             <h2 class="titulo-login">Crie seu Passaporte! 🎟️</h2>
             <p class="subtitulo-cadastro">Peça ajuda a um adulto para preencher os dados.</p>
 
-            <form id="cadastro-aluno-form">
+            <form id="cadastro-aluno-form" action="{{ url_for('register_aluno') }}" method="POST">
                 <div class="dados">
                     <label for="name-aluno">Nome do Explorador(a):</label>
                     <input 

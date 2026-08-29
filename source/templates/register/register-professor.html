@@ -61,26 +61,49 @@
             <h2 class="titulo-login">Criar conta de Professor 📚</h2>
             <p class="subtitulo-cadastro">Preencha os dados para começar a usar.</p>
 
-            <form id="cadastro-professor-form">
+            <form id="cadastro-professor-form" action="{{ url_for('register_professor') }}" method="POST">
                 <div class="dados">
                     <label for="nome-professor">Nome completo</label>
-                    <input type="text" id="nome-professor" placeholder="Seu nome" required>
+                    <input 
+                    type="text" 
+                    id="nome-professor" 
+                    placeholder="Seu nome" 
+                    name="nome"
+                    required>
                 </div>
                 <div class="dados">
                     <label for="email-professor">E-mail</label>
-                    <input type="email" id="email-professor" placeholder="seu@email.com" required>
+                    <input 
+                    type="email" 
+                    id="email-professor" 
+                    placeholder="seu@email.com" 
+                    name="email"
+                    required>
                 </div>
                 <div class="dados">
                     <label for="disciplina-professor">Disciplina (opcional)</label>
-                    <input type="text" id="disciplina-professor" placeholder="Ex: Matemática">
+                    <input 
+                    type="text" 
+                    id="disciplina-professor" 
+                    name="disciplina"
+                    placeholder="Ex: Matemática">
                 </div>
                 <div class="dados">
                     <label for="senha-professor">Senha</label>
-                    <input type="password" id="senha-professor" placeholder="********" required>
+                    <input 
+                    type="password" 
+                    id="senha-professor" 
+                    placeholder="********" 
+                    name="senha"
+                    required>
                 </div>
                 <div class="dados">
                     <label for="confirmar-senha-professor">Confirmar senha</label>
-                    <input type="password" id="confirmar-senha-professor" placeholder="********" required>
+                    <input 
+                    type="password" 
+                    id="confirmar-senha-professor" 
+                    placeholder="********" 
+                    required>
                 </div>
                 <div class="btn-cadastrar">
                     <button type="submit" class="btn-primario">Cadastrar</button>
