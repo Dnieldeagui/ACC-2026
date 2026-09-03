@@ -62,14 +62,24 @@
             <h2 class="titulo-login">Acesso do Aluno 🧒</h2>
             <p class="subtitulo-cadastro">Peça ajuda a um adulto para fazer login</p>
 
-            <form id="login-aluno-form">
+            <form id="login-aluno-form" action="{{ url_for('login_aluno') }}" method="POST">
                 <div class="dados">
                     <label for="email-aluno">E-mail do Responsável</label>
-                    <input type="email" id="email-aluno" placeholder="exemplo@email.com" required>
+                    <input 
+                    type="email" 
+                    id="email-aluno" 
+                    placeholder="exemplo@email.com" 
+                    name = "email"
+                    required>
                 </div>
                 <div class="dados">
                     <label for="senha-aluno">Senha Secreta</label>
-                    <input type="password" id="senha-aluno" placeholder="********" required>
+                    <input 
+                    type="password" 
+                    id="senha-aluno" 
+                    placeholder="********" 
+                    name = "senha"
+                    required>
                 </div>
                 <div class="btn-cadastrar">
                     <button type="submit" class="btn-primario">Entrar na Brincadeira</button>
@@ -89,6 +99,5 @@
     </footer>
 
     <script src="{{ url_for('static', filename='js/theme.js')}}"></script>
-    <script src="{{ url_for('static', filename='js/login.js')}}"></script>
 </body>
 </html>

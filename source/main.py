@@ -1,7 +1,7 @@
 import sqlite3
 import flask 
 import hashlib
-
+import codeBD
 
 site = flask.Flask(__name__)
 
@@ -36,15 +36,20 @@ def login_aluno():
         email = flask.request.form["email"]
         senha = hashlib.sha256(flask.request.form["senha"].encode("utf-8")).hexdigest()
 
+        if codeBD.searcher_aluno(email,senha):
+            return flask.redirect(flask.url_for("dashboard_aluno"))
+        
     return flask.render_template("login/login-aluno.html")
 
-
+ 
 @site.route("/login/professor", methods=["GET", "POST"])
 def login_professor():
     if flask.request.method == "POST":
         email = flask.request.form["email"]
         senha = hashlib.sha256(flask.request.form["senha"].encode("utf-8")).hexdigest()
 
+        if codeBD.searcher_aluno(email,senha):
+                    return flask.redirect(flask.url_for("dashboard_professor"))
     return flask.render_template("login/login-professor.html")
 
 
@@ -58,7 +63,7 @@ def register_aluno():
         
         connectbd = sqlite3.connect("dataBase.db")
         sqlrunner = connectbd.cursor()
-
+        
         sqlrunner.execute("""
             INSERT INTO alunos (nome, email, senha)
             VALUES (?, ?, ?)
@@ -96,7 +101,12 @@ def register_professor():
     
 @site.route("/dashboard/professor")
 def dashboard_professor():
-    return flask.render_template("dashboards/dashboard-professor.html")
+    return flask.render_template("dashboard/dashboard-professor.html")
+
+
+@site.route("/dashboard/aluno")
+def dashboard_aluno():
+    return flask.render_template("dashboard/dashboard-aluno.html")
 
 
 if __name__ == "__main__":
