@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OCTOLER - Cadastro Professor</title>
+        <script>
+        (function() {
+            const currentTheme = localStorage.getItem('theme');
+            if (currentTheme) {
+                document.documentElement.classList.add(currentTheme);
+            }
+        })();
+    </script>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">

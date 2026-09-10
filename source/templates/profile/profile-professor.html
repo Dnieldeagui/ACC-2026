@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OCTOLER - Perfil Professor</title>
+        <script>
+        (function() {
+            const currentTheme = localStorage.getItem('theme');
+            if (currentTheme) {
+                document.documentElement.classList.add(currentTheme);
+            }
+        })();
+    </script>
 </head>
 <body>
     

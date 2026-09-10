@@ -19,25 +19,24 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Tema (Claro/Escuro)
-    const themeSwitch = document.querySelector('#checkbox');
-    const currentTheme = localStorage.getItem('theme');
+const themeSwitch = document.querySelector('#checkbox');
+const currentTheme = localStorage.getItem('theme');
 
-    if (currentTheme) {
-        document.body.classList.add(currentTheme);
-        if (currentTheme === 'dark-mode') {
-            themeSwitch.checked = true;
-        }
+if (currentTheme === 'dark-mode') {
+    themeSwitch.checked = true;
+}
+
+themeSwitch.addEventListener('change', function(e) {
+    if (e.target.checked) {
+        document.documentElement.classList.add('dark-mode');
+        document.documentElement.classList.remove('light-mode');
+        localStorage.setItem('theme', 'dark-mode');
+    } else {
+        document.documentElement.classList.remove('dark-mode');
+        document.documentElement.classList.add('light-mode');
+        localStorage.setItem('theme', 'light-mode');
     }
-
-    themeSwitch.addEventListener('change', function(e) {
-        if (e.target.checked) {
-            document.body.classList.add('dark-mode');
-            localStorage.setItem('theme', 'dark-mode');
-        } else {
-            document.body.classList.remove('dark-mode');
-            localStorage.setItem('theme', 'light-mode');
-        }
-    });
+});
 
     // Acessibilidade (Dislexia)
     const dyslexiaSwitch = document.querySelector('#dyslexia-checkbox');

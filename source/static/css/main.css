@@ -18,7 +18,7 @@
     --border-radius-small: 12px;
 }
 
-body.dark-mode {
+html.dark-mode {
     --bg-body: #1A192B;
     --bg-card: #25243D;
     --text-main: #F4F9F9;
