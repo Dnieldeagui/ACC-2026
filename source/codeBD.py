@@ -14,8 +14,9 @@ def searcher_professor(x,y):
     with sqlite3.connect("dataBase.db") as connectbd:
         sqlrunner = connectbd.cursor()
         sqlrunner.execute("""
-    SELECT * FROM alunos WHERE email = ? AND senha = ?
+    SELECT * FROM professores WHERE email = ? AND senha = ?
 """,(x,y))
         professor = sqlrunner.fetchone()
         return professor is not None
+    
 

@@ -49,7 +49,8 @@ def login_professor():
         senha = hashlib.sha256(flask.request.form["senha"].encode("utf-8")).hexdigest()
 
         if codeBD.searcher_aluno(email,senha):
-                    return flask.redirect(flask.url_for("dashboard_professor"))
+            return flask.redirect(flask.url_for("dashboard_professor"))
+        
     return flask.render_template("login/login-professor.html")
 
 

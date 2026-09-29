@@ -68,7 +68,7 @@
             <h2 class="titulo-login">Caixa de Correio 📬</h2>
             <p class="subtitulo-cadastro">Tem alguma dúvida ou quer nos mandar um desenho? Escreva sua cartinha abaixo!</p>
 
-            <form action="#" method="post">
+            <form action="{{ url_for('contato') }}" method="post">
                 <div class="dados">
                     <label for="nome-contato">Seu Nome:</label>
                     <input type="text" id="nome-contato" placeholder="Quem está enviando a cartinha?" required />
