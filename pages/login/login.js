@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (professorLogin) {
         professorLogin.addEventListener('submit', (e) => {
             e.preventDefault();
+            OctolerAuth.login('professor');
             window.location.href = '/pages/dashboards/dashboard-professor.html';
         });
     }
@@ -13,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (alunoLogin) {
         alunoLogin.addEventListener('submit', (e) => {
             e.preventDefault();
+            OctolerAuth.login('aluno');
             window.location.href = '/pages/dashboards/dashboard-aluno.html';
         });
     }
@@ -22,8 +24,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (professorCadastro) {
         professorCadastro.addEventListener('submit', (e) => {
             e.preventDefault();
-            // redireciona para o dashboard (já logado)
-            window.location.href = 'dashboard-professor.html';
+            OctolerAuth.login('professor');
+            window.location.href = '/pages/dashboards/dashboard-professor.html';
         });
     }
 
@@ -32,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (alunoCadastro) {
         alunoCadastro.addEventListener('submit', (e) => {
             e.preventDefault();
+            OctolerAuth.login('aluno');
             window.location.href = '/pages/dashboards/dashboard-aluno.html';
         });
     }

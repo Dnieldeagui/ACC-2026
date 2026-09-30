@@ -19,7 +19,7 @@
             
             <nav id="area-menu">
                 <a href="/pages/home.html">Início</a>
-                <a href="#">Trilhas</a>
+                <a href="/pages/map/Prot.html">Trilhas</a>
                 <a href="/pages/contato.html" class="ativo">Contato</a>
             </nav>
     
@@ -60,7 +60,7 @@
             <h2 class="titulo-login">Caixa de Correio 📬</h2>
             <p class="subtitulo-cadastro">Tem alguma dúvida ou quer nos mandar um desenho? Escreva sua cartinha abaixo!</p>
 
-            <form action="#" method="post">
+            <form id="form-contato" action="#" method="post">
                 <div class="dados">
                     <label for="nome-contato">Seu Nome:</label>
                     <input type="text" id="nome-contato" placeholder="Quem está enviando a cartinha?" required />
@@ -88,5 +88,18 @@
     </footer>
 
     <script src="/pages/theme.js"></script>
+    <script>
+        // Sem backend disponível ainda: evita o recarregamento em "#" e dá
+        // um retorno visual para quem preencheu a cartinha.
+        document.getElementById('form-contato').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const form = e.target;
+            const mensagemEnviada = document.createElement('p');
+            mensagemEnviada.className = 'subtitulo-cadastro';
+            mensagemEnviada.textContent = 'Cartinha recebida! Obrigado por escrever. 💌';
+            form.reset();
+            form.replaceWith(mensagemEnviada);
+        });
+    </script>
 </body>
 </html>
