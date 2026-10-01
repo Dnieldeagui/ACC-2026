@@ -6,6 +6,7 @@ const jogosWordwall = {
         { titulo:'Abra a caixa',embedUrl:'https://wordwall.net/pt/embed/94bceabcf75540f59b19376533849121?themeId=66&templateId=30&fontStackId=0'},
     ],
     2: [
-        { titulo: 'Quiz de leitura', embedUrl: 'https://wordwall.net/embed/SEU-ID-2A' },
+        { titulo: 'TESTE DE CRIAÇAO placeholder', embedUrl: 'https://wordwall.net/pt/embed/3c6fceefae414626be92a7b8f8b68235?themeId=1&templateId=8&fontStackId=0' },
+        { titulo: 'TESTE DE CRIAÇAO placeholder', embedUrl: 'https://wordwall.net/pt/embed/3c6fceefae414626be92a7b8f8b68235?themeId=1&templateId=8&fontStackId=0' },       
     ]
     };

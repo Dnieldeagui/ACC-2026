@@ -1,5 +1,10 @@
 /* Variáveis de Cores */
 :root {
+        /* Cor da trilha (fases 1-5, 6-10, 11-15) */
+    --bloco1: #1D9E75;       --bloco1-dark: #0F6E56;   /* teal */
+    --bloco2: #378ADD;       --bloco2-dark: #185FA5;   /* azul */
+    --bloco3: #BA7517;       --bloco3-dark: #854F0B;   /* âmbar */
+    
     --bg-body: #F4F6F9;
     --bg-card: #FFFFFF;
     --text-main: #2D3436;
@@ -19,6 +24,10 @@
 }
 
 body.dark-mode {
+    --bloco1: #5DCAA5;       --bloco1-dark: #1D9E75;
+    --bloco2: #85B7EB;       --bloco2-dark: #378ADD;
+    --bloco3: #EF9F27;       --bloco3-dark: #BA7517;
+
     --bg-body: #1A192B;
     --bg-card: #25243D;
     --text-main: #F4F9F9;
@@ -632,6 +641,49 @@ textarea:focus {
     animation: wobble 0.4s ease;
 }
 
+/* === ALTERAÇÃO === */
+/* Pg Atividades (atividades.html) */
+#area-atividade {
+    max-width: 700px;
+    margin: 30px auto;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.iframe-wrapper {
+    width: 600px;
+    aspect-ratio: 16 / 9;
+    border-radius: var(--border-radius-large);
+    overflow: hidden;
+    border: 2px solid var(--border-color);
+    margin: 15px 0 20px;
+}
+
+.iframe-wrapper iframe {
+    aspect-ratio: 16 / 9;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.progresso-atividades {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.progresso-bolinha {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: var(--border-color);
+}
+
+.progresso-bolinha.feita {
+    background: var(--primary);
+}
+/* === FIM ALTERAÇÃO === */
+
 /* Rodapé */
 #rodape {
     background-color: var(--footer-bg);
@@ -647,11 +699,14 @@ textarea:focus {
 /* Layout do Mapa */
 .map-container {
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;  /*Alterado de reverso para columb*/
     align-items: center;
     gap: 40px;
-    padding: 50px 0;
+    padding: 50px 90px;          /* ← ANTES era "50px 0", só troca o valor */
     position: relative;
+    box-sizing: border-box;      /* ← linha nova */
+    max-width: 420px;            /* ← linha nova */
+    margin: 0 auto;              /* ← linha nova */
 }
 
 .map-container::before {
@@ -663,12 +718,15 @@ textarea:focus {
 }
 
 .map-node-wrapper { position: relative; z-index: 1; transition: transform 0.3s; }
-.map-node-wrapper:nth-child(4n+1) { transform: translateX(0); }
-.map-node-wrapper:nth-child(4n+2) { transform: translateX(70px); }
-.map-node-wrapper:nth-child(4n+3) { transform: translateX(0); }
-.map-node-wrapper:nth-child(4n+4) { transform: translateX(-70px); }
+/* DEPOIS (com o ajuste) */
 
+/*ALTERADOS*/
+.map-node-wrapper:nth-child(4n+1) { transform: translateX(0); }
+.map-node-wrapper:nth-child(4n+2) { transform: translateX(clamp(30px, 15vw, 70px)); }
+.map-node-wrapper:nth-child(4n+3) { transform: translateX(0); }
+.map-node-wrapper:nth-child(4n+4) { transform: translateX(clamp(-70px, -15vw, -30px)); }
 .map-node {
+/*Fim*/
     width: 80px; height: 80px;
     border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
@@ -687,12 +745,25 @@ textarea:focus {
     box-shadow: 0 6px 0 var(--primary-dark);
     animation: pulse 1.5s infinite;
 }
-
+/*Modificado/ Adicionado*/
 .node-completed { 
     background: #ffc800; color: white; 
     box-shadow: 0 6px 0 #d7a600; 
 }
 
+/* Cor por bloco — quando está ativo ou completo */
+.bloco-1.node-current, .bloco-1.node-completed { background: var(--bloco1); box-shadow: 0 6px 0 var(--bloco1-dark); }
+.bloco-2.node-current, .bloco-2.node-completed { background: var(--bloco2); box-shadow: 0 6px 0 var(--bloco2-dark); }
+.bloco-3.node-current, .bloco-3.node-completed { background: var(--bloco3); box-shadow: 0 6px 0 var(--bloco3-dark); }
+
+/* Checkpoint (fases 5, 10, 15) — maior e com borda de destaque */
+.node-checkpoint {
+    width: 96px; height: 96px;
+    font-size: 1.8rem;
+    border: 3px solid var(--bg-card);
+    outline: 2px solid currentColor;
+}
+/*Fim*/
 /* MEDIA QUERIES  */
 
 @media (max-width: 768px) {
