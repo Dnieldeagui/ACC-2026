@@ -111,5 +111,12 @@ def dashboard_aluno():
     return flask.render_template("dashboard/dashboard-aluno.html")
 
 
+@site.route('/atividades/atividades')
+def atividades():
+    fase = flask.request.args.get('fase', 1, type=int)
+
+    return flask.render_template('map/atividades/atividades.html', fase=fase)
+
+
 if __name__ == "__main__":
     site.run(host="0.0.0.0", port=5000, debug=True)

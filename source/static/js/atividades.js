@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Marca a fase como concluída e volta para a trilha
             localStorage.setItem('faseConcluida', String(fase));
             // === INÍCIO DA ALTERAÇÃO ===
-            window.location.href = '../Prot.html';
+            window.location.href = '/mapa';
             // === FIM DA ALTERAÇÃO ===
         }
     });
