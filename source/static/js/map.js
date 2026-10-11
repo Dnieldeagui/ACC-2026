@@ -39,6 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- LÓGICA FUNCIONAL DO MAPA ---
     const mapa = document.getElementById('mapa-trilha');
     const totalFases = 15;
+    const totalFuncional = 2; // só até aqui a trilha é jogável; 3-15 ficam só de exibição
 
     // Criar as fases
     for (let i = 1; i <= totalFases; i++) {
@@ -48,38 +49,52 @@ document.addEventListener('DOMContentLoaded', () => {
         const node = document.createElement('button');
         node.id = `fase-${i}`;
         node.dataset.level = i;
-        
+
+        const bloco = Math.ceil(i / 5);
+        const isCheckpoint = i % 5 === 0;
+
         // Define a primeira como atual, as outras bloqueadas
         if (i === 1) {
-            node.className = 'map-node node-current';
+            node.className = `map-node node-current bloco-${bloco}`;
             node.innerText = '1';
         } else {
-            node.className = 'map-node node-locked';
+            node.className = `map-node node-locked bloco-${bloco}`;
             node.innerText = i === 15 ? '🏆' : i;
         }
-
+        if (isCheckpoint) node.classList.add('node-checkpoint');
         node.onclick = () => clicarFase(i);
-        
+
         wrapper.appendChild(node);
         mapa.appendChild(wrapper);
+    }
+
+    // Se voltou da página de atividades tendo concluído uma fase
+    // (roda uma única vez, ao carregar a página — fora de clicarFase)
+    const faseConcluidaAgora = Number(localStorage.getItem('faseConcluida'));
+    if (faseConcluidaAgora) {
+        const nodeConcluido = document.getElementById(`fase-${faseConcluidaAgora}`);
+        if (nodeConcluido && nodeConcluido.classList.contains('node-current')) {
+            nodeConcluido.classList.replace('node-current', 'node-completed');
+            nodeConcluido.innerText = '⭐';
+
+            const proxima = document.getElementById(`fase-${faseConcluidaAgora + 1}`);
+            if (proxima && faseConcluidaAgora < totalFuncional) {
+                proxima.classList.replace('node-locked', 'node-current');
+            } else {
+                alert("Parabéns! Você completou as atividades disponíveis! 🏆");
+            }
+        }
+        localStorage.removeItem('faseConcluida');
     }
 
     function clicarFase(n) {
         const node = document.getElementById(`fase-${n}`);
 
         if (node.classList.contains('node-current')) {
-            // Conclui a atual
-            node.classList.replace('node-current', 'node-completed');
-            node.innerText = '⭐';
-
-            // Libera a próxima
-            const proxima = document.getElementById(`fase-${n + 1}`);
-            if (proxima) {
-                proxima.classList.replace('node-locked', 'node-current');
-                proxima.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            } else {
-                alert("Parabéns! Você completou a jornada! 🏆");
-            }
+            // Redireciona para a página de atividades da fase
+            // === INÍCIO DA ALTERAÇÃO ===
+            window.location.href = `atividades/atividades.html?fase=${n}`;
+            // === FIM DA ALTERAÇÃO ===
         } else if (node.classList.contains('node-locked')) {
             // Animação de erro (shake seu original)
             node.style.animation = 'shake 0.4s';

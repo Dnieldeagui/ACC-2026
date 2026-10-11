@@ -12,7 +12,7 @@ def home():
 
 @site.route("/mapa")
 def mapa():
-    return flask.render_template("Mapa.html")
+    return flask.render_template("map/prot.html")
 
 
 @site.route("/perfil")
@@ -103,6 +103,7 @@ def register_professor():
 @site.route("/dashboard/professor")
 def dashboard_professor():
     return flask.render_template("dashboard/dashboard-professor.html")
+
 
 
 @site.route("/dashboard/aluno")

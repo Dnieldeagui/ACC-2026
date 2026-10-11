@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Trilha - OCTOLER</title>
+    <title>Atividade - OCTOLER</title>
         <script>
         (function() {
             const currentTheme = localStorage.getItem('theme');
@@ -12,13 +12,15 @@
         })();
     </script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-    <!-- Importando fontes para o modo dislexia/padrão -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&family=Lexend:wght@400;700&display=swap" rel="stylesheet">
+    <script src="{{ url_for('static', filename='js/auth.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/auth-guard.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/theme.js')}}"></script>
 </head>
-
 <body>
     <header id="area-cabecalho">
         <div class="container-topo">
+             <div class="container-topo">
             <div class="logo-container">
                 <div id="area-logo">
                     <h1>OCTO<span class="destaque">LER</span></h1>
@@ -26,9 +28,9 @@
             </div>
             
             <nav id="area-menu">
-                <a href="#" class="ativo">Início</a>
-                <a href="#">Trilhas</a>
-                <a href="#">Contato</a>
+                <a href="{{ url_for('home')}}" class="ativo">Início</a>
+                <a href="{{ url_for('mapa')}}">Trilhas</a>
+                <a href="{{ url_for('contato')}}">Contato</a>
             </nav>
 
             <div class="settings-container">
@@ -52,13 +54,21 @@
                 </div>
             </div>
         </div>
+        </div>
     </header>
 
-    <main id="area-principal">
-        <!-- O Mapa será gerado aqui pelo JavaScript -->
-        <div class="map-container" id="mapa-trilha"></div>
+    <main id="area-atividade">
+        <h2 id="titulo-atividade">Carregando...</h2>
+        <div id="progresso-atividades" class="progresso-atividades"></div>
+
+        <div class="iframe-wrapper">
+            <iframe id="iframe-jogo" src="" allowfullscreen></iframe>
+        </div>
+
+        <button id="btn-proxima" class="btn-primario">Próxima atividade →</button>
     </main>
 
-    <script src="map.js"></script>
+    <script src="{{ url_for('static', filename='js/jogos-data.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/atividades.js')}}"></script>
 </body>
 </html>

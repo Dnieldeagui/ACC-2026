@@ -12,6 +12,8 @@
             }
         })();
     </script>
+    <script src="{{ url_for('static', filename='js/auth.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/auth-guard.js')}}" data-tipo="aluno"></script>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
@@ -27,9 +29,9 @@
             </div>
             
             <nav id="area-menu">
-                <a href="/pages/dashboards/dashboard-aluno.html">Início</a>
-                <a href="#">Trilhas</a>
-                <a href="/pages/contato.html">Contato</a>
+                <a href="{{ url_for('home')}}" class="ativo">Início</a>
+                <a href="{{ url_for('mapa')}}">Trilhas</a>
+                <a href="{{ url_for('contato')}}">Contato</a>
             </nav>
 
             <div class="settings-container">

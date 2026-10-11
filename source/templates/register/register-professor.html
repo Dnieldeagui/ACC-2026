@@ -27,9 +27,9 @@
             </div>
             
             <nav id="area-menu">
-                <a href="/pages/home.html">Início</a>
-                <a href="#">Trilhas</a>
-                <a href="/pages/contato.html">Contato</a>
+                <a href="{{ url_for('home')}}" class="ativo">Início</a>
+                <a href="{{ url_for('mapa')}}">Trilhas</a>
+                <a href="{{ url_for('contato')}}">Contato</a>
             </nav>
     
             <div class="settings-container">
@@ -128,6 +128,7 @@
     </footer>
 
     <script src="{{ url_for('static', filename='js/theme.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/auth.js')}}"></script>
     <script src="{{ url_for('static', filename='js/login.js')}}"></script>
 </body>
 </html>
