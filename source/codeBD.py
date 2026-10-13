@@ -7,12 +7,15 @@ def verify_tables():
 CREATE TABLE IF NOT EXISTS alunos (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     nome TEXT NOT NULL,
-    email TEXT UNIQUE
+    email TEXT UNIQUE,
+    senha TEXT NOR NULL
 );
 
 CREATE TABLE IF NOT EXISTS professores (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     nome TEXT NOT NULL,
+    email TEXT UNIQUE,
+    senha TEXT NOT NULL,
     disciplina TEXT
 );
 
