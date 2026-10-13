@@ -4,17 +4,8 @@ con = sqlite3.connect("dataBase.db")
 cursor = con.cursor()
 
 cursor.execute("""
-INSERT INTO alunos (
-    nome,
-    email,
-    senha,
-)
-VALUES (?, ?, ?)
-""", (
-    nome,
-    email,
-    senha
-))
+DROP TABLE professores
+""")
 
 con.commit()
 con.close()

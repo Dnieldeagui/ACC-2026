@@ -4,6 +4,7 @@ import hashlib
 import codeBD
 
 site = flask.Flask(__name__)
+codeBD.verify_tables()
 
 @site.route("/")
 def home():

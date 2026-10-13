@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (node.classList.contains('node-current')) {
             // Redireciona para a página de atividades da fase
             // === INÍCIO DA ALTERAÇÃO ===
-            window.location.href = `/atividades/atividades?fase=${n}`;
+            window.location.href = `/trilhas/atividades?fase=${n}`;
             // === FIM DA ALTERAÇÃO ===
         } else if (node.classList.contains('node-locked')) {
             // Animação de erro (shake seu original)
