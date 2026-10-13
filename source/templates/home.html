@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome - OCTOLER</title>
+    <title>OCTOLER - Início</title>
     <script>
         (function() {
             const currentTheme = localStorage.getItem('theme');
@@ -33,6 +33,7 @@
                 <a href="{{ url_for('home')}}" class="ativo">Início</a>
                 <a href="{{ url_for('mapa')}}">Trilhas</a>
                 <a href="{{ url_for('contato')}}">Contato</a>
+                <a href="{{ url_for('error')}}">ERROR</a>
             </nav>
 
             <div class="settings-container">

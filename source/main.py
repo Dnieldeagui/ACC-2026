@@ -10,10 +10,13 @@ codeBD.verify_tables()
 def home():
     return flask.render_template("home.html")
 
+@site.route("/error")
+def error():
+    return flask.render_template("error_page.html")
 
 @site.route("/mapa")
 def mapa():
-    return flask.render_template("map/Prot.html")
+    return flask.render_template("map/trilha.html")
 
 
 @site.route("/perfil")
@@ -49,7 +52,7 @@ def login_professor():
         email = flask.request.form["email"]
         senha = hashlib.sha256(flask.request.form["senha"].encode("utf-8")).hexdigest()
 
-        if codeBD.searcher_aluno(email,senha):
+        if codeBD.searcher_professor(email,senha):
             return flask.redirect(flask.url_for("dashboard_professor"))
         
     return flask.render_template("login/login-professor.html")

@@ -766,6 +766,15 @@ textarea:focus {
 /*Fim*/
 /* MEDIA QUERIES  */
 
+
+/*IMAGEM DE ERRO */
+.imagem-erro{
+  display: block;
+  width: 300px; /* Defina a largura da imagem */
+  margin-left: auto;
+  margin-right: auto;
+}
+
 @media (max-width: 768px) {
     body {
         /* Permite scroll global em telas pequenas para o teclado virtual não amassar o layout */

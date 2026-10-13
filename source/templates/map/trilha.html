@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Trilha - OCTOLER</title>
+    <title>OCTOLER - Trilha</title>
         <script>
         (function() {
             const currentTheme = localStorage.getItem('theme');
@@ -13,9 +13,13 @@
     </script>
     <script src="{{ url_for('static', filename='js/auth.js')}}"></script>
     <script src="{{ url_for('static', filename='js/auth-guard.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/theme.js')}}"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-    <!-- Importando fontes para o modo dislexia/padrão -->
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&family=Lexend:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='pages/images/Otto-minimal.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='pages/images/Otto-minimal.png') }}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ url_for('static', filename='pages/images/Otto-minimal.png') }}">
 </head>
 
 <body>
@@ -35,24 +39,32 @@
 
             <div class="settings-container">
                 <button id="btn-settings" class="btn-icon" aria-label="Configurações">⚙️</button>
+                
                 <div id="settings-dropdown" class="dropdown-menu hidden">
-                    <div class="dropdown-title">Acessibilidade</div>
+                    <p class="dropdown-title">Configurações</p>
+                    
                     <div class="config-item">
-                        <span>Tema Escuro</span>
-                        <label class="theme-switch">
-                            <input type="checkbox" id="checkbox">
-                            <span class="slider"></span>
+                        <span>Modo Noturno</span>
+                        <label class="theme-switch" for="checkbox">
+                            <input type="checkbox" id="checkbox" />
+                            <div class="slider round">
+                                <span class="slider-icon sun">☀️</span>
+                                <span class="slider-icon moon">🌙</span>
+                            </div>
                         </label>
                     </div>
+
                     <div class="config-item mt-10">
-                        <span>Modo Dislexia</span>
-                        <label class="theme-switch">
-                            <input type="checkbox" id="dyslexia-checkbox">
-                            <span class="slider"></span>
+                        <span>Fonte Acessível</span>
+                        <label class="theme-switch" for="dyslexia-checkbox">
+                            <input type="checkbox" id="dyslexia-checkbox" />
+                            <div class="slider round slider-dyslexia">
+                                <span class="slider-icon">a</span>
+                                <span class="slider-icon">A</span>
+                            </div>
                         </label>
                     </div>
                 </div>
-            </div>
         </div>
     </header>
 
@@ -62,5 +74,6 @@
     </main>
 
     <script src="{{ url_for('static', filename='js/map.js')}}"></script>
+
 </body>
 </html>
