@@ -12,7 +12,7 @@ def home():
 
 @site.route("/mapa")
 def mapa():
-    return flask.render_template("map/prot.html")
+    return flask.render_template("map/Prot.html")
 
 
 @site.route("/perfil")
@@ -111,7 +111,7 @@ def dashboard_aluno():
     return flask.render_template("dashboard/dashboard-aluno.html")
 
 
-@site.route('/atividades/atividades')
+@site.route('/trilhas/atividades')
 def atividades():
     fase = flask.request.args.get('fase', 1, type=int)
 
