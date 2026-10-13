@@ -6,32 +6,38 @@ import codeBD
 site = flask.Flask(__name__)
 codeBD.verify_tables()
 
+def error_window(x):
+    try:
+        return x
+    except:
+        return flask.redirect(flask.url_for('error'))
+
 @site.route("/")
 def home():
-    return flask.render_template("home.html")
+    return error_window(flask.render_template("home.html"))
 
 @site.route("/error")
 def error():
-    return flask.render_template("error_page.html")
+    return error_window(flask.render_template("error_page.html"))
 
 @site.route("/mapa")
 def mapa():
-    return flask.render_template("map/trilha.html")
+    return error_window(flask.render_template("map/trilha.html"))
 
 
 @site.route("/perfil")
 def perfil():
-    return flask.render_template("Perfil.html")
+    return error_window(flask.render_template("Perfil.html"))
 
 
 @site.route("/ofensiva")
 def ofensiva():
-    return flask.render_template("Ofensiva.html")
+    return error_window(flask.render_template("Ofensiva.html"))
 
 
 @site.route("/contato")
 def contato():
-    return flask.render_template("contato.html")
+    return error_window(flask.render_template("contato.html"))
 
 
 @site.route("/login/aluno", methods=["GET", "POST"])
@@ -41,9 +47,9 @@ def login_aluno():
         senha = hashlib.sha256(flask.request.form["senha"].encode("utf-8")).hexdigest()
 
         if codeBD.searcher_aluno(email,senha):
-            return flask.redirect(flask.url_for("dashboard_aluno"))
+            return error_window(flask.redirect(flask.url_for("dashboard_aluno")))
         
-    return flask.render_template("login/login-aluno.html")
+    return error_window(flask.render_template("login/login-aluno.html"))
 
  
 @site.route("/login/professor", methods=["GET", "POST"])
@@ -53,9 +59,9 @@ def login_professor():
         senha = hashlib.sha256(flask.request.form["senha"].encode("utf-8")).hexdigest()
 
         if codeBD.searcher_professor(email,senha):
-            return flask.redirect(flask.url_for("dashboard_professor"))
+            return error_window(flask.redirect(flask.url_for("dashboard_professor")))
         
-    return flask.render_template("login/login-professor.html")
+    return error_window(flask.render_template("login/login-professor.html"))
 
 
 @site.route("/register/aluno", methods=["GET", "POST"])
@@ -76,8 +82,8 @@ def register_aluno():
 
         connectbd.commit()
         connectbd.close()
-        return flask.redirect(flask.url_for("home"))
-    return flask.render_template("register/register-aluno.html")
+        return error_window(flask.redirect(flask.url_for("home")))
+    return error_window(flask.render_template("register/register-aluno.html"))
 
 
 @site.route("/register/professor", methods=["GET", "POST"])
@@ -100,26 +106,26 @@ def register_professor():
         connectbd.close()
         
     
-        return flask.redirect(flask.url_for("home"))
-    return flask.render_template("register/register-professor.html")
+        return error_window(flask.redirect(flask.url_for("home")))
+    return error_window(flask.render_template("register/register-professor.html"))
 
     
 @site.route("/dashboard/professor")
 def dashboard_professor():
-    return flask.render_template("dashboard/dashboard-professor.html")
+    return error_window(flask.render_template("dashboard/dashboard-professor.html"))
 
 
 
 @site.route("/dashboard/aluno")
 def dashboard_aluno():
-    return flask.render_template("dashboard/dashboard-aluno.html")
+    return error_window(flask.render_template("dashboard/dashboard-aluno.html"))
 
 
 @site.route('/trilhas/atividades')
 def atividades():
     fase = flask.request.args.get('fase', 1, type=int)
 
-    return flask.render_template('map/atividades/atividades.html', fase=fase)
+    return error_window(flask.render_template('map/atividades/atividades.html', fase=fase))
 
 
 if __name__ == "__main__":
