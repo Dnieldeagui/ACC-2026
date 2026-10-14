@@ -8,6 +8,7 @@ import secrets
 
 ### CONFIGURACOES DO SITE NAO MEXA
 site = flask.Flask(__name__)
+site.secret_key = "3440e27a867ca2fbbfe2adf49cecd08a700764c43046d6c4c26d4ccf1143da49"
 
 #verifica as tabelas 
 codeBD.verify_tables()
@@ -15,10 +16,27 @@ codeBD.verify_tables()
 # ROTAS DA URL NO FLASK (usadas na url EX.: http://192.168.1.5:5000/ = home.html; http://192.168.1.5:5000/mapa = trilha.html)
 @site.route("/")
 def home():
-    try:
-        return flask.render_template("home.html")
-    except:
-        return flask.redirect(flask.url_for('error'))
+    # Condicional para ver autenticar se o aluno esta logado e redireciona-lo para o dashboard
+    if "aluno" in flask.session:
+        aluno = flask.session["aluno"]
+        try: 
+            return flask.redirect(flask.url_for('dashboard_aluno'))
+        except:
+            return flask.redirect(flask.url_for('error'))
+        
+    # Condicional para ver autenticar se o professor esta logado e redireciona-lo para o dashboard
+    elif "professor" in flask.session:
+        professor = flask.session["professor"]
+        try: 
+            return flask.redirect(flask.url_for('dashboard_professor'))
+        except:
+            return flask.redirect(flask.url_for('error'))
+        
+    else:
+        try:
+            return flask.render_template("home.html")
+        except:
+            return flask.redirect(flask.url_for('error'))
 
 
 @site.route("/error")
@@ -62,6 +80,8 @@ def login_aluno():
         senha = hashlib.sha256(flask.request.form["senha"].encode("utf-8")).hexdigest()
 
         if codeBD.searcher_aluno(email,senha):
+            aluno = codeBD.searcher_aluno_id_session(email,senha)
+            flask.session["aluno"] = aluno
             try:
                 return flask.redirect(flask.url_for("dashboard_aluno"))
             except:
@@ -81,6 +101,8 @@ def login_professor():
         senha = hashlib.sha256(flask.request.form["senha"].encode("utf-8")).hexdigest()
 
         if codeBD.searcher_professor(email,senha):
+            professor = codeBD.searcher_professor_id_session(email,senha)
+            flask.session["professor"] = professor
             try:
                 return flask.redirect(flask.url_for("dashboard_professor"))
             except:
