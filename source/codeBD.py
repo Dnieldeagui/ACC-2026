@@ -9,6 +9,7 @@ def verify_tables():
         sqlrunner.executescript("""
 CREATE TABLE IF NOT EXISTS alunos (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_session TEXT NOT NULL,
     nome TEXT NOT NULL,
     email TEXT UNIQUE,
     senha TEXT NOR NULL
@@ -16,6 +17,7 @@ CREATE TABLE IF NOT EXISTS alunos (
 
 CREATE TABLE IF NOT EXISTS professores (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_session TEXT NOT NULL,
     nome TEXT NOT NULL,
     email TEXT UNIQUE,
     senha TEXT NOT NULL,
