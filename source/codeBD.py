@@ -1,5 +1,8 @@
 import sqlite3
 
+# Código executado no início do main.py
+
+# Função para verificar se a tabela existe. Se ela não existir, cria uma nova de alunos e professores
 def verify_tables():
     with sqlite3.connect("dataBase.db") as connectbd:
         sqlrunner = connectbd.cursor()
@@ -21,6 +24,7 @@ CREATE TABLE IF NOT EXISTS professores (
 
 """)
 
+# Função para procurar os dados dos alunos, com a senha em rash
 def searcher_aluno(x,y):
     with sqlite3.connect("dataBase.db") as connectbd:
         sqlrunner = connectbd.cursor()
@@ -30,6 +34,7 @@ def searcher_aluno(x,y):
         aluno = sqlrunner.fetchone()
         return aluno is not None
 
+# Função para procurar os dados dos professores, com a senha em rash
 def searcher_professor(x,y):
     with sqlite3.connect("dataBase.db") as connectbd:
         sqlrunner = connectbd.cursor()

@@ -2,10 +2,12 @@ import sqlite3
 import flask 
 import hashlib
 import codeBD
+# Sessão de importações de bibliotecas e o import codeDB é o outro código python usado para CRUD do banco de dados
 
 site = flask.Flask(__name__)
 codeBD.verify_tables()
 
+# ROTAS DA URL NO FLASK (usadas na url EX.: http://192.168.1.5:5000/ = home.html; http://192.168.1.5:5000/mapa = trilha.html)
 @site.route("/")
 def home():
     try:
@@ -47,6 +49,7 @@ def contato():
     except:
         return flask.redirect(flask.url_for('error'))
 
+# Rota do login e verificação do Bypass, verifica se o email e a senha constam no banco de dados.
 @site.route("/login/aluno", methods=["GET", "POST"])
 def login_aluno():
     if flask.request.method == "POST":
@@ -64,7 +67,8 @@ def login_aluno():
     except:
         return flask.redirect(flask.url_for('error'))
 
- 
+
+# Rota do login e verificação do Bypass, verifica se o email e a senha constam no banco de dados. 
 @site.route("/login/professor", methods=["GET", "POST"])
 def login_professor():
     if flask.request.method == "POST":
@@ -81,7 +85,7 @@ def login_professor():
     except:
         return flask.redirect(flask.url_for('error'))
 
-
+# Rota de criação de contas e atualização delas no BD
 @site.route("/register/aluno", methods=["GET", "POST"])
 def register_aluno():
     if flask.request.method == "POST":
@@ -110,6 +114,7 @@ def register_aluno():
         return flask.redirect(flask.url_for('error'))
 
 
+# Rota de criação de contas e atualização delas no BD
 @site.route("/register/professor", methods=["GET", "POST"])
 def register_professor():
     if flask.request.method == "POST":
@@ -165,6 +170,6 @@ def atividades():
     except:
         return flask.redirect(flask.url_for('error'))
 
-
+# Condição que reconhece que o código está sendo rodado nesse arquivo como principal
 if __name__ == "__main__":
     site.run(host="0.0.0.0", port=5000, debug=True)
