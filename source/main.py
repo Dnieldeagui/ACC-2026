@@ -6,15 +6,11 @@ import secrets
 # Sessão de importações de bibliotecas e o import codeDB é o outro código python usado para CRUD do banco de dados
 
 
-###CONFIGURACOES DO SITE NAO MEXA
+### CONFIGURACOES DO SITE NAO MEXA
 site = flask.Flask(__name__)
-site.config("SESSION_PERMANENT") = False
-site.config("SESSION_TYPE") = "fylesystem"
-
 
 #verifica as tabelas 
 codeBD.verify_tables()
-
 
 # ROTAS DA URL NO FLASK (usadas na url EX.: http://192.168.1.5:5000/ = home.html; http://192.168.1.5:5000/mapa = trilha.html)
 @site.route("/")
@@ -107,9 +103,9 @@ def register_aluno():
         sqlrunner = connectbd.cursor()
         
         sqlrunner.execute("""
-            INSERT INTO alunos (nome, email, senha, id_sesion)
+            INSERT INTO alunos (nome, email, senha, id_session)
             VALUES (?, ?, ?, ?)
-        """, (nome, email, senha, secrets.token_urlsafe(64)))
+        """, (nome, email, senha, secrets.token_urlsafe(32)))
 
         connectbd.commit()
         connectbd.close()
@@ -138,7 +134,7 @@ def register_professor():
         sqlrunner.execute("""
             INSERT INTO professores (nome, email,disciplina, senha, id_session)
             VALUES (?, ?, ?, ?, ?)
-            """, (nome, email, disciplina, senha, secrets.token_urlsafe(64)))
+            """, (nome, email, disciplina, senha, secrets.token_urlsafe(32)))
         
         connectbd.commit()
         connectbd.close()

@@ -45,5 +45,3 @@ def searcher_professor(x,y):
 """,(x,y))
         professor = sqlrunner.fetchone()
         return professor is not None
-    
-
