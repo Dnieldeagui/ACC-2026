@@ -30,9 +30,12 @@
             </div>
             
             <nav id="area-menu">
-                <a href="{{ url_for('home')}}" class="ativo">Início</a>
-                <a href="{{ url_for('mapa')}}">Trilhas</a>
-                <a href="{{ url_for('contato')}}">Contato</a>
+                <!-- Esse IF pertence ao JINJA2, motor do FLASK no python -->
+                {% if session.get('aluno') or session.get('professor') %}
+                    <a href="{{ url_for('home')}}" class="ativo">Início</a>
+                    <a href="{{ url_for('mapa')}}">Trilhas</a>
+                    <a href="{{ url_for('contato')}}">Contato</a>
+                {% endif %}
             </nav>
 
             <div class="settings-container">
@@ -59,6 +62,17 @@
                             </div>
                         </label>
                     </div>
+                    <!-- Esse IF pertence ao JINJA2, motor do FLASK no python -->
+                    {% if session.get('aluno') or session.get('professor') %}
+                        <div class="config-item mt-10"></div>   
+                            <span>Logout</span>
+                            <form action="{{ url_for('logout_button') }}" method="POST">
+                                <button type="button" class="btn-logout-nav" onclick="window.location.href='/logout'">
+                                    ❌
+                                </button>
+                            </form>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>

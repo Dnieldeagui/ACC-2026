@@ -1,10 +1,11 @@
 import sqlite3
 
 # Código executado no início do main.py
-
+# Indica o nome do arquivo.db
+DB_PATH = "dataBase.db"
 # Função para verificar se a tabela existe. Se ela não existir, cria uma nova de alunos e professores
 def verify_tables():
-    with sqlite3.connect("dataBase.db") as connectbd:
+    with sqlite3.connect(DB_PATH) as connectbd:
         sqlrunner = connectbd.cursor()
         sqlrunner.executescript("""
 CREATE TABLE IF NOT EXISTS alunos (
@@ -28,7 +29,7 @@ CREATE TABLE IF NOT EXISTS professores (
 
 # Função para procurar os dados dos alunos, com a senha em rash
 def searcher_aluno(x,y):
-    with sqlite3.connect("dataBase.db") as connectbd:
+    with sqlite3.connect(DB_PATH) as connectbd:
         sqlrunner = connectbd.cursor()
         sqlrunner.execute("""
     SELECT * FROM alunos WHERE email = ? AND senha = ?
@@ -38,7 +39,7 @@ def searcher_aluno(x,y):
 
 # Função para procurar os dados dos professores, com a senha em rash
 def searcher_professor(x,y):
-    with sqlite3.connect("dataBase.db") as connectbd:
+    with sqlite3.connect(DB_PATH) as connectbd:
         sqlrunner = connectbd.cursor()
         sqlrunner.execute("""
     SELECT * FROM professores WHERE email = ? AND senha = ?
@@ -48,7 +49,7 @@ def searcher_professor(x,y):
 
 # Função para buscar o id_session do aluno
 def searcher_aluno_id_session(x,y):
-    with sqlite3.connect("dataBase.db") as connectbd:
+    with sqlite3.connect(DB_PATH) as connectbd:
         sqlrunner = connectbd.cursor()
         sqlrunner.execute("""
     SELECT id_session FROM alunos WHERE email = ? AND senha = ?
@@ -58,7 +59,7 @@ def searcher_aluno_id_session(x,y):
 
 # Função para buscar o id_session do professor
 def searcher_professor_id_session(x,y):
-    with sqlite3.connect("dataBase.db") as connectbd:
+    with sqlite3.connect(DB_PATH) as connectbd:
         sqlrunner = connectbd.cursor()
         sqlrunner.execute("""
     SELECT id_session FROM professores WHERE email = ? AND senha = ?

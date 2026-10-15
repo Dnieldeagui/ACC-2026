@@ -64,6 +64,17 @@
                             </div>
                         </label>
                     </div>
+                    <!-- Esse IF pertence ao JINJA2, motor do FLASK no python -->
+                    {% if session.get('aluno') or session.get('professor') %}
+                        <div class="config-item mt-10"></div>   
+                            <span>Logout</span>
+                            <form action="{{ url_for('logout_button') }}" method="POST">
+                                <button type="button" class="btn-logout-nav" onclick="window.location.href='/logout'">
+                                    ❌
+                                </button>
+                            </form>
+                        </div>
+                    {% endif %}
                 </div>
         </div>
     </header>

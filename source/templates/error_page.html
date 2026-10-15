@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OCTOLER - Contatos</title>
+    <title>OCTOLER - Erro</title>
         <script>
         (function() {
             const currentTheme = localStorage.getItem('theme');
@@ -59,6 +59,17 @@
                             </div>
                         </label>
                     </div>
+                    <!-- Esse IF pertence ao JINJA2, motor do FLASK no python -->
+                    {% if session.get('aluno') or session.get('professor') %}
+                        <div class="config-item mt-10"></div>   
+                            <span>Logout</span>
+                            <form action="{{ url_for('logout_button') }}" method="POST">
+                                <button type="button" class="btn-logout-nav" onclick="window.location.href='/logout'">
+                                    ❌
+                                </button>
+                            </form>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -78,18 +89,5 @@
     </footer>
 
     <script src="{{ url_for('static', filename='js/theme.js')}}"></script>
-    <script>
-        // Sem backend disponível ainda: evita o recarregamento em "#" e dá
-        // um retorno visual para quem preencheu a cartinha.
-        document.getElementById('form-contato').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const form = e.target;
-            const mensagemEnviada = document.createElement('p');
-            mensagemEnviada.className = 'subtitulo-cadastro';
-            mensagemEnviada.textContent = 'Cartinha recebida! Obrigado por escrever. 💌';
-            form.reset();
-            form.replaceWith(mensagemEnviada);
-        });
-    </script>
 </body>
 </html>

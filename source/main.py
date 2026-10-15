@@ -43,6 +43,16 @@ def home():
 def error():
     return flask.render_template("error_page.html")
 
+@site.route("/logout")
+def logout():
+    return flask.render_template("logout.html")
+
+@site.route("/logout/button", methods=["POST"])
+def logout_button():
+    flask.session.clear()
+    return flask.redirect(flask.url_for('home'))
+
+
 @site.route("/mapa")
 def mapa():
     try:

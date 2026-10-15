@@ -769,10 +769,54 @@ textarea:focus {
 
 /*IMAGEM DE ERRO */
 .imagem-erro{
-  display: block;
-  width: 300px; /* Defina a largura da imagem */
-  margin-left: auto;
-  margin-right: auto;
+    display: block;
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* IMAGEM/BOTÃO DE LOGOUT */
+.btn-logout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin: 20px auto;
+    padding: 0;
+
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    cursor: pointer;
+
+    transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.btn-logout img {
+    display: block;
+    width: 220px;
+    height: auto;
+    object-fit: contain;
+}
+
+/* Enquanto estiver clicando */
+.btn-logout:active {
+    transform: scale(0.93);
+    opacity: 0.8;
+}
+/* BOTÃO LOGOUT NA NAV */
+.btn-logout-nav {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-logout-nav:hover {
+    background-color: #c0392b;
 }
 
 @media (max-width: 768px) {
