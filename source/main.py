@@ -1,13 +1,28 @@
+# Sessão de importações de bibliotecas e o import codeDB é o outro código python usado para CRUD do banco de dados
 import sqlite3
 import flask 
 import hashlib
 import codeBD
 import secrets
-# Sessão de importações de bibliotecas e o import codeDB é o outro código python usado para CRUD do banco de dados
+### USAR QUANDO A RECUPERAÇÃO DE CONTA FOR CRIADA ###
+# import flask_mail
 
 ### CONFIGURACOES DO SITE NAO MEXA
 site = flask.Flask(__name__)
 site.secret_key = "3440e27a867ca2fbbfe2adf49cecd08a700764c43046d6c4c26d4ccf1143da49"
+
+## CONFIGURAÇÃO DO FLASK_MAIL
+### USAR QUANDO A RECUPERAÇÃO DE CONTA FOR CRIADA ###
+# site.config["MAIL_SERVER"] = "smtp.gmail.com"
+# site.config["MAIL_PORT"] = 587
+# site.config["MAIL_USE_TLS"] = True
+# site.config["MAIL_USE_SSL"] = False
+# site.config["MAIL_USERNAME"] = "octoleracc@gmail.com"
+# site.config["MAIL_PASSWORD"] = "sclt ynbb hccb twta"   # SENHA SECRETA NÃO COMPARTILHAR NA DOCUMENTAÇÃO
+# site.config["MAIL_DEFAULT_SENDER"] = "octoleracc@gmail.com"
+
+# mail = flask_mail.Mail(site)
+
 
 #verifica as tabelas 
 codeBD.verify_tables()
@@ -97,6 +112,24 @@ def contato():
         return flask.render_template("contato.html")
     except:
         return flask.redirect(flask.url_for('error'))
+
+
+### USAR QUANDO A RECUPERAÇÃO DE CONTA FOR CRIADA ###
+# @site.route("/mensagem")
+# def mensagem():
+#     try:
+#         msg = flask_mail.Message(
+#             subject="Teste",
+#             recipients=[],
+#             body="Olá! Testando o Flask-Mail."
+#         )
+
+#         mail.send(msg)
+#         return "E-mail enviado com sucesso!"
+
+#     except Exception as erro:
+#         print("Erro ao enviar e-mail:", repr(erro))
+#         return "Falha ao enviar e-mail. Confira o terminal.", 500
 
 
 # Rota do login e verificação do Bypass, verifica se o email e a senha constam no banco de dados.
