@@ -5,7 +5,6 @@ import codeBD
 import secrets
 # Sessão de importações de bibliotecas e o import codeDB é o outro código python usado para CRUD do banco de dados
 
-
 ### CONFIGURACOES DO SITE NAO MEXA
 site = flask.Flask(__name__)
 site.secret_key = "3440e27a867ca2fbbfe2adf49cecd08a700764c43046d6c4c26d4ccf1143da49"
@@ -43,9 +42,11 @@ def home():
 def error():
     return flask.render_template("error_page.html")
 
+
 @site.route("/logout")
 def logout():
     return flask.render_template("logout.html")
+
 
 @site.route("/logout/button", methods=["POST"])
 def logout_button():
@@ -59,6 +60,7 @@ def mapa():
         return flask.render_template("map/trilha.html")
     except:
         return flask.redirect(flask.url_for('error'))
+
 
 @site.route("/perfil")
 def perfil():
@@ -75,12 +77,27 @@ def ofensiva():
     except:
         return flask.redirect(flask.url_for('error'))
 
-@site.route("/contato")
+
+@site.route("/contato", methods = ["POST", "GET"])
 def contato():
+    if flask.request.method == "POST":
+        name = flask.request.form["nome"]
+        email = flask.request.form["email"]
+        mensagem = flask.request.form["mensagem"]
+        connectbd = sqlite3.connect("dataBase.db")
+        sqlrunner = connectbd.cursor()
+                
+        sqlrunner.execute("""
+            INSERT INTO mensagens (nome,email,mensagem)
+            VALUES (?, ?, ?)
+        """,(name,email,mensagem))
+        connectbd.commit()
+        connectbd.close()
     try:
         return flask.render_template("contato.html")
     except:
         return flask.redirect(flask.url_for('error'))
+
 
 # Rota do login e verificação do Bypass, verifica se o email e a senha constam no banco de dados.
 @site.route("/login/aluno", methods=["GET", "POST"])
@@ -121,6 +138,7 @@ def login_professor():
         return flask.render_template("login/login-professor.html")
     except:
         return flask.redirect(flask.url_for('error'))
+
 
 # Rota de criação de contas e atualização delas no BD
 @site.route("/register/aluno", methods=["GET", "POST"])
@@ -190,7 +208,6 @@ def dashboard_professor():
         return flask.redirect(flask.url_for('error'))
 
 
-
 @site.route("/dashboard/aluno")
 def dashboard_aluno():
     try:
@@ -206,6 +223,7 @@ def atividades():
         return flask.render_template('map/atividades/atividades.html', fase=fase)
     except:
         return flask.redirect(flask.url_for('error'))
+
 
 # Condição que reconhece que o código está sendo rodado nesse arquivo como principal
 if __name__ == "__main__":

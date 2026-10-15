@@ -82,20 +82,35 @@
             <h2 class="titulo-login">Caixa de Correio 📬</h2>
             <p class="subtitulo-cadastro">Tem alguma dúvida ou quer nos mandar um desenho? Escreva sua cartinha abaixo!</p>
 
-            <form id="form-contato" action="{{ url_for('contato') }}" method="post">
+            <form id="form-contato" action="{{ url_for('contato') }}" method="POST">
                 <div class="dados">
                     <label for="nome-contato">Seu Nome:</label>
-                    <input type="text" id="nome-contato" placeholder="Quem está enviando a cartinha?" required />
+                    <input 
+                    type="text" 
+                    id="nome-contato" 
+                    placeholder="Quem está enviando a cartinha?" 
+                    name="nome" 
+                    required />
                 </div>
 
                 <div class="dados">
                     <label for="email-contato">E-mail para resposta:</label>
-                    <input type="email" id="email-contato" placeholder="E-mail do responsável" required />
+                    <input 
+                    type="email" 
+                    id="email-contato" 
+                    placeholder="E-mail do responsável" 
+                    name="email" 
+                    required />
                 </div>
 
                 <div class="dados">
                     <label for="mensagem">Sua Mensagem:</label>
-                    <textarea id="mensagem" rows="4" placeholder="Escreva aqui com muito carinho..." required></textarea>
+                    <textarea 
+                    id="mensagem" 
+                    rows="4" 
+                    placeholder="Escreva aqui com muito carinho..." 
+                    name="mensagem" 
+                    required></textarea>
                 </div>
 
                 <div class="btn-cadastrar">

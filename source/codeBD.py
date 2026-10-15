@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS alunos (
     senha TEXT NOR NULL
 );
 
+
 CREATE TABLE IF NOT EXISTS professores (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     id_session TEXT NOT NULL,
@@ -25,7 +26,16 @@ CREATE TABLE IF NOT EXISTS professores (
     disciplina TEXT
 );
 
+
+CREATE TABLE IF NOT EXISTS mensagens (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome TEXT NOT NULL,
+    email TEXT NOT NULL,
+    mensagem TEXT NOT NULL
+);
+
 """)
+
 
 # Função para procurar os dados dos alunos, com a senha em rash
 def searcher_aluno(x,y):
@@ -37,6 +47,7 @@ def searcher_aluno(x,y):
         aluno = sqlrunner.fetchone()
         return aluno is not None
 
+
 # Função para procurar os dados dos professores, com a senha em rash
 def searcher_professor(x,y):
     with sqlite3.connect(DB_PATH) as connectbd:
@@ -47,6 +58,7 @@ def searcher_professor(x,y):
         professor = sqlrunner.fetchone()
         return professor is not None
 
+
 # Função para buscar o id_session do aluno
 def searcher_aluno_id_session(x,y):
     with sqlite3.connect(DB_PATH) as connectbd:
@@ -56,6 +68,7 @@ def searcher_aluno_id_session(x,y):
 """,(x,y))
         id_session = sqlrunner.fetchone()
         return id_session is not None
+
 
 # Função para buscar o id_session do professor
 def searcher_professor_id_session(x,y):
