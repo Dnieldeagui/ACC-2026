@@ -8,12 +8,22 @@ def verify_tables():
     with sqlite3.connect(DB_PATH) as connectbd:
         sqlrunner = connectbd.cursor()
         sqlrunner.executescript("""
+CREATE TABLE IF NOT EXISTS turmas (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    num_turma TEXT NOT NULL,
+    link_turma TEXT NOT NULL
+);
+
+
 CREATE TABLE IF NOT EXISTS alunos (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     id_session TEXT NOT NULL,
     nome TEXT NOT NULL,
     email TEXT UNIQUE,
-    senha TEXT NOR NULL
+    senha TEXT NOT NULL,
+    turma_id INTEGER,
+
+    FOREIGN KEY (turma_id) REFERENCES turmas(id)
 );
 
 
@@ -23,7 +33,22 @@ CREATE TABLE IF NOT EXISTS professores (
     nome TEXT NOT NULL,
     email TEXT UNIQUE,
     senha TEXT NOT NULL,
-    disciplina TEXT
+    disciplina TEXT,
+    turma_id INTEGER,
+
+    FOREIGN KEY (turma_id) REFERENCES turmas(id)
+);
+
+
+CREATE TABLE IF NOT EXISTS atividades (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome TEXT NOT NULL,
+    link TEXT NOT NULL,
+    professor_id INTEGER NOT NULL,
+    turma_id INTEGER,
+
+    FOREIGN KEY (professor_id) REFERENCES professores(id),
+    FOREIGN KEY (turma_id) REFERENCES turmas(id)
 );
 
 
