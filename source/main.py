@@ -62,8 +62,25 @@ def logout_button():
     return flask.redirect(flask.url_for('home'))
 
 
-@site.route("/mapa")
+@site.route("/mapa", methods=["POST", "GET"])
 def mapa():
+    if flask.request.method == "POST":
+        nome = flask.request.form["atividade"]
+        link = flask.request.form["link"]
+        turma = flask.request.form["turma"]
+
+        id_session = flask.session.get("professor")
+        id_professor = codeBD.searcher_professor_id(id_session)
+
+        connectbd = sqlite3.connect("dataBase.db")
+        sqlrunner = connectbd.cursor()
+                
+        sqlrunner.execute("""
+            INSERT INTO atividades (nome, link, turma_id, professor_id)
+            VALUES (?, ?, ?, ?)
+        """,(nome, link, turma, id_professor))
+        connectbd.commit()
+        connectbd.close()
     try:
         return flask.render_template("map/trilha.html")
     except:

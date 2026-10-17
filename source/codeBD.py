@@ -92,7 +92,7 @@ def searcher_aluno_id_session(x,y):
     SELECT id_session FROM alunos WHERE email = ? AND senha = ?
 """,(x,y))
         id_session = sqlrunner.fetchone()
-        return id_session is not None
+        return id_session[0] if id_session else None
 
 
 # Função para buscar o id_session do professor
@@ -103,4 +103,28 @@ def searcher_professor_id_session(x,y):
     SELECT id_session FROM professores WHERE email = ? AND senha = ?
 """,(x,y))
         id_session = sqlrunner.fetchone()
-        return id_session is not None
+        return id_session[0] if id_session else None
+
+# Função para buscar o id do aluno através do session_id
+def searcher_aluno_id(id_session):
+    with sqlite3.connect(DB_PATH) as connectbd:
+        sqlrunner = connectbd.cursor()
+        sqlrunner.execute(
+            "SELECT id FROM alunos WHERE id_session = ?",
+            (id_session,)
+        )
+        resultado = sqlrunner.fetchone()
+        return resultado[0] if resultado else None
+
+
+# Função para buscar o id do professor através do session_id
+def searcher_professor_id(id_session):
+    with sqlite3.connect(DB_PATH) as connectbd:
+        sqlrunner = connectbd.cursor()
+        sqlrunner.execute(
+            "SELECT id FROM professores WHERE id_session = ?",
+            (id_session,)
+        )
+        resultado = sqlrunner.fetchone()
+        return resultado[0] if resultado else None
+
