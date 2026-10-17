@@ -89,16 +89,18 @@
         <div id="modal-link" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modal-link-titulo">
             <div class="modal-content">
                 <button id="btn-fechar-modal" class="modal-close" aria-label="Fechar" type="button">✕</button>
-                <h2 id="modal-link-titulo" class="titulo-login">Criar Atividade Personalizada</h2>
-                <p class="subtitulo-cadastro">Cole abaixo o link de uma atividade do WordWall para adicioná-la a esta trilha.</p>
-                <div class="dados">
-                    <label for="input-link">Link da atividade (WordWall)</label>
-                    <input type="url" id="input-link" placeholder="https://wordwall.net/pt/resource/..." autocomplete="off" />
-                </div>
-                <div class="modal-botoes">
-                    <button id="btn-confirmar-link" class="btn-primario" type="button">Confirmar</button>
-                    <button id="btn-limpar-link" class="btn-secundario" type="button">Limpar</button>
-                </div>
+                <h2 id="modal-link-titulo" class="titulo-login"> Criar Atividade Personalizada </h2>
+                <p class="subtitulo-cadastro"> Cole abaixo o link de uma atividade do WordWall para adicioná-la a esta trilha. </p>
+                <form id="form-link" action="{{ url_for('mapa') }}" method="POST">
+                    <div class="dados">
+                        <label for="input-link">Link da atividade (WordWall)</label>
+                        <input type="url" id="input-link" name="link" placeholder="https://wordwall.net/pt/resource/..." autocomplete="off" required>
+                    </div>
+                    <div class="modal-botoes">
+                        <button id="btn-confirmar-link" class="btn-primario" type="submit">Confirmar</button>
+                        <button id="btn-limpar-link" class="btn-secundario" type="button">Limpar</button>
+                    </div>
+                </form>
                 <p id="modal-feedback" class="modal-feedback"></p>
             </div>
         </div>
