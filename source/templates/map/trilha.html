@@ -93,11 +93,15 @@
                 <p class="subtitulo-cadastro"> Cole abaixo o link de uma atividade do WordWall para adicioná-la a esta trilha. </p>
                 <form id="form-link" action="{{ url_for('mapa') }}" method="POST">
                     <div class="dados">
+                        <label for="input-nome">Nome da atividade</label>
+                        <input type="text" id="input-nome" name="atividade" placeholder="Ex.: Sinônimos" autocomplete="off" required>
+                    </div>
+                    <div class="dados">
                         <label for="input-link">Link da atividade (WordWall)</label>
                         <input type="url" id="input-link" name="link" placeholder="https://wordwall.net/pt/resource/..." autocomplete="off" required>
                     </div>
                     <div class="dados">
-                        <label for="input-link">Turma</label>
+                        <label for="input-turma">Turma</label>
                         <input type="text" id="input-turma" name="turma" placeholder="Ex.: 1" autocomplete="off" required>
                     </div>
                     <div class="modal-botoes">

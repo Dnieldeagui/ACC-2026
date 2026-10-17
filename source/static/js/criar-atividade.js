@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnLimpar    = document.getElementById('btn-limpar-link');    // botão "Limpar"
     const inputLink    = document.getElementById('input-link');         // campo do link
     const inputTurma = document.getElementById('input-turma')           // campo da Turma
+    const inputNome = document.getElementById('input-nome');            // campo do Nome da atividade
     const feedback     = document.getElementById('modal-feedback');     // mensagem de feedback
 
     // Abre a janela.
@@ -45,30 +46,31 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Botão "Confirmar": valida o link e salva
-btnConfirmar.addEventListener('click', (e) => {
-        e.preventDefault();
+    btnConfirmar.addEventListener('click', (e) => {
+    e.preventDefault();
 
-        const link = inputLink.value.trim();
-        const turma = inputTurma.value.trim();
+    const nome = inputNome.value.trim();
+    const link = inputLink.value.trim();
+    const turma = inputTurma.value.trim();
 
-        // Verifica se os campos estão preenchidos
-        if (!link || !turma) {
-            feedback.textContent = '⚠️ Preencha o link e a turma.';
-            feedback.style.color = '#e74c3c';
-            feedback.classList.add('show');
-            return;
-        }
+    // Verifica se todos os campos estão preenchidos
+    if (!nome || !link || !turma) {
+        feedback.textContent = '⚠️ Preencha o nome, o link e a turma.';
+        feedback.style.color = '#e74c3c';
+        feedback.classList.add('show');
+        return;
+    }
 
-        // Verifica se o link é do WordWall
-        const pareceWordwall =
-            /^https?:\/\/(www\.)?wordwall\.net\//i.test(link);
+    // Verifica se o link é do WordWall
+    const pareceWordwall =
+        /^https?:\/\/(www\.)?wordwall\.net\//i.test(link);
 
-        if (!pareceWordwall) {
-            feedback.textContent = '⚠️ Esse link não parece ser do WordWall.';
-            feedback.style.color = '#e74c3c';
-            feedback.classList.add('show');
-            return;
-        }
+    if (!pareceWordwall) {
+        feedback.textContent = '⚠️ Esse link não parece ser do WordWall.';
+        feedback.style.color = '#e74c3c';
+        feedback.classList.add('show');
+        return;
+    }
 
         // Envia o formulário somente após as validações
         document.getElementById('form-link').submit();
