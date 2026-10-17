@@ -31,10 +31,10 @@ codeBD.verify_tables()
 @site.route("/")
 def home():
     # Condicional para ver autenticar se o aluno esta logado e redireciona-lo para o dashboard
+    
     if "aluno" in flask.session:
-        aluno = flask.session["aluno"]
         try: 
-            return flask.redirect(flask.url_for('dashboard_aluno'))
+            return str(id_aluno)
         except:
             return flask.redirect(flask.url_for('error'))
         
@@ -133,6 +133,8 @@ def login_aluno():
     if flask.request.method == "POST":
         email = flask.request.form["email"]
         senha = hashlib.sha256(flask.request.form["senha"].encode("utf-8")).hexdigest()
+        id_session = codeBD.searcher_aluno_id_session(email, senha)
+        flask.session["aluno"] = id_session
 
         if codeBD.searcher_aluno(email,senha):
             aluno = codeBD.searcher_aluno_id_session(email,senha)
@@ -154,6 +156,8 @@ def login_professor():
     if flask.request.method == "POST":
         email = flask.request.form["email"]
         senha = hashlib.sha256(flask.request.form["senha"].encode("utf-8")).hexdigest()
+        id_session = codeBD.searcher_professor_id_session(email, senha)
+        flask.session["professor"] = id_session
 
         if codeBD.searcher_professor(email,senha):
             professor = codeBD.searcher_professor_id_session(email,senha)

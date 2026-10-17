@@ -85,22 +85,44 @@ def searcher_professor(x,y):
 
 
 # Função para buscar o id_session do aluno
-def searcher_aluno_id_session(x,y):
+def searcher_aluno_id_session(email, senha):
     with sqlite3.connect(DB_PATH) as connectbd:
         sqlrunner = connectbd.cursor()
-        sqlrunner.execute("""
-    SELECT id_session FROM alunos WHERE email = ? AND senha = ?
-""",(x,y))
-        id_session = sqlrunner.fetchone()
-        return id_session is not None
+        sqlrunner.execute(
+            "SELECT id_session FROM alunos WHERE email = ? AND senha = ?",
+            (email, senha)
+        )
+        resultado = sqlrunner.fetchone()
+        return resultado[0] if resultado else None
 
 
 # Função para buscar o id_session do professor
-def searcher_professor_id_session(x,y):
+def searcher_professor_id_session(email, senha):
     with sqlite3.connect(DB_PATH) as connectbd:
         sqlrunner = connectbd.cursor()
-        sqlrunner.execute("""
-    SELECT id_session FROM professores WHERE email = ? AND senha = ?
-""",(x,y))
-        id_session = sqlrunner.fetchone()
-        return id_session is not None
+        sqlrunner.execute(
+            "SELECT id_session FROM professores WHERE email = ? AND senha = ?",
+            (email, senha)
+        )
+        resultado = sqlrunner.fetchone()
+        return resultado[0] if resultado else None
+
+def searcher_aluno_id(id_session):
+    with sqlite3.connect(DB_PATH) as connectbd:
+        sqlrunner = connectbd.cursor()
+        sqlrunner.execute(
+            "SELECT id FROM alunos WHERE id_session = ?",
+            (id_session,)
+        )
+        resultado = sqlrunner.fetchone()
+        return resultado[0] if resultado else None
+
+def searcher_professor_id(id_session):
+    with sqlite3.connect(DB_PATH) as connectbd:
+        sqlrunner = connectbd.cursor()
+        sqlrunner.execute(
+            "SELECT id FROM professores WHERE id_session = ?",
+            (id_session,)
+        )
+        resultado = sqlrunner.fetchone()
+        return resultado[0] if resultado else None
