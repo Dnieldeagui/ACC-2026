@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnConfirmar = document.getElementById('btn-confirmar-link'); // botão "Confirmar"
     const btnLimpar    = document.getElementById('btn-limpar-link');    // botão "Limpar"
     const inputLink    = document.getElementById('input-link');         // campo do link
+    const inputTurma = document.getElementById('input-turma')           // campo da Turma
     const feedback     = document.getElementById('modal-feedback');     // mensagem de feedback
 
     // Abre a janela.
@@ -44,25 +45,34 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Botão "Confirmar": valida o link e salva
-    btnConfirmar.addEventListener('click', () => {
-        const link = inputLink.value.trim();
+btnConfirmar.addEventListener('click', (e) => {
+        e.preventDefault();
 
-        // Campo vazio
-        if (!link) {
-            feedback.textContent = '⚠️ Cole um link antes de confirmar.';
+        const link = inputLink.value.trim();
+        const turma = inputTurma.value.trim();
+
+        // Verifica se os campos estão preenchidos
+        if (!link || !turma) {
+            feedback.textContent = '⚠️ Preencha o link e a turma.';
             feedback.style.color = '#e74c3c';
             feedback.classList.add('show');
             return;
         }
 
-        // Confere se o link é do WordWall (precisa começar com wordwall.net)
-        const pareceWordwall = /^https?:\/\/(www\.)?wordwall\.net\//i.test(link);
+        // Verifica se o link é do WordWall
+        const pareceWordwall =
+            /^https?:\/\/(www\.)?wordwall\.net\//i.test(link);
+
         if (!pareceWordwall) {
             feedback.textContent = '⚠️ Esse link não parece ser do WordWall.';
             feedback.style.color = '#e74c3c';
             feedback.classList.add('show');
             return;
         }
+
+        // Envia o formulário somente após as validações
+        document.getElementById('form-link').submit();
+
 
         // Salva o link na memória do navegador
         // (localStorage mantém o valor mesmo se fechar a página)
