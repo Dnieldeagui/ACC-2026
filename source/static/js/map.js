@@ -1,43 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- LÓGICA DE CONFIGURAÇÕES (SUA ORIGINAL) ---
-    const btnSettings = document.getElementById('btn-settings');
-    const settingsDropdown = document.getElementById('settings-dropdown');
-
-    btnSettings.addEventListener('click', (e) => {
-        e.stopPropagation();
-        settingsDropdown.classList.toggle('hidden');
-    });
-
-    document.addEventListener('click', (e) => {
-        if (!settingsDropdown.contains(e.target) && !btnSettings.contains(e.target)) {
-            settingsDropdown.classList.add('hidden');
-        }
-    });
-
-    const themeSwitch = document.querySelector('#checkbox');
-    themeSwitch.addEventListener('change', (e) => {
-        document.body.classList.toggle('dark-mode', e.target.checked);
-        localStorage.setItem('theme', e.target.checked ? 'dark-mode' : 'light-mode');
-    });
-
-    const dyslexiaSwitch = document.querySelector('#dyslexia-checkbox');
-    dyslexiaSwitch.addEventListener('change', (e) => {
-        document.body.classList.toggle('dyslexia-mode', e.target.checked);
-        localStorage.setItem('accessibility', e.target.checked ? 'dyslexia-mode' : 'standard');
-    });
-
-    // Manter estados ao carregar
-    if (localStorage.getItem('theme') === 'dark-mode') {
-        document.body.classList.add('dark-mode');
-        themeSwitch.checked = true;
-    }
-    if (localStorage.getItem('accessibility') === 'dyslexia-mode') {
-        document.body.classList.add('dyslexia-mode');
-        dyslexiaSwitch.checked = true;
-    }
-
-    // --- LÓGICA FUNCIONAL DO MAPA ---
     const mapa = document.getElementById('mapa-trilha');
+    if (!mapa) return;
+
     const totalFases = 15;
     const totalFuncional = 2; // só até aqui a trilha é jogável; 3-15 ficam só de exibição
 
@@ -53,7 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const bloco = Math.ceil(i / 5);
         const isCheckpoint = i % 5 === 0;
 
-        // Define a primeira como atual, as outras bloqueadas
         if (i === 1) {
             node.className = `map-node node-current bloco-${bloco}`;
             node.innerText = '1';
@@ -68,8 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
         mapa.appendChild(wrapper);
     }
 
-    // Se voltou da página de atividades tendo concluído uma fase
-    // (roda uma única vez, ao carregar a página — fora de clicarFase)
     const faseConcluidaAgora = Number(localStorage.getItem('faseConcluida'));
     if (faseConcluidaAgora) {
         const nodeConcluido = document.getElementById(`fase-${faseConcluidaAgora}`);
@@ -89,14 +50,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function clicarFase(n) {
         const node = document.getElementById(`fase-${n}`);
-
         if (node.classList.contains('node-current')) {
-            // Redireciona para a página de atividades da fase
-            // === INÍCIO DA ALTERAÇÃO ===
             window.location.href = `/trilhas/atividades?fase=${n}`;
-            // === FIM DA ALTERAÇÃO ===
         } else if (node.classList.contains('node-locked')) {
-            // Animação de erro (shake seu original)
             node.style.animation = 'shake 0.4s';
             setTimeout(() => node.style.animation = '', 400);
         }

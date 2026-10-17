@@ -2,20 +2,19 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OCTOLER - Atividades</title>
-        <script>
+    <script>
         (function() {
             const currentTheme = localStorage.getItem('theme');
-            if (currentTheme) {
-                document.documentElement.classList.add(currentTheme);
-            }
+            if (currentTheme) document.documentElement.classList.add(currentTheme);
         })();
     </script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&family=Lexend:wght@400;700&display=swap" rel="stylesheet">
     <script src="{{ url_for('static', filename='js/auth.js')}}"></script>
     <script src="{{ url_for('static', filename='js/auth-guard.js')}}"></script>
-    <script src="{{ url_for('static', filename='js/theme.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/config.js')}}"></script>
     <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='pages/images/Otto-minimal.png') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='pages/images/Otto-minimal.png') }}">
     <link rel="icon" type="image/png" sizes="192x192" href="{{ url_for('static', filename='pages/images/Otto-minimal.png') }}">
@@ -23,25 +22,26 @@
 <body>
     <header id="area-cabecalho">
         <div class="container-topo">
-             <div class="container-topo">
             <div class="logo-container">
                 <div id="area-logo">
-                    <h1>OCTO<span class="destaque">LER</span></h1>
+                    <a href="{{ url_for('home') }}" class="link-octoler"><h1>OCTO<span class="destaque">LER</span></h1></a>
                 </div>
             </div>
             
             <nav id="area-menu">
-                <a href="{{ url_for('home')}}" class="ativo">Início</a>
-                <a href="{{ url_for('mapa')}}">Trilhas</a>
-                <a href="{{ url_for('contato')}}">Contato</a>
+                <!-- Esse IF pertence ao JINJA2, motor do FLASK no python -->
+                {% if session.get('aluno') or session.get('professor') %}
+                {% set pagina = request.endpoint or '' %}
+                <a href="{{ url_for('home') }}" class="{% if pagina == 'home' %}ativo{% endif %}">Início</a>
+                <a href="{{ url_for('mapa') }}" class="{% if pagina == 'mapa' or 'trilha' in pagina or 'atividades' in pagina %}ativo{% endif %}">Trilhas</a>
+                <a href="{{ url_for('contato') }}" class="{% if pagina == 'contato' %}ativo{% endif %}">Contato</a>
+                {% endif %}
             </nav>
 
             <div class="settings-container">
                 <button id="btn-settings" class="btn-icon" aria-label="Configurações">⚙️</button>
-                
                 <div id="settings-dropdown" class="dropdown-menu hidden">
                     <p class="dropdown-title">Configurações</p>
-                    
                     <div class="config-item">
                         <span>Modo Noturno</span>
                         <label class="theme-switch" for="checkbox">
@@ -52,7 +52,6 @@
                             </div>
                         </label>
                     </div>
-
                     <div class="config-item mt-10">
                         <span>Fonte Acessível</span>
                         <label class="theme-switch" for="dyslexia-checkbox">
@@ -63,31 +62,23 @@
                             </div>
                         </label>
                     </div>
-                    <!-- Esse IF pertence ao JINJA2, motor do FLASK no python -->
                     {% if session.get('aluno') or session.get('professor') %}
-                        <div class="config-item mt-10"></div>   
+                        <div class="config-item mt-10">
                             <span>Logout</span>
-                            <form action="{{ url_for('logout_button') }}" method="POST">
-                                <button type="button" class="btn-logout-nav" onclick="window.location.href='/logout'">
-                                    ❌
-                                </button>
-                            </form>
+                            <button type="button" id="btn-logout" class="btn-logout-nav">Sair →</button>
                         </div>
                     {% endif %}
                 </div>
             </div>
-        </div>
         </div>
     </header>
 
     <main id="area-atividade">
         <h2 id="titulo-atividade">Carregando...</h2>
         <div id="progresso-atividades" class="progresso-atividades"></div>
-
         <div class="iframe-wrapper">
             <iframe id="iframe-jogo" src="" allowfullscreen></iframe>
         </div>
-
         <button id="btn-proxima" class="btn-primario">Próxima atividade →</button>
     </main>
 

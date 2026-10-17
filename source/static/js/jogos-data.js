@@ -8,5 +8,34 @@ const jogosWordwall = {
     2: [
         { titulo: 'TESTE DE CRIAÇAO placeholder', embedUrl: 'https://wordwall.net/pt/embed/3c6fceefae414626be92a7b8f8b68235?themeId=1&templateId=8&fontStackId=0' },
         { titulo: 'TESTE DE CRIAÇAO placeholder', embedUrl: 'https://wordwall.net/pt/embed/3c6fceefae414626be92a7b8f8b68235?themeId=1&templateId=8&fontStackId=0' },       
-    ]
+    ],
+    3: [
+        { titulo: 'Sons/Sílabas',  embedUrl: 'https://wordwall.net/pt/embed/f66c48decb38401b80eac7e85eb9492d?themeId=52&templateId=70&fontStackId=0' },
+        { titulo: 'Jogo de Associação',embedUrl:'https://wordwall.net/pt/embed/fb690bf769db4c98b1f4e62a0d325778?themeId=66&templateId=3&fontStackId=0' },
+        { titulo:'Abra a caixa',embedUrl:'https://wordwall.net/pt/embed/94bceabcf75540f59b19376533849121?themeId=66&templateId=30&fontStackId=0'},
+    ],
+    4: [
+        { titulo: 'TESTE DE CRIAÇAO placeholder', embedUrl: 'https://wordwall.net/pt/embed/3c6fceefae414626be92a7b8f8b68235?themeId=1&templateId=8&fontStackId=0' },
+        { titulo: 'TESTE DE CRIAÇAO placeholder', embedUrl: 'https://wordwall.net/pt/embed/3c6fceefae414626be92a7b8f8b68235?themeId=1&templateId=8&fontStackId=0' },       
+    ],
+    5: [
+        { titulo: 'Sons/Sílabas',  embedUrl: 'https://wordwall.net/pt/embed/f66c48decb38401b80eac7e85eb9492d?themeId=52&templateId=70&fontStackId=0' },
+        { titulo: 'Jogo de Associação',embedUrl:'https://wordwall.net/pt/embed/fb690bf769db4c98b1f4e62a0d325778?themeId=66&templateId=3&fontStackId=0' },
+        { titulo:'Abra a caixa',embedUrl:'https://wordwall.net/pt/embed/94bceabcf75540f59b19376533849121?themeId=66&templateId=30&fontStackId=0'},
+    ],
+    6: [
+        { titulo: 'TESTE DE CRIAÇAO placeholder', embedUrl: 'https://wordwall.net/pt/embed/3c6fceefae414626be92a7b8f8b68235?themeId=1&templateId=8&fontStackId=0' },
+        { titulo: 'TESTE DE CRIAÇAO placeholder', embedUrl: 'https://wordwall.net/pt/embed/3c6fceefae414626be92a7b8f8b68235?themeId=1&templateId=8&fontStackId=0' },       
+    ],
+    7: [
+        { titulo: 'Sons/Sílabas',  embedUrl: 'https://wordwall.net/pt/embed/f66c48decb38401b80eac7e85eb9492d?themeId=52&templateId=70&fontStackId=0' },
+        { titulo: 'Jogo de Associação',embedUrl:'https://wordwall.net/pt/embed/fb690bf769db4c98b1f4e62a0d325778?themeId=66&templateId=3&fontStackId=0' },
+        { titulo:'Abra a caixa',embedUrl:'https://wordwall.net/pt/embed/94bceabcf75540f59b19376533849121?themeId=66&templateId=30&fontStackId=0'},
+    ],
+    8: [
+        { titulo: 'TESTE DE CRIAÇAO placeholder', embedUrl: 'https://wordwall.net/pt/embed/3c6fceefae414626be92a7b8f8b68235?themeId=1&templateId=8&fontStackId=0' },
+        { titulo: 'TESTE DE CRIAÇAO placeholder', embedUrl: 'https://wordwall.net/pt/embed/3c6fceefae414626be92a7b8f8b68235?themeId=1&templateId=8&fontStackId=0' },       
+    ],
+
     };
+    
