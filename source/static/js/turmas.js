@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const isProfessor = divDados ? divDados.dataset.professor === 'true' : false;
     const loggedUser = divDados ? divDados.dataset.nome : 'Usuário';
     const turmas = divDados ? JSON.parse(divDados.dataset.turmas || '[]') : [];
+    const atividades = divDados ? JSON.parse(divDados.dataset.atividades || '[]') : [];
 
     // Usei o localStorage (memória do navegador)
     // para simular o banco de dados de turmas. Quando o backend estiver pronto,
@@ -84,10 +85,10 @@ document.addEventListener('DOMContentLoaded', () => {
             listaAluno.innerHTML += `
                 <div class="turma-card">
                     <div>
-                        <strong>${t[0]} - ${t[1]}</strong><br>
+                        <strong>${t[1]} - ${t[2]}</strong><br>
                         <span style="font-size: 0.9em; color: var(--text-muted);">Prof. ${loggedUser}</span>
                     </div>
-                    <div class="codigo-turma">${t[2]}</div>
+                    <div class="codigo-turma">${t[3]}</div>
                 </div>
             `;
         });
@@ -111,10 +112,10 @@ document.addEventListener('DOMContentLoaded', () => {
             listaProf.innerHTML += `
                 <div class="turma-card">
                     <div>
-                        <strong>${t[0]} - ${t[1]}</strong><br>
+                        <strong>${t[1]} - ${t[2]}</strong><br>
                         <span style="font-size: 0.9em; color: var(--text-muted);">Código para os alunos:</span>
                     </div>
-                    <div class="codigo-turma">${t[2]}</div>
+                    <div class="codigo-turma">${t[3]}</div>
                 </div>
             `;
         });
@@ -139,19 +140,57 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        // Se o professor tem turma, mas ainda não criou atividades
         if (isProfessor) {
             tituloAtv.innerText = "Suas Atividades Criadas";
-            // Se for professor, adiciona o botão que aciona o modal de criar atividade
-            box.innerHTML = `
-                <p style="color: var(--text-muted); line-height: 1.5; margin-bottom: 15px;">Você ainda não criou nenhuma atividade para suas turmas.</p>
-                <button onclick="document.getElementById('btn-abrir-link').click()" class="btn-primario">+ Criar Nova Atividade</button>
+            
+            let htmlAtividades = '';
+
+            if (atividades.length === 0) {
+                htmlAtividades = `<p style="color: var(--text-muted); line-height: 1.5; margin-bottom: 15px;">Você ainda não criou nenhuma atividade para suas turmas.</p>`;
+            } else {
+                // Monta o card de cada atividade do professor
+                atividades.forEach(a => {
+                    htmlAtividades += `
+                        <div class="turma-card" style="margin-bottom: 10px; align-items: center;">
+                            <div>
+                                <strong>${a[0]}</strong><br>
+                                <span style="font-size: 0.9em; color: var(--text-muted);">Turma: ${a[2]} - ${a[3]}</span>
+                            </div>
+                            <a href="${a[1]}" target="_blank" class="btn-secundario" style="text-decoration: none; font-size: 0.8em; padding: 5px 10px;">Acessar</a>
+                        </div>
+                    `;
+                });
+            }
+
+            box.innerHTML = htmlAtividades + `
+                <button onclick="document.getElementById('btn-abrir-link').click()" class="btn-primario" style="margin-top: 15px;">+ Criar Nova Atividade</button>
             `;
+            
         } else {
+            // É ALUNO
             tituloAtv.innerText = "Atividades dos Professores";
-            box.innerHTML = `<p style="color: var(--text-muted); line-height: 1.5;">Seus professores ainda não postaram atividades para esta turma.</p>`;
+            
+            if (atividades.length === 0) {
+                box.innerHTML = `<p style="color: var(--text-muted); line-height: 1.5;">Seus professores ainda não postaram atividades para esta turma.</p>`;
+            } else {
+                // Monta o card de cada atividade para o aluno
+                let html = '';
+                atividades.forEach(a => {
+                    html += `
+                        <div class="turma-card" style="margin-bottom: 10px; align-items: center;">
+                            <div>
+                                <strong>${a[0]}</strong><br>
+                                <span style="font-size: 0.9em; color: var(--text-muted);">Prof. ${a[2]}</span>
+                            </div>
+                            <a href="${a[1]}" target="_blank" class="btn-primario" style="text-decoration: none; font-size: 0.8em; padding: 8px 15px;">Jogar</a>
+                        </div>
+                    `;
+                });
+                box.innerHTML = html;
+            }
         }
     }
-
     // Função geral que chama todas as renderizações
     function renderizarTudo() {
         renderizarTurmas();

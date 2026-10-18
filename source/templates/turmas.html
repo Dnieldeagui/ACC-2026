@@ -95,7 +95,8 @@
     <div id="dados-usuario" class="hidden" 
          data-professor="{{ 'true' if session.get('professor') else 'false' }}" 
          data-nome="{{ nome_professor }}"
-         data-turmas='{{ turmas | tojson }}'>
+         data-turmas='{{ turmas | tojson }}'
+         data-atividades='{{ atividades | tojson }}'>
     </div>
 
     <!-- Área Principal com dois quadrados -->
@@ -220,7 +221,12 @@
                     </div>
                     <div class="dados">
                         <label for="input-turma">Turma</label>
-                        <input type="text" id="input-turma" name="turma" placeholder="Ex.: 1º Ano A" required>
+                        <select id="input-turma" name="turma" required style="width: 100%; padding: 10px; border-radius: 8px; background-color: var(--bg-input); color: var(--text-color); border: 1px solid var(--border-color);">
+                            <option value="" disabled selected>Selecione uma turma...</option>
+                            {% for t in turmas %}
+                                <option value="{{ t[0] }}">{{ t[1] }} - {{ t[2] }}</option>
+                            {% endfor %}
+                        </select>
                     </div>
                     <div class="modal-botoes">
                         <button id="btn-confirmar-link" class="btn-primario" type="submit">Confirmar</button>

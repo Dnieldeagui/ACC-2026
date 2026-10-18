@@ -12,21 +12,10 @@ def gerar_codigo():
     caracteres = string.ascii_uppercase + string.digits
     return ''.join(secrets.choice(caracteres) for _ in range(6))
 
+
 ### CONFIGURACOES DO SITE NAO MEXA
 site = flask.Flask(__name__)
 site.secret_key = "3440e27a867ca2fbbfe2adf49cecd08a700764c43046d6c4c26d4ccf1143da49"
-
-## CONFIGURAÇÃO DO FLASK_MAIL
-### USAR QUANDO A RECUPERAÇÃO DE CONTA FOR CRIADA ###
-# site.config["MAIL_SERVER"] = "smtp.gmail.com"
-# site.config["MAIL_PORT"] = 587
-# site.config["MAIL_USE_TLS"] = True
-# site.config["MAIL_USE_SSL"] = False
-# site.config["MAIL_USERNAME"] = "octoleracc@gmail.com"
-# site.config["MAIL_PASSWORD"] = "sclt ynbb hccb twta"   # SENHA SECRETA NÃO COMPARTILHAR NA DOCUMENTAÇÃO
-# site.config["MAIL_DEFAULT_SENDER"] = "octoleracc@gmail.com"
-
-# mail = flask_mail.Mail(site)
 
 
 #verifica as tabelas 
@@ -86,6 +75,9 @@ def mapa():
         """,(nome, link, turma, id_professor))
         connectbd.commit()
         connectbd.close()
+
+
+
     try:
         return flask.render_template("map/trilha.html")
     except:
@@ -127,24 +119,6 @@ def contato():
         return flask.render_template("contato.html")
     except:
         return flask.redirect(flask.url_for('error'))
-
-
-### USAR QUANDO A RECUPERAÇÃO DE CONTA FOR CRIADA ###
-# @site.route("/mensagem")
-# def mensagem():
-#     try:
-#         msg = flask_mail.Message(
-#             subject="Teste",
-#             recipients=[],
-#             body="Olá! Testando o Flask-Mail."
-#         )
-
-#         mail.send(msg)
-#         return "E-mail enviado com sucesso!"
-
-#     except Exception as erro:
-#         print("Erro ao enviar e-mail:", repr(erro))
-#         return "Falha ao enviar e-mail. Confira o terminal.", 500
 
 
 # Rota do login e verificação do Bypass, verifica se o email e a senha constam no banco de dados.
@@ -307,17 +281,32 @@ def turmas():
 
         # GET
         turmas = []
+        atividades_aluno = []
+        
         if id_aluno:
+            # Busca as turmas
             sqlrunner.execute("""
-                SELECT t.ano, t.disciplina, t.codigo
+                SELECT t.id, t.ano, t.disciplina, t.codigo
                 FROM turmas t
                 JOIN alunos_turmas at ON at.turma_id = t.id
                 WHERE at.aluno_id = ?
             """, (id_aluno,))
             turmas = sqlrunner.fetchall()
+
+            # Busca as atividades (NOVO)
+            sqlrunner.execute("""
+                SELECT a.nome, a.link, p.nome 
+                FROM atividades a
+                JOIN turmas t ON t.id = a.turma_id
+                JOIN alunos_turmas at ON at.turma_id = t.id
+                JOIN professores p ON p.id = a.professor_id
+                WHERE at.aluno_id = ?
+            """, (id_aluno,))
+            atividades_aluno = sqlrunner.fetchall()
+
         connectbd.close()
 
-        return flask.render_template("turmas.html", nome_professor=nome_aluno, turmas=turmas)
+        return flask.render_template("turmas.html", nome_professor=nome_aluno, turmas=turmas, atividades=atividades_aluno)
 
     # PROFESSOR 
     elif "professor" in flask.session:
@@ -346,15 +335,24 @@ def turmas():
         connectbd = sqlite3.connect("dataBase.db")
         sqlrunner = connectbd.cursor()
         sqlrunner.execute("""
-            SELECT ano, disciplina, codigo FROM turmas WHERE professor_id = ?
+            SELECT id, ano, disciplina, codigo FROM turmas WHERE professor_id = ?
         """, (id_professor,))
         turmas = sqlrunner.fetchall()
+
+        sqlrunner.execute("""
+            SELECT a.nome, a.link, t.ano, t.disciplina
+            FROM atividades a
+            JOIN turmas t ON t.id = a.turma_id
+            WHERE a.professor_id = ?
+        """, (id_professor,))
+        atividades_prof = sqlrunner.fetchall()
+        
         connectbd.close()
 
-        return flask.render_template("turmas.html", nome_professor=professor, turmas=turmas)
+        return flask.render_template("turmas.html", nome_professor=professor, turmas=turmas, atividades=atividades_prof)
 
     #  SEM LOGIN 
-    return flask.render_template("turmas.html", nome_professor="Usuário", turmas=[])
+    return flask.render_template("turmas.html", nome_professor="Usuário", turmas=[], atividades=[])
 
 
 @site.route("/perfil/aluno", methods=["POST", "GET"])
@@ -507,7 +505,6 @@ def perfil_professor():
             return flask.redirect(flask.url_for('perfil_professor')) 
 
     return flask.render_template("profile/perfil-professor.html", nome=professor_nome, email=professor_email, disciplina=professor_disciplina)
-
 
 
 # Condição que reconhece que o código está sendo rodado nesse arquivo como principal
