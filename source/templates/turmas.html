@@ -91,7 +91,8 @@
     -->
     <div id="dados-usuario" class="hidden" 
          data-professor="{{ 'true' if session.get('professor') else 'false' }}" 
-         data-nome="Usuário">
+         data-nome="{{ nome_professor }}"
+         data-turmas='{{ turmas | tojson }}'>
     </div>
 
     <!-- Área Principal com dois quadrados -->
@@ -133,33 +134,37 @@
                     <h3 id="titulo-turmas-prof" style="margin-bottom: 15px;">Suas Turmas</h3>
 
                     <!-- Formulário de criação de turma (se não tiver nenhuma) -->
+                    <form action="{{ url_for('turmas') }}" method="POST">
                     <div id="prof-sem-turma">
                         <p style="color: var(--text-muted); margin-bottom: 15px;">Preencha os dados abaixo para gerar um código único.</p>
                         <div class="dados">
                             <label>Ano / Série:</label>
-                            <input type="text" id="input-ano" placeholder="Ex: 1º Ano" required>
+                            <input type="text" name="ano" id="input-ano" placeholder="Ex: 1º Ano" required>
                         </div>
                         <div class="dados">
                             <label>Disciplina:</label>
-                            <input type="text" id="input-disciplina" placeholder="Ex: Matemática" required>
+                            <input type="text" name="disciplina" id="input-disciplina" placeholder="Ex: Matemática" required>
                         </div>
-                        <button onclick="profCriarTurma()" class="btn-primario">Criar Turma</button>
+                        <button type="button" onclick="profCriarTurma()" class="btn-primario">Criar Turma</button>
                     </div>
+                    </form>
                     
                     <!-- Lista de turmas criadas -->
                     <div id="prof-com-turma" class="hidden">
                         <div id="lista-turmas-prof"></div>
                         <button onclick="mostrarFormProf()" class="btn-secundario" style="margin-top: 15px;">+ Criar nova turma</button>
                         <!-- Formulário escondido para criar turma extra -->
+                        <form action="{{ url_for('turmas') }}" method="POST">
                         <div id="form-nova-turma-prof" class="hidden" style="margin-top: 15px;">
                             <div class="dados">
-                                <input type="text" id="input-ano-novo" placeholder="Ano / Série" required>
+                                <input type="text" name="ano" id="input-ano-novo" placeholder="Ano / Série" required>
                             </div>
                             <div class="dados">
-                                <input type="text" id="input-disciplina-nova" placeholder="Disciplina" required>
+                                <input type="text" name="disciplina" id="input-disciplina-nova" placeholder="Disciplina" required>
                             </div>
-                            <button onclick="profCriarTurma(true)" class="btn-primario">Gerar Código e Criar</button>
+                            <button type="button" onclick="profCriarTurma(true)" class="btn-primario">Gerar Código e Criar</button>
                         </div>
+                        </form> 
                     </div>
                 </div>
             </div>

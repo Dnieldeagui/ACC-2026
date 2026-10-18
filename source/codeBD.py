@@ -8,10 +8,24 @@ def verify_tables():
     with sqlite3.connect(DB_PATH) as connectbd:
         sqlrunner = connectbd.cursor()
         sqlrunner.executescript("""
+
+CREATE TABLE IF NOT EXISTS alunos_turmas (
+    aluno_id INTEGER NOT NULL,
+    turma_id INTEGER NOT NULL,
+    PRIMARY KEY (aluno_id, turma_id),
+    FOREIGN KEY (aluno_id) REFERENCES alunos(id),
+    FOREIGN KEY (turma_id) REFERENCES turmas(id)
+);
+
+
 CREATE TABLE IF NOT EXISTS turmas (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    num_turma TEXT NOT NULL,
-    link_turma TEXT NOT NULL
+    ano TEXT NOT NULL,
+    disciplina TEXT NOT NULL,
+    codigo TEXT NOT NULL,
+    professor_id TEXT NOT NULL,
+
+    FOREIGN KEY (professor_id) REFERENCES professores(id)
 );
 
 
@@ -128,4 +142,13 @@ def searcher_professor_id(id_session):
         resultado = sqlrunner.fetchone()
         return resultado[0] if resultado else None
 
+def searcher_professor_nome(id):
+    with sqlite3.connect(DB_PATH) as connectbd:
+        sqlrunner = connectbd.cursor()
+        sqlrunner.execute(
+            "SELECT nome FROM professores WHERE id = ?",
+            (id,)
+        )
+        resultado = sqlrunner.fetchone()
+        return resultado[0] if resultado else None
 

@@ -4,8 +4,13 @@ import flask
 import hashlib
 import codeBD
 import secrets
+import string
 ### USAR QUANDO A RECUPERAÇÃO DE CONTA FOR CRIADA ###
 # import flask_mail
+
+def gerar_codigo():
+    caracteres = string.ascii_uppercase + string.digits
+    return ''.join(secrets.choice(caracteres) for _ in range(6))
 
 ### CONFIGURACOES DO SITE NAO MEXA
 site = flask.Flask(__name__)
@@ -267,9 +272,90 @@ def atividades():
     except:
         return flask.redirect(flask.url_for('error'))
 
-@site.route("/turmas")
+
+@site.route("/turmas", methods=["GET", "POST"])
 def turmas():
-    return flask.render_template("turmas.html")
+    # ---------- ALUNO ----------
+    if "aluno" in flask.session:
+        id_session = flask.session.get("aluno")
+        id_aluno = codeBD.searcher_aluno_id(id_session)
+
+        # busca o nome do aluno
+        connectbd = sqlite3.connect("dataBase.db")
+        sqlrunner = connectbd.cursor()
+        sqlrunner.execute("SELECT nome FROM alunos WHERE id = ?", (id_aluno,))
+        r = sqlrunner.fetchone()
+        nome_aluno = r[0] if r else "Usuário"
+
+        # POST: aluno entrando em turma pelo código
+        if flask.request.method == "POST":
+            codigo = flask.request.form.get("codigo", "").upper().strip()
+
+            sqlrunner.execute("SELECT id FROM turmas WHERE codigo = ?", (codigo,))
+            t = sqlrunner.fetchone()
+            if t and id_aluno:
+                try:
+                    sqlrunner.execute(
+                        "INSERT INTO alunos_turmas (aluno_id, turma_id) VALUES (?, ?)",
+                        (id_aluno, t[0])
+                    )
+                    connectbd.commit()
+                except sqlite3.IntegrityError:
+                    pass  # já estava na turma
+            connectbd.close()
+            return flask.redirect(flask.url_for("turmas"))
+
+        # GET: lista turmas do aluno
+        turmas = []
+        if id_aluno:
+            sqlrunner.execute("""
+                SELECT t.ano, t.disciplina, t.codigo
+                FROM turmas t
+                JOIN alunos_turmas at ON at.turma_id = t.id
+                WHERE at.aluno_id = ?
+            """, (id_aluno,))
+            turmas = sqlrunner.fetchall()
+        connectbd.close()
+
+        return flask.render_template("turmas.html", nome_professor=nome_aluno, turmas=turmas)
+
+    # ---------- PROFESSOR ----------
+    elif "professor" in flask.session:
+        id_session = flask.session.get("professor")
+        id_professor = codeBD.searcher_professor_id(id_session)
+        professor = codeBD.searcher_professor_nome(id_professor) or "Usuário"
+
+        # POST: professor criando turma
+        if flask.request.method == "POST":
+            ano = flask.request.form["ano"]
+            disciplina = flask.request.form["disciplina"]
+            codigo = flask.request.form["codigo"]
+
+            connectbd = sqlite3.connect("dataBase.db")
+            sqlrunner = connectbd.cursor()
+            sqlrunner.execute("""
+                INSERT INTO turmas (ano, disciplina, codigo, professor_id)
+                VALUES (?, ?, ?, ?)
+            """, (ano, disciplina, codigo, id_professor))
+            connectbd.commit()
+            connectbd.close()
+
+            return flask.redirect(flask.url_for("turmas"))
+
+        # GET: lista turmas do professor
+        connectbd = sqlite3.connect("dataBase.db")
+        sqlrunner = connectbd.cursor()
+        sqlrunner.execute("""
+            SELECT ano, disciplina, codigo FROM turmas WHERE professor_id = ?
+        """, (id_professor,))
+        turmas = sqlrunner.fetchall()
+        connectbd.close()
+
+        return flask.render_template("turmas.html", nome_professor=professor, turmas=turmas)
+
+    # ---------- SEM LOGIN ----------
+    return flask.render_template("turmas.html", nome_professor="Usuário", turmas=[])
+
 
 # Condição que reconhece que o código está sendo rodado nesse arquivo como principal
 if __name__ == "__main__":
