@@ -267,6 +267,9 @@ def atividades():
     except:
         return flask.redirect(flask.url_for('error'))
 
+@site.route("/turmas")
+def turmas():
+    return flask.render_template("turmas.html")
 
 # Condição que reconhece que o código está sendo rodado nesse arquivo como principal
 if __name__ == "__main__":

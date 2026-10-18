@@ -1012,3 +1012,86 @@ html.dark-mode .btn-logout-nav:hover {
     .titulo-login { font-size: 1.4em; }
     .subtitulo-cadastro { margin-bottom: 12px; }
 }
+
+/* ESTILOS DA PÁGINA DE TURMAS */
+.tabs-header {
+    display: flex;
+    border-bottom: 2px solid var(--border-color);
+    margin-bottom: 25px;
+    gap: 10px;
+}
+
+.tab-btn {
+    background: none;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1.1em;
+    font-weight: 800;
+    color: var(--text-muted);
+    cursor: pointer;
+    border-bottom: 4px solid transparent;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.tab-btn:hover {
+    color: var(--primary);
+}
+
+.tab-btn.active {
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+}
+
+.turma-card {
+    background: var(--input-bg);
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius-small);
+    padding: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.codigo-turma {
+    font-family: monospace;
+    font-size: 1.2em;
+    font-weight: 900;
+    color: var(--primary);
+    background: var(--lateral-title);
+    padding: 4px 10px;
+    border-radius: 6px;
+    letter-spacing: 2px;
+}
+
+.pessoa-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    border-bottom: 1px dashed var(--border-color);
+    font-weight: 600;
+}
+
+.pessoa-item:last-child {
+    border-bottom: none;
+}
+
+.pessoa-cargo {
+    font-size: 0.85em;
+    color: var(--text-muted);
+    font-weight: 800;
+    background: var(--input-bg);
+    padding: 4px 8px;
+    border-radius: 20px;
+}
+
+.destaque-voce {
+    color: var(--primary);
+    font-weight: 900;
+}
+
+.hidden {
+    display: none !important;
+}

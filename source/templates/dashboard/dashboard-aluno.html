@@ -31,12 +31,12 @@
             </div>
             
             <nav id="area-menu">
-                {% set pagina = request.endpoint or '' %}
                 <!-- Esse IF pertence ao JINJA2, motor do FLASK no python -->
                 {% if session.get('aluno') or session.get('professor') %}
                 {% set pagina = request.endpoint or '' %}
                 <a href="{{ url_for('home') }}" class="{% if pagina == 'dashboard_aluno' %}ativo{% endif %}">Início</a>
                 <a href="{{ url_for('mapa') }}" class="{% if pagina == 'mapa' or 'trilha' in pagina or 'atividades' in pagina %}ativo{% endif %}">Trilhas</a>
+                <a href="{{ url_for('turmas') }}" class="{% if pagina == 'turmas' %}ativo{% endif %}">Turmas</a>
                 <a href="{{ url_for('contato') }}" class="{% if pagina == 'contato' %}ativo{% endif %}">Contato</a>
                 {% endif %}
             </nav>

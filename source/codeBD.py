@@ -128,3 +128,4 @@ def searcher_professor_id(id_session):
         resultado = sqlrunner.fetchone()
         return resultado[0] if resultado else None
 
+

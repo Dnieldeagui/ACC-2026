@@ -35,6 +35,7 @@
                 {% set pagina = request.endpoint or '' %}
                 <a href="{{ url_for('home') }}" class="{% if pagina == 'home' %}ativo{% endif %}">Início</a>
                 <a href="{{ url_for('mapa') }}" class="{% if pagina == 'mapa' or 'trilha' in pagina or 'atividades' in pagina %}ativo{% endif %}">Trilhas</a>
+                <a href="{{ url_for('turmas') }}" class="{% if pagina == 'turmas' %}ativo{% endif %}">Turmas</a>
                 <a href="{{ url_for('contato') }}" class="{% if pagina == 'contato' %}ativo{% endif %}">Contato</a>
                 {% endif %}
             </nav>
