@@ -158,11 +158,38 @@ body {
     animation: shake 0.3s ease;
 }
 
-/* Engrenagem */
+/* Área de Configurações e Perfil */
 .settings-container {
     position: relative;
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
+.settings-container > a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.profile-pic-nav {
+    display: block;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--border-color);
+    cursor: pointer;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.profile-pic-nav:hover {
+    transform: scale(1.05);
+    border-color: var(--primary);
+}
+
+/* Botão da engrenagem */
 .btn-icon {
     background: transparent;
     border: none;
@@ -223,7 +250,6 @@ body {
 
 .mt-10 { margin-top: 15px; }
 
-/* Área do Formulário de Logout (Para alinhar o botão) */
 .config-item form {
     margin: 0;
     display: flex;
@@ -282,16 +308,21 @@ input:checked + .slider:before { transform: translateX(26px); }
 
 input:checked + .slider .slider-icon { color: white; }
 
-/* Layout Principal */
+/* CORREÇÃO DO LAYOUT PRINCIPAL E ROLAGEM */
 #area-principal {
     width: 100%;
     max-width: 1100px;
-    margin: clamp(10px, 3vh, 40px) auto;
-    padding: 0 20px;
+    margin: 0 auto; 
+    /* Troquei margin por padding para não cortar as bordas ao rolar */
+    padding: 30px 20px 50px 20px; 
     flex: 1 1 auto;
+    
+    /* ESSA LINHA RESOLVE O BUG DO CORTE NO FLEXBOX */
+    min-height: 0; 
+    
     overflow-y: auto;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     gap: 30px;
 }
 
@@ -309,7 +340,7 @@ input:checked + .slider .slider-icon { color: white; }
     gap: 25px; 
 }
 
-/* Formulários */
+/* Formulários e Login */
 #area-principal-cadastro {
     width: 100%;
     max-width: 1100px;
@@ -916,7 +947,7 @@ input:focus, textarea:focus {
     margin-right: auto;
 }
 
-/* Botão de logout na tela inteira (imagem) */
+/* Botão de logout */
 .btn-logout {
     display: flex;
     justify-content: center;
@@ -942,7 +973,6 @@ input:focus, textarea:focus {
     opacity: 0.8;
 }
 
-/* Botão de logout no menu (O Botão em si) */
 .btn-logout-nav {
     display: inline-flex;
     align-items: center;
@@ -962,6 +992,7 @@ input:focus, textarea:focus {
     box-shadow: 0 4px 0 #b03a2e;
     transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     white-space: nowrap;
+    text-decoration: none;
 }
 
 .btn-logout-nav:hover {
@@ -986,32 +1017,7 @@ html.dark-mode .btn-logout-nav:hover {
     box-shadow: 0 6px 0 #7a2518;
 }
 
-.link-octoler{
-    text-decoration: none;
-}
-
-/* Responsividade */
-@media (max-width: 768px) {
-    body { height: auto; min-height: 100dvh; overflow-y: auto; }
-    #area-principal-cadastro { overflow-y: visible; padding: 15px 10px; }
-    .ludico-card { padding: 20px; border-radius: var(--border-radius-small); }
-    .titulo-login { font-size: 1.5em; }
-    .subtitulo-cadastro { font-size: 0.9em; margin-bottom: 15px; }
-    .dados { margin-bottom: 12px; }
-    label { font-size: 0.95em; margin-bottom: 4px; }
-    input, textarea { padding: 10px 12px; font-size: 0.95em; }
-    .btn-primario { padding: 10px 15px; font-size: 1em; }
-    .modal-content { padding: 30px 20px 20px; }
-    .modal-botoes { flex-direction: column; }
-}
-
-@media (max-height: 700px) {
-    .ludico-card { padding: 18px; }
-    .dados { margin-bottom: 10px; }
-    input, textarea { padding: 8px 12px; }
-    .titulo-login { font-size: 1.4em; }
-    .subtitulo-cadastro { margin-bottom: 12px; }
-}
+.link-octoler{ text-decoration: none; }
 
 /* ESTILOS DA PÁGINA DE TURMAS */
 .tabs-header {
@@ -1034,14 +1040,8 @@ html.dark-mode .btn-logout-nav:hover {
     font-family: inherit;
 }
 
-.tab-btn:hover {
-    color: var(--primary);
-}
-
-.tab-btn.active {
-    color: var(--primary);
-    border-bottom-color: var(--primary);
-}
+.tab-btn:hover { color: var(--primary); }
+.tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
 
 .turma-card {
     background: var(--input-bg);
@@ -1065,25 +1065,39 @@ html.dark-mode .btn-logout-nav:hover {
     letter-spacing: 2px;
 }
 
+/* LISTA DE PESSOAS */
 .pessoa-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px;
+    padding: 12px 0;
     border-bottom: 1px dashed var(--border-color);
     font-weight: 600;
 }
 
-.pessoa-item:last-child {
-    border-bottom: none;
+.pessoa-item:last-child { border-bottom: none; }
+
+.pessoa-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.avatar-lista {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--border-color);
+    background-color: var(--primary);
 }
 
 .pessoa-cargo {
-    font-size: 0.85em;
+    font-size: 0.8em;
     color: var(--text-muted);
     font-weight: 800;
     background: var(--input-bg);
-    padding: 4px 8px;
+    padding: 4px 10px;
     border-radius: 20px;
 }
 
@@ -1092,6 +1106,145 @@ html.dark-mode .btn-logout-nav:hover {
     font-weight: 900;
 }
 
-.hidden {
-    display: none !important;
+.hidden { display: none !important; }
+
+/* ESTILOS DA PÁGINA DE PERFIL */
+.perfil-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 30px;
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    height: fit-content;
+}
+
+@media (max-width: 768px) {
+    .perfil-grid { grid-template-columns: 1fr; }
+}
+
+.resumo-nome {
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 5px;
+}
+
+.resumo-tipo {
+    text-align: center;
+    font-size: 1em;
+    color: var(--text-muted);
+    font-weight: 600;
+    background: var(--lateral-title);
+    padding: 4px 12px;
+    border-radius: 20px;
+    display: inline-block;
+    margin: 0 auto;
+}
+
+.dados-lista { margin-top: 15px; }
+.dados-lista dt {
+    font-weight: 800;
+    color: var(--text-muted);
+    font-size: 0.9em;
+    margin-top: 15px;
+}
+.dados-lista dd {
+    font-weight: 600;
+    color: var(--text-main);
+    font-size: 1.1em;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed var(--border-color);
+}
+
+.barra-progresso {
+    width: 100%;
+    height: 20px;
+    border-radius: 10px;
+    appearance: none;
+    margin-top: 10px;
+}
+
+.barra-progresso::-webkit-progress-bar {
+    background-color: var(--input-bg);
+    border-radius: 10px;
+    border: 2px solid var(--border-color);
+}
+
+.barra-progresso::-webkit-progress-value {
+    background-color: var(--primary);
+    border-radius: 8px;
+}
+
+.foto-perfil-container {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 15px auto;
+    border-radius: 50%;
+    cursor: pointer;
+    overflow: hidden;
+    border: 4px solid var(--primary);
+}
+
+.foto-perfil-grande {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.overlay-editar {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 50%;
+}
+
+.overlay-editar span { font-size: 2em; color: white; }
+
+.foto-perfil-container:hover .overlay-editar { opacity: 1; }
+.foto-perfil-container:hover .foto-perfil-grande { transform: scale(1.1); }
+
+.cropper-container-custom {
+    width: 100%;
+    height: 300px;
+    background: #333;
+    margin-bottom: 15px;
+    border-radius: var(--border-radius-small);
+    overflow: hidden;
+}
+
+.cropper-view-box,
+.cropper-face {
+    border-radius: 50%;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    body { height: auto; min-height: 100dvh; overflow-y: auto; }
+    #area-principal-cadastro { overflow-y: visible; padding: 15px 10px; }
+    .ludico-card { padding: 20px; border-radius: var(--border-radius-small); }
+    .titulo-login { font-size: 1.5em; }
+    .subtitulo-cadastro { font-size: 0.9em; margin-bottom: 15px; }
+    .dados { margin-bottom: 12px; }
+    label { font-size: 0.95em; margin-bottom: 4px; }
+    input, textarea { padding: 10px 12px; font-size: 0.95em; }
+    .btn-primario { padding: 10px 15px; font-size: 1em; }
+    .modal-content { padding: 30px 20px 20px; }
+    .modal-botoes { flex-direction: column; }
+}
+
+@media (max-height: 700px) {
+    .ludico-card { padding: 18px; }
+    .dados { margin-bottom: 10px; }
+    input, textarea { padding: 8px 12px; }
+    .titulo-login { font-size: 1.4em; }
+    .subtitulo-cadastro { margin-bottom: 12px; }
 }

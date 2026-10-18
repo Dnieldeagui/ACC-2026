@@ -275,7 +275,7 @@ def atividades():
 
 @site.route("/turmas", methods=["GET", "POST"])
 def turmas():
-    # ---------- ALUNO ----------
+    # ALUNO 
     if "aluno" in flask.session:
         id_session = flask.session.get("aluno")
         id_aluno = codeBD.searcher_aluno_id(id_session)
@@ -287,7 +287,7 @@ def turmas():
         r = sqlrunner.fetchone()
         nome_aluno = r[0] if r else "Usuário"
 
-        # POST: aluno entrando em turma pelo código
+        # POST
         if flask.request.method == "POST":
             codigo = flask.request.form.get("codigo", "").upper().strip()
 
@@ -305,7 +305,7 @@ def turmas():
             connectbd.close()
             return flask.redirect(flask.url_for("turmas"))
 
-        # GET: lista turmas do aluno
+        # GET
         turmas = []
         if id_aluno:
             sqlrunner.execute("""
@@ -319,13 +319,13 @@ def turmas():
 
         return flask.render_template("turmas.html", nome_professor=nome_aluno, turmas=turmas)
 
-    # ---------- PROFESSOR ----------
+    # PROFESSOR 
     elif "professor" in flask.session:
         id_session = flask.session.get("professor")
         id_professor = codeBD.searcher_professor_id(id_session)
         professor = codeBD.searcher_professor_nome(id_professor) or "Usuário"
 
-        # POST: professor criando turma
+        # POST
         if flask.request.method == "POST":
             ano = flask.request.form["ano"]
             disciplina = flask.request.form["disciplina"]
@@ -342,7 +342,7 @@ def turmas():
 
             return flask.redirect(flask.url_for("turmas"))
 
-        # GET: lista turmas do professor
+        # GET
         connectbd = sqlite3.connect("dataBase.db")
         sqlrunner = connectbd.cursor()
         sqlrunner.execute("""
@@ -353,8 +353,24 @@ def turmas():
 
         return flask.render_template("turmas.html", nome_professor=professor, turmas=turmas)
 
-    # ---------- SEM LOGIN ----------
+    #  SEM LOGIN 
     return flask.render_template("turmas.html", nome_professor="Usuário", turmas=[])
+
+
+@site.route("/perfil/aluno")
+def perfil_aluno():
+    if "aluno" not in flask.session:
+        return flask.redirect(flask.url_for('home'))
+
+    return flask.render_template("profile/perfil-aluno.html")
+
+@site.route("/perfil/professor")
+def perfil_professor():
+    if "professor" not in flask.session:
+        return flask.redirect(flask.url_for('home'))
+
+    return flask.render_template("profile/perfil-professor.html")
+
 
 
 # Condição que reconhece que o código está sendo rodado nesse arquivo como principal

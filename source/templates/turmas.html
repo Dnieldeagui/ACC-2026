@@ -47,6 +47,11 @@
 
             <!-- Botão de configurações e menu dropdown -->
             <div class="settings-container">
+                {% if session.get('aluno') or session.get('professor') %}
+                <a href="{% if session.get('professor') %}/perfil/professor{% else %}/perfil/aluno{% endif %}">
+                <img src="https://ui-avatars.com/api/?name={{ session.get('aluno') or session.get('professor') }}&background=504e80&color=fff&rounded=true" alt="Perfil" class="profile-pic-nav">
+                </a>
+                {% endif %}
                 <button id="btn-settings" class="btn-icon" aria-label="Configurações">⚙️</button>
                 <div id="settings-dropdown" class="dropdown-menu hidden">
                     <p class="dropdown-title">Configurações</p>
