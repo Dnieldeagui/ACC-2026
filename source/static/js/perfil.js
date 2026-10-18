@@ -90,25 +90,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const formEditar = document.getElementById('form-editar-perfil');
     if (formEditar) {
         formEditar.addEventListener('submit', (e) => {
-            e.preventDefault();
             alert('✅ Dados atualizados com sucesso!');
         });
     }
 
-    // Lógica de Alterar Senha (Simulação)
+    // Lógica de Alterar Senha
     const formSenha = document.getElementById('form-alterar-senha');
     if (formSenha) {
         formSenha.addEventListener('submit', (e) => {
-            e.preventDefault();
             const novaSenha = document.getElementById('senha-nova').value;
             const confirmarSenha = document.getElementById('senha-nova-confirmar').value;
 
+            // 1. Se as senhas não coincidirem, BLOQUEIA o envio e avisa
             if (novaSenha !== confirmarSenha) {
+                e.preventDefault(); 
                 alert('⚠️ As senhas novas não coincidem!');
                 return;
             }
-            alert('🔒 Senha alterada com sucesso!');
-            formSenha.reset();
+
+            // 2. Se coincidirem, o JS não faz nada e o formulário é enviado para o Python.
+            // O Python vai processar e recarregar a página (ou você pode mostrar o alerta aqui).
         });
     }
 

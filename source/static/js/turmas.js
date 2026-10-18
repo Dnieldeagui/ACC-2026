@@ -124,49 +124,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     }
 
-    // Renderiza a lista de pessoas no quadrado da direita
-    function renderizarPessoas() {
-        const lista = document.getElementById('lista-pessoas');
-        const tituloPessoas = document.getElementById('titulo-pessoas');
-        lista.innerHTML = '';
-
-        const temTurma = turmas.length > 0;
-        
-        if (!temTurma) {
-            tituloPessoas.innerText = "Pessoas";
-            lista.innerHTML = `<p style="color: var(--text-muted);">Você precisa estar em uma turma para ver as pessoas.</p>`;
-            return;
-        }
-
-        // Muda o título dependendo de quem está logado
-        tituloPessoas.innerText = isProfessor ? "Pessoas nas suas turmas" : "Colegas e Professores";
-
-        // IMPORTANTE: Aqui seriam puxados os alunos e professores reais do banco de dados.
-        // Por enquanto to usando dados fixos para testar o layout.
-        const professores = [{ nome: isProfessor ? loggedUser : "Prof. Carlos", cargo: "Professor" }];
-        const alunos = [
-            { nome: isProfessor ? "Lucas Aluno" : loggedUser, cargo: "Aluno" },
-            { nome: "Maria Clara", cargo: "Aluno" },
-            { nome: "João Pedro", cargo: "Aluno" }
-        ];
-
-        // Monta o HTML dos professores
-        let html = `<h4 style="margin-bottom: 10px; color: var(--text-muted);">Professores</h4>`;
-        professores.forEach(p => {
-            // Adiciona o destaque (você) se o nome for igual ao do usuário logado
-            const voceTag = (p.nome === loggedUser) ? ' <span class="destaque-voce">(você)</span>' : '';
-            html += `<div class="pessoa-item"><span>${p.nome}${voceTag}</span> <span class="pessoa-cargo">${p.cargo}</span></div>`;
-        });
-
-        // Monta o HTML dos alunos
-        html += `<h4 style="margin: 20px 0 10px 0; color: var(--text-muted);">Alunos</h4>`;
-        alunos.forEach(a => {
-            const voceTag = (a.nome === loggedUser) ? ' <span class="destaque-voce">(você)</span>' : '';
-            html += `<div class="pessoa-item"><span>${a.nome}${voceTag}</span> <span class="pessoa-cargo">${a.cargo}</span></div>`;
-        });
-
-        lista.innerHTML = html;
-    }
 
     // Renderiza o quadro de atividades
     function renderizarAtividades() {
@@ -198,7 +155,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Função geral que chama todas as renderizações
     function renderizarTudo() {
         renderizarTurmas();
-        renderizarPessoas();
         renderizarAtividades();
     }
 

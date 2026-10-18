@@ -35,9 +35,8 @@ CREATE TABLE IF NOT EXISTS alunos (
     nome TEXT NOT NULL,
     email TEXT UNIQUE,
     senha TEXT NOT NULL,
-    turma_id INTEGER,
+    turma_id INTEGER
 
-    FOREIGN KEY (turma_id) REFERENCES turmas(id)
 );
 
 
@@ -47,10 +46,8 @@ CREATE TABLE IF NOT EXISTS professores (
     nome TEXT NOT NULL,
     email TEXT UNIQUE,
     senha TEXT NOT NULL,
-    disciplina TEXT,
-    turma_id INTEGER,
+    disciplina TEXT
 
-    FOREIGN KEY (turma_id) REFERENCES turmas(id)
 );
 
 
@@ -152,3 +149,46 @@ def searcher_professor_nome(id):
         resultado = sqlrunner.fetchone()
         return resultado[0] if resultado else None
 
+
+def searcher_aluno_nome(id):
+    with sqlite3.connect(DB_PATH) as connectbd:
+        sqlrunner = connectbd.cursor()
+        sqlrunner.execute(
+            "SELECT nome FROM alunos WHERE id = ?",
+            (id,)
+        )
+        resultado = sqlrunner.fetchone()
+        return resultado[0] if resultado else None
+
+
+def searcher_professor_email(id):
+    with sqlite3.connect(DB_PATH) as connectbd:
+        sqlrunner = connectbd.cursor()
+        sqlrunner.execute(
+            "SELECT email FROM professores WHERE id = ?",
+            (id,)
+        )
+        resultado = sqlrunner.fetchone()
+        return resultado[0] if resultado else None
+
+
+def searcher_aluno_email(id):
+    with sqlite3.connect(DB_PATH) as connectbd:
+        sqlrunner = connectbd.cursor()
+        sqlrunner.execute(
+            "SELECT email FROM alunos WHERE id = ?",
+            (id,)
+        )
+        resultado = sqlrunner.fetchone()
+        return resultado[0] if resultado else None
+
+
+def searcher_professor_disciplina(id):
+    with sqlite3.connect(DB_PATH) as connectbd:
+        sqlrunner = connectbd.cursor()
+        sqlrunner.execute(
+            "SELECT disciplina FROM professores WHERE id = ?",
+            (id,)
+        )
+        resultado = sqlrunner.fetchone()
+        return resultado[0] if resultado else None

@@ -357,19 +357,156 @@ def turmas():
     return flask.render_template("turmas.html", nome_professor="Usuário", turmas=[])
 
 
-@site.route("/perfil/aluno")
+@site.route("/perfil/aluno", methods=["POST", "GET"])
 def perfil_aluno():
     if "aluno" not in flask.session:
         return flask.redirect(flask.url_for('home'))
 
-    return flask.render_template("profile/perfil-aluno.html")
+    id_session = flask.session.get("aluno")
+    id_aluno = codeBD.searcher_aluno_id(id_session)
 
-@site.route("/perfil/professor")
+    aluno_nome = codeBD.searcher_aluno_nome(id_aluno) or "Usuário"
+    aluno_email = codeBD.searcher_aluno_email(id_aluno) or "exemplo@email.com"
+
+    if flask.request.method == "POST":
+        acao = flask.request.form.get("acao")
+
+        if acao == "editar_perfil":
+            novo_nome = flask.request.form["nome"]
+            novo_email = flask.request.form["email"]
+
+            connectbd = sqlite3.connect("dataBase.db")
+            sqlrunner = connectbd.cursor()
+
+            sqlrunner.execute("""
+                UPDATE alunos 
+                SET nome = ?, email = ? 
+                WHERE id = ?
+            """, (novo_nome, novo_email, id_aluno))
+            
+            connectbd.commit()
+            connectbd.close()
+
+            flask.flash("Perfil alterado com sucesso!", "sucesso")
+
+            return flask.redirect(flask.url_for('perfil_aluno'))
+
+        elif acao == "alterar_senha":
+
+            senha_atual = flask.request.form["senha_atual"]
+            senha_nova = flask.request.form["senha_nova"]
+            senha_atual_hash = hashlib.sha256(senha_atual.encode("utf-8")).hexdigest()
+
+
+            connectbd = sqlite3.connect("dataBase.db")
+            sqlrunner = connectbd.cursor()
+            sqlrunner.execute("SELECT senha FROM alunos WHERE id = ?", (id_aluno,))
+            resultado = sqlrunner.fetchone()
+            connectbd.close()
+            senha_real = resultado[0] if resultado else None
+
+            if senha_atual_hash == senha_real:
+                senha_nova_hash = hashlib.sha256(senha_nova.encode("utf-8")).hexdigest()
+
+                connectbd = sqlite3.connect("dataBase.db")
+                sqlrunner = connectbd.cursor()
+
+                sqlrunner.execute("""
+                    UPDATE alunos 
+                    SET senha = ? 
+                    WHERE id = ?
+                """, (senha_nova_hash, id_aluno))
+                
+                connectbd.commit()
+                connectbd.close()
+
+                
+                flask.flash("Senha alterada com sucesso!", "sucesso")
+            else:
+                flask.flash("A senha atual está incorreta. Tente novamente.", "erro")
+
+            
+            return flask.redirect(flask.url_for('perfil_aluno'))
+
+        
+
+    return flask.render_template("profile/perfil-aluno.html", nome=aluno_nome, email=aluno_email)
+
+
+@site.route("/perfil/professor", methods=["POST", "GET"])
 def perfil_professor():
     if "professor" not in flask.session:
         return flask.redirect(flask.url_for('home'))
 
-    return flask.render_template("profile/perfil-professor.html")
+    id_session = flask.session.get("professor")
+    id_professor = codeBD.searcher_professor_id(id_session)
+
+    professor_nome = codeBD.searcher_professor_nome(id_professor) or "Usuário"
+    professor_email = codeBD.searcher_professor_email(id_professor) or "exemplo@email.com"
+    professor_disciplina = codeBD.searcher_professor_disciplina(id_professor) or "Disciplina"
+
+    if flask.request.method == "POST":
+        acao = flask.request.form.get("acao")
+
+        if acao == "editar_perfil":
+            nome = flask.request.form["nome"]
+            email = flask.request.form["email"]
+            disciplina = flask.request.form["disciplina"]
+
+            connectbd = sqlite3.connect("dataBase.db")
+            sqlrunner = connectbd.cursor()
+
+            sqlrunner.execute("""
+                UPDATE professores 
+                SET nome = ?, email = ?, disciplina = ? 
+                WHERE id = ?
+            """, (nome, email, disciplina, id_professor))
+            
+            connectbd.commit()
+            connectbd.close()
+
+            flask.flash("Perfil alterado com sucesso!", "sucesso")
+
+            return flask.redirect(flask.url_for('perfil_professor'))
+
+        elif acao == "alterar_senha":
+
+            senha_atual = flask.request.form["senha_atual"]
+            senha_nova = flask.request.form["senha_nova"]
+            senha_atual_hash = hashlib.sha256(senha_atual.encode("utf-8")).hexdigest()
+
+
+            connectbd = sqlite3.connect("dataBase.db")
+            sqlrunner = connectbd.cursor()
+            sqlrunner.execute("SELECT senha FROM professores WHERE id = ?", (id_professor,))
+            resultado = sqlrunner.fetchone()
+            connectbd.close()
+            senha_real = resultado[0] if resultado else None
+
+            if senha_atual_hash == senha_real:
+                senha_nova_hash = hashlib.sha256(senha_nova.encode("utf-8")).hexdigest()
+
+                connectbd = sqlite3.connect("dataBase.db")
+                sqlrunner = connectbd.cursor()
+
+                sqlrunner.execute("""
+                    UPDATE professores 
+                    SET senha = ? 
+                    WHERE id = ?
+                """, (senha_nova_hash, id_professor))
+                
+                connectbd.commit()
+                connectbd.close()
+
+                
+                flask.flash("Senha alterada com sucesso!", "sucesso")
+            else:
+                flask.flash("A senha atual está incorreta. Tente novamente.", "erro")
+
+            
+            return flask.redirect(flask.url_for('perfil_professor')) 
+
+    return flask.render_template("profile/perfil-professor.html", nome=professor_nome, email=professor_email, disciplina=professor_disciplina)
 
 
 
