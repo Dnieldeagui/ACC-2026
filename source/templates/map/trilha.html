@@ -84,41 +84,6 @@
         <div class="map-container" id="mapa-trilha"></div>
     </main>
 
-    {% if session.get('professor') %}
-        <button id="btn-abrir-link" class="fab-criar" type="button" aria-label="Criar atividade personalizada">
-            <span class="fab-icon">+</span>
-            <span class="fab-text">Criar atividade personalizada</span>
-        </button>
-
-        <div id="modal-link" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modal-link-titulo">
-            <div class="modal-content">
-                <button id="btn-fechar-modal" class="modal-close" aria-label="Fechar" type="button">✕</button>
-                <h2 id="modal-link-titulo" class="titulo-login"> Criar Atividade Personalizada </h2>
-                <p class="subtitulo-cadastro"> Cole abaixo o link de uma atividade do WordWall para adicioná-la a esta trilha. </p>
-                <form id="form-link" action="{{ url_for('mapa') }}" method="POST">
-                    <div class="dados">
-                        <label for="input-nome">Nome da atividade</label>
-                        <input type="text" id="input-nome" name="atividade" placeholder="Ex.: Sinônimos" autocomplete="off" required>
-                    </div>
-                    <div class="dados">
-                        <label for="input-link">Link da atividade (WordWall)</label>
-                        <input type="url" id="input-link" name="link" placeholder="https://wordwall.net/pt/resource/..." autocomplete="off" required>
-                    </div>
-                    <div class="dados">
-                        <label for="input-turma">Turma</label>
-                        <input type="text" id="input-turma" name="turma" placeholder="Ex.: 1" autocomplete="off" required>
-                    </div>
-                    <div class="modal-botoes">
-                        <button id="btn-confirmar-link" class="btn-primario" type="submit">Confirmar</button>
-                        <button id="btn-limpar-link" class="btn-secundario" type="button">Limpar</button>
-                    </div>
-                </form>
-                <p id="modal-feedback" class="modal-feedback"></p>
-            </div>
-        </div>
-    {% endif %}
-
-    <script src="{{ url_for('static', filename='js/criar-atividade.js')}}"></script>
     <script src="{{ url_for('static', filename='js/map.js')}}"></script>
 </body>
 </html>

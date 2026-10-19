@@ -26,13 +26,10 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // Gera o código no JS
         const codigo = Math.random().toString(36).substring(2, 8).toUpperCase();
 
-        // Pega o form que contém o input
         const form = anoInput.closest('form');
 
-        // Adiciona o hidden do código
         let hidden = form.querySelector('input[name="codigo"]');
         if (!hidden) {
             hidden = document.createElement('input');
@@ -42,7 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         hidden.value = codigo;
 
-        // Envia para o Flask
         form.submit();
     };
 

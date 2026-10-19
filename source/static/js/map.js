@@ -3,7 +3,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!mapa) return;
 
     const totalFases = 15;
-    const totalFuncional = 2; // só até aqui a trilha é jogável; 3-15 ficam só de exibição
+    const totalFuncional = 2; // Quantas fases o aluno pode jogar (mude para 15 quando tiver todas prontas)
+
+    // Pega o nível atual do aluno (se não tiver, começa no 1)
+    const nivelAluno = Number(localStorage.getItem('nivelAluno')) || 1;
 
     // Criar as fases
     for (let i = 1; i <= totalFases; i++) {
@@ -17,13 +20,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const bloco = Math.ceil(i / 5);
         const isCheckpoint = i % 5 === 0;
 
-        if (i === 1) {
+        if (i < nivelAluno) {
+
+            node.className = `map-node node-completed bloco-${bloco}`;
+            node.innerText = '⭐';
+        } else if (i === nivelAluno) {
+
             node.className = `map-node node-current bloco-${bloco}`;
-            node.innerText = '1';
+            node.innerText = i;
         } else {
+
             node.className = `map-node node-locked bloco-${bloco}`;
             node.innerText = i === 15 ? '🏆' : i;
         }
+
+
         if (isCheckpoint) node.classList.add('node-checkpoint');
         node.onclick = () => clicarFase(i);
 
@@ -31,28 +42,15 @@ document.addEventListener('DOMContentLoaded', () => {
         mapa.appendChild(wrapper);
     }
 
-    const faseConcluidaAgora = Number(localStorage.getItem('faseConcluida'));
-    if (faseConcluidaAgora) {
-        const nodeConcluido = document.getElementById(`fase-${faseConcluidaAgora}`);
-        if (nodeConcluido && nodeConcluido.classList.contains('node-current')) {
-            nodeConcluido.classList.replace('node-current', 'node-completed');
-            nodeConcluido.innerText = '⭐';
-
-            const proxima = document.getElementById(`fase-${faseConcluidaAgora + 1}`);
-            if (proxima && faseConcluidaAgora < totalFuncional) {
-                proxima.classList.replace('node-locked', 'node-current');
-            } else {
-                alert("Parabéns! Você completou as atividades disponíveis! 🏆");
-            }
-        }
-        localStorage.removeItem('faseConcluida');
-    }
-
     function clicarFase(n) {
         const node = document.getElementById(`fase-${n}`);
-        if (node.classList.contains('node-current')) {
+        
+        // Se for a fase atual OU se já estiver concluída (estrela), deixa jogar!
+        if (node.classList.contains('node-current') || node.classList.contains('node-completed')) {
             window.location.href = `/trilhas/atividades?fase=${n}`;
-        } else if (node.classList.contains('node-locked')) {
+        } 
+        // Se estiver bloqueada, faz o "chacoalhar"
+        else if (node.classList.contains('node-locked')) {
             node.style.animation = 'shake 0.4s';
             setTimeout(() => node.style.animation = '', 400);
         }

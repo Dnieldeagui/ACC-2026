@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    // Embaralha (Fisher-Yates) — mesmo conjunto, ordem sempre diferente
+    // Embaralha (Fisher-Yates)
     function embaralhar(array) {
         const copia = [...array];
         for (let i = copia.length - 1; i > 0; i--) {
@@ -48,11 +48,14 @@ document.addEventListener('DOMContentLoaded', () => {
             indiceAtual++;
             renderizarAtividade();
         } else {
-            // Marca a fase como concluída e volta para a trilha
-            localStorage.setItem('faseConcluida', String(fase));
-            // === INÍCIO DA ALTERAÇÃO ===
+
+            let nivelAtual = Number(localStorage.getItem('nivelAluno')) || 1;
+            
+            if (fase >= nivelAtual) {
+                localStorage.setItem('nivelAluno', String(fase + 1));
+            }
+            
             window.location.href = '/mapa';
-            // === FIM DA ALTERAÇÃO ===
         }
     });
 
