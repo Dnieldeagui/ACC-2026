@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS alunos (
     id_session TEXT NOT NULL,
     nome TEXT NOT NULL,
     email TEXT UNIQUE,
-    senha TEXT NOT NULL,
+    senha TEXT NOT NULL
 
 );
 
