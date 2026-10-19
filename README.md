@@ -1,4 +1,5 @@
 # OCTOLER
+
 O projeto corresponde a uma ferramenta de auxílio na alfabetização no ensino primário, faixa de 3 a 5 anos, desenvolvida para atender às crianças com alta familiaridade de tecnologias. O objetivo principal do Projeto é modernizar a experiência de aprendizado por meio da interatividade, como um reforço e suporte ao ensino. Inspirado no método eficiente e interativo de ensino do Duolingo, o sistema, Octoler, utiliza mapas que mostram a progressão dos exercícios. Por meio da plataforma, os alunos podem realizar as atividades propostas e verificar o próprio rendimento que tem na plataforma. Além disso, a plataforma autoriza aos professores a possibilidade de criar e lançar as próprias atividades customizando-as para cada tipo de rendimento para os alunos, mudando a dinamicidade do docente e discente. Para a criação das atividades de maneira simples, prática e objetiva, utiliza-se a plataforma Wordwall, utilizada como suporte, que entrega aos educadores uma estrutura base onde eles podem montar as próprias atividades para seus alunos
 
 ## Tecnologias e Linguagens usadas no projeto
