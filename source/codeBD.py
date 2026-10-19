@@ -35,7 +35,6 @@ CREATE TABLE IF NOT EXISTS alunos (
     nome TEXT NOT NULL,
     email TEXT UNIQUE,
     senha TEXT NOT NULL,
-    turma_id INTEGER
 
 );
 
