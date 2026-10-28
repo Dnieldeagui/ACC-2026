@@ -4,35 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OCTOLER - Turmas</title>
-    
-    <!-- Script para carregar o tema (claro/escuro) antes da página renderizar -->
     <script>
         (function() {
             const currentTheme = localStorage.getItem('theme');
             if (currentTheme) document.documentElement.classList.add(currentTheme);
+            const currentA11y = localStorage.getItem('accessibility');
+            if (currentA11y === 'dyslexia-mode') document.documentElement.classList.add('dyslexia-mode');
         })();
     </script>
-    
-    <!-- Scripts de autenticação, segurança de rota e configurações visuais -->
-    <script src="{{ url_for('static', filename='js/config.js')}}"></script>
-    
-    <!-- Fontes e Estilos -->
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700;800&family=Quicksand:wght@500;600;700&family=Lexend:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
 <body>
-
-    <!-- Cabeçalho padrão do site -->
     <header id="area-cabecalho">
         <div class="container-topo">
             <div class="logo-container">
+                <!-- ADICIONADO O CASULO DO OTTO AQUI -->
+                <div class="otto-header-wrapper">
+                    {% if session.get('aluno') %}
+                        <img src="{{ url_for('static', filename='pages/images/Otto-student.png') }}" alt="Otto Aluno" class="otto-header">
+                    {% elif session.get('professor') %}
+                        <img src="{{ url_for('static', filename='pages/images/Otto-teacher.png') }}" alt="Otto Professor" class="otto-header">
+                    {% endif %}
+                </div>
                 <div id="area-logo">
                     <a href="{{ url_for('home') }}" class="link-octoler"><h1>OCTO<span class="destaque">LER</span></h1></a>
                 </div>
             </div>
-            
-            <!-- Menu que só aparece para usuários logados -->
             <nav id="area-menu">
                 {% if session.get('aluno') or session.get('professor') %}
                 {% set pagina = request.endpoint or '' %}
@@ -42,12 +40,10 @@
                 <a href="{{ url_for('contato') }}" class="{% if pagina == 'contato' %}ativo{% endif %}">Contato</a>
                 {% endif %}
             </nav>
-
-            <!-- Botão de configurações e menu dropdown -->
             <div class="settings-container">
                 {% if session.get('aluno') or session.get('professor') %}
                 <a href="{% if session.get('professor') %}/perfil/professor{% else %}/perfil/aluno{% endif %}">
-                <img src="https://ui-avatars.com/api/?name={{ session.get('aluno') or session.get('professor') }}&background=504e80&color=fff&rounded=true" alt="Perfil" class="profile-pic-nav">
+                    <img src="https://ui-avatars.com/api/?name={{ session.get('aluno') or session.get('professor') }}&background=7C5CFF&color=fff&rounded=true" alt="Perfil" class="profile-pic-nav">
                 </a>
                 {% endif %}
                 <button id="btn-settings" class="btn-icon" aria-label="Configurações">⚙️</button>
@@ -73,25 +69,19 @@
                             </div>
                         </label>
                     </div>
-                    
-                    <!-- Botão de Sair (Form POST) -->
                     {% if session.get('aluno') or session.get('professor') %}
-                        <div class="config-item mt-10">
-                            <span>Logout</span>
-                            <form action="{{ url_for('logout_button') }}" method="POST">
-                                <button type="submit" class="btn-logout-nav">Sair →</button>
-                            </form>
-                        </div>
+                    <div class="config-item mt-10">
+                        <span>Logout</span>
+                        <form action="{{ url_for('logout_button') }}" method="POST">
+                            <button type="submit" class="btn-logout-nav">Sair →</button>
+                        </form>
+                    </div>
                     {% endif %}
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- 
-        Passando dados do Backend para o Frontend (JS).
-        O JS lê esses atributos "data-*" para saber se o usuário é professor e o nome dele.
-    -->
     <div id="dados-usuario" class="hidden" 
          data-professor="{{ 'true' if session.get('professor') else 'false' }}" 
          data-nome="{{ nome_professor }}"
@@ -99,20 +89,11 @@
          data-atividades='{{ atividades | tojson }}'>
     </div>
 
-    <!-- Área Principal com dois quadrados -->
     <main id="area-principal">
-        
-        <!-- Quadrado Central: Turmas e Atividades -->
         <section id="area-postagens">
-            
-            <!-- Card de Turmas -->
             <div class="ludico-card">
-                
-                <!-- VISÃO DO ALUNO (Só aparece se não for professor) -->
                 <div id="view-aluno" class="{% if session.get('professor') %}hidden{% endif %}">
                     <h3 id="titulo-turmas-aluno" style="margin-bottom: 15px;">Minhas Turmas</h3>
-                    
-                    <!-- Formulário para entrar em turma (se não tiver nenhuma) -->
                     <div id="aluno-sem-turma">
                         <p style="color: var(--text-muted); margin-bottom: 15px;">Peça o código de 6 dígitos para o seu professor.</p>
                         <div style="display: flex; gap: 10px;">
@@ -120,12 +101,9 @@
                             <button onclick="alunoEntrarTurma()" class="btn-primario" style="width: auto; white-space: nowrap;">Entrar</button>
                         </div>
                     </div>
-                    
-                    <!-- Lista de turmas (se já tiver entrado em alguma) -->
                     <div id="aluno-com-turma" class="hidden">
                         <div id="lista-turmas-aluno"></div>
                         <button onclick="mostrarInputAluno()" class="btn-secundario" style="margin-top: 15px;">+ Entrar em nova turma</button>
-                        <!-- Formulário escondido para entrar em turma extra -->
                         <div id="input-nova-turma-aluno" class="hidden" style="margin-top: 15px; display: flex; gap: 10px;">
                             <input type="text" id="input-novo-codigo" placeholder="Digite o código" maxlength="6" style="text-transform: uppercase;">
                             <button onclick="alunoEntrarTurma(true)" class="btn-primario" style="width: auto;">Entrar</button>
@@ -133,11 +111,8 @@
                     </div>
                 </div>
 
-                <!-- VISÃO DO PROFESSOR (Só aparece se for professor) -->
                 <div id="view-professor" class="{% if not session.get('professor') %}hidden{% endif %}">
                     <h3 id="titulo-turmas-prof" style="margin-bottom: 15px;">Suas Turmas</h3>
-
-                    <!-- Formulário de criação de turma (se não tiver nenhuma) -->
                     <form action="{{ url_for('turmas') }}" method="POST">
                     <div id="prof-sem-turma">
                         <p style="color: var(--text-muted); margin-bottom: 15px;">Preencha os dados abaixo para gerar um código único.</p>
@@ -153,11 +128,9 @@
                     </div>
                     </form>
                     
-                    <!-- Lista de turmas criadas -->
                     <div id="prof-com-turma" class="hidden">
                         <div id="lista-turmas-prof"></div>
                         <button onclick="mostrarFormProf()" class="btn-secundario" style="margin-top: 15px;">+ Criar nova turma</button>
-                        <!-- Formulário escondido para criar turma extra -->
                         <form action="{{ url_for('turmas') }}" method="POST">
                         <div id="form-nova-turma-prof" class="hidden" style="margin-top: 15px;">
                             <div class="dados">
@@ -173,43 +146,25 @@
                 </div>
             </div>
 
-            <!-- Card de Atividades -->
             <div class="ludico-card">
                 <h3 id="titulo-atividades" style="margin-bottom: 15px;">Atividades</h3>
-                <!-- O conteúdo aqui é injetado pelo JavaScript (turmas.js) -->
                 <div id="box-atividades"></div>
             </div>
-
         </section>
-
-        <!-- Quadrado da Direita: Lista de Pessoas -->
-        <!-- <aside id="area-lateral">
-            <div class="conteudo-lateral ludico-card" style="height: 100%;">
-                <h3 id="titulo-pessoas">Pessoas</h3>
-                <div id="lista-pessoas"></div>
-            </div>
-        </aside> -->
     </main>
 
     <footer id="rodape">
         <p>✨ Feito com carinho para pequenos grandes pensadores ✨</p>
     </footer>
 
-    <!-- 
-        MODAL DE CRIAR ATIVIDADE 
-        Só é renderizado no HTML se o usuário for professor.
-        O botão invisível (display: none) serve para o JS conseguir "clicar" nele programaticamente.
-    -->
+    <!-- Modal escondido que o criar-atividade.js vai usar -->
     {% if session.get('professor') %}
-        <button id="btn-abrir-link" class="fab-criar" type="button" style="display: none;"></button>
-
         <div id="modal-link" class="modal-overlay hidden" role="dialog" aria-modal="true">
             <div class="modal-content">
                 <button id="btn-fechar-modal" class="modal-close" aria-label="Fechar" type="button">✕</button>
                 <h2 id="modal-link-titulo" class="titulo-login"> Criar Atividade Personalizada </h2>
                 <p class="subtitulo-cadastro"> Cole abaixo o link de uma atividade do WordWall para adicioná-la. </p>
                 
-                <!-- Formulário que envia os dados para o backend -->
                 <form id="form-link" action="{{ url_for('mapa') }}" method="POST">
                     <div class="dados">
                         <label for="input-nome">Nome da atividade</label>
@@ -221,7 +176,7 @@
                     </div>
                     <div class="dados">
                         <label for="input-turma">Turma</label>
-                        <select id="input-turma" name="turma" required style="width: 100%; padding: 10px; border-radius: 8px; background-color: var(--bg-input); color: var(--text-color); border: 1px solid var(--border-color);">
+                        <select id="input-turma" name="turma" required style="width: 100%; padding: 10px; border-radius: 8px; background-color: var(--input-bg); color: var(--text-main); border: 1px solid var(--border-color);">
                             <option value="" disabled selected>Selecione uma turma...</option>
                             {% for t in turmas %}
                                 <option value="{{ t[0] }}">{{ t[1] }} - {{ t[2] }}</option>
@@ -238,7 +193,8 @@
         </div>
     {% endif %}
 
-    <!-- Scripts do final da página -->
+    <!-- CHAMANDO O SCRIPT DO BOTÃO + AQUI -->
+    <script src="{{ url_for('static', filename='js/config.js')}}"></script>
     <script src="{{ url_for('static', filename='js/turmas.js') }}"></script>
     {% if session.get('professor') %}
         <script src="{{ url_for('static', filename='js/criar-atividade.js') }}"></script>

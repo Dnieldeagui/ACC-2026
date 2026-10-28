@@ -1,26 +1,30 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Menu de Configurações (Engrenagem)
+    // 1. Controle do Menu de Configurações (Engrenagem)
     const btnSettings = document.getElementById('btn-settings');
     const settingsDropdown = document.getElementById('settings-dropdown');
 
     if (btnSettings && settingsDropdown) {
+        // Abre e fecha ao clicar na engrenagem
         btnSettings.addEventListener('click', (e) => {
+            e.preventDefault();
             e.stopPropagation();
             settingsDropdown.classList.toggle('hidden');
         });
 
+        // Fecha se clicar fora
         document.addEventListener('click', (e) => {
             if (!settingsDropdown.contains(e.target) && !btnSettings.contains(e.target)) {
                 settingsDropdown.classList.add('hidden');
             }
         });
 
+        // Impede que o menu feche se clicar dentro dele
         settingsDropdown.addEventListener('click', (e) => {
             e.stopPropagation();
         });
     }
 
-    // Tema (Claro/Escuro)
+    // 2. Controle do Tema (Claro/Escuro)
     const themeSwitch = document.querySelector('#checkbox');
     const currentTheme = localStorage.getItem('theme');
 
@@ -32,32 +36,30 @@ document.addEventListener('DOMContentLoaded', () => {
         themeSwitch.addEventListener('change', function(e) {
             if (e.target.checked) {
                 document.documentElement.classList.add('dark-mode');
-                document.documentElement.classList.remove('light-mode');
                 localStorage.setItem('theme', 'dark-mode');
             } else {
                 document.documentElement.classList.remove('dark-mode');
-                document.documentElement.classList.add('light-mode');
                 localStorage.setItem('theme', 'light-mode');
             }
         });
     }
 
-    // Acessibilidade (Dislexia)
+    // 3. Controle de Acessibilidade (Dislexia)
     const dyslexiaSwitch = document.querySelector('#dyslexia-checkbox');
     const currentA11y = localStorage.getItem('accessibility');
 
     if (dyslexiaSwitch) {
         if (currentA11y === 'dyslexia-mode') {
-            document.body.classList.add('dyslexia-mode');
+            document.documentElement.classList.add('dyslexia-mode');
             dyslexiaSwitch.checked = true;
         }
 
         dyslexiaSwitch.addEventListener('change', function(e) {
             if (e.target.checked) {
-                document.body.classList.add('dyslexia-mode');
+                document.documentElement.classList.add('dyslexia-mode');
                 localStorage.setItem('accessibility', 'dyslexia-mode');
             } else {
-                document.body.classList.remove('dyslexia-mode');
+                document.documentElement.classList.remove('dyslexia-mode');
                 localStorage.setItem('accessibility', 'standard-mode');
             }
         });

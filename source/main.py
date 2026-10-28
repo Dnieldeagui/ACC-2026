@@ -5,56 +5,45 @@ import hashlib
 import codeBD
 import secrets
 import string
-### USAR QUANDO A RECUPERAÇÃO DE CONTA FOR CRIADA ###
-# import flask_mail
 
 def gerar_codigo():
     caracteres = string.ascii_uppercase + string.digits
     return ''.join(secrets.choice(caracteres) for _ in range(6))
 
-
-### CONFIGURACOES DO SITE NAO MEXA
+### CONFIGURACOES DO SITE ###
 site = flask.Flask(__name__)
 site.secret_key = "3440e27a867ca2fbbfe2adf49cecd08a700764c43046d6c4c26d4ccf1143da49"
 
-
-#verifica as tabelas 
+# Verifica as tabelas
 codeBD.verify_tables()
 
-# ROTAS DA URL NO FLASK (usadas na url EX.: http://192.168.1.5:5000/ = home.html; http://192.168.1.5:5000/mapa = trilha.html)
+# ROTAS DA URL NO FLASK
 @site.route("/")
 def home():
-    # Condicional para ver autenticar se o aluno esta logado e redireciona-lo para o dashboard
     if "aluno" in flask.session:
         try: 
             return flask.redirect(flask.url_for('dashboard_aluno'))
         except:
             return flask.redirect(flask.url_for('error'))
-        
-    # Condicional para ver autenticar se o professor esta logado e redireciona-lo para o dashboard
     elif "professor" in flask.session:
         try: 
             return flask.redirect(flask.url_for('dashboard_professor'))
         except:
             return flask.redirect(flask.url_for('error'))
-        
     else:
         try:
             return flask.render_template("home.html")
         except:
             return flask.redirect(flask.url_for('error'))
 
-
 @site.route("/error")
 def error():
     return flask.render_template("error_page.html")
-
 
 @site.route("/logout/button", methods=["POST"])
 def logout_button():
     flask.session.clear()
     return flask.redirect(flask.url_for('home'))
-
 
 @site.route("/mapa", methods=["POST", "GET"])
 def mapa():
@@ -76,13 +65,10 @@ def mapa():
         connectbd.commit()
         connectbd.close()
 
-
-
     try:
         return flask.render_template("map/trilha.html")
     except:
         return flask.redirect(flask.url_for('error'))
-
 
 @site.route("/perfil")
 def perfil():
@@ -91,14 +77,12 @@ def perfil():
     except:
         return flask.redirect(flask.url_for('error'))
 
-
 @site.route("/ofensiva")
 def ofensiva():
     try:
         return flask.render_template("Ofensiva.html")
     except:
         return flask.redirect(flask.url_for('error'))
-
 
 @site.route("/contato", methods = ["POST", "GET"])
 def contato():
@@ -120,8 +104,6 @@ def contato():
     except:
         return flask.redirect(flask.url_for('error'))
 
-
-# Rota do login e verificação do Bypass, verifica se o email e a senha constam no banco de dados.
 @site.route("/login/aluno", methods=["GET", "POST"])
 def login_aluno():
     if flask.request.method == "POST":
@@ -141,8 +123,6 @@ def login_aluno():
     except:
         return flask.redirect(flask.url_for('error'))
 
-
-# Rota do login e verificação do Bypass, verifica se o email e a senha constam no banco de dados. 
 @site.route("/login/professor", methods=["GET", "POST"])
 def login_professor():
     if flask.request.method == "POST":
@@ -161,8 +141,6 @@ def login_professor():
     except:
         return flask.redirect(flask.url_for('error'))
 
-
-# Rota de criação de contas e atualização delas no BD
 @site.route("/register/aluno", methods=["GET", "POST"])
 def register_aluno():
     if flask.request.method == "POST":
@@ -190,8 +168,6 @@ def register_aluno():
     except:
         return flask.redirect(flask.url_for('error'))
 
-
-# Rota de criação de contas e atualização delas no BD
 @site.route("/register/professor", methods=["GET", "POST"])
 def register_professor():
     if flask.request.method == "POST":
@@ -221,14 +197,41 @@ def register_professor():
     except:
         return flask.redirect(flask.url_for('error'))
 
-    
-@site.route("/dashboard/professor")
+# 🔥 ROTA DO DASHBOARD DO PROFESSOR ATUALIZADA (Aceita POST e envia turmas)
+@site.route("/dashboard/professor", methods=["GET", "POST"])
 def dashboard_professor():
-    try:
-        return flask.render_template("dashboard/dashboard-professor.html")
-    except:
-        return flask.redirect(flask.url_for('error'))
+    if "professor" not in flask.session:
+        return flask.redirect(flask.url_for('home'))
 
+    id_session = flask.session.get("professor")
+    id_professor = codeBD.searcher_professor_id(id_session)
+
+    connectbd = sqlite3.connect("dataBase.db")
+    sqlrunner = connectbd.cursor()
+
+    if flask.request.method == "POST":
+        nome = flask.request.form["atividade"]
+        link = flask.request.form["link"]
+        turma = flask.request.form["turma"]
+
+        sqlrunner.execute("""
+            INSERT INTO atividades (nome, link, turma_id, professor_id)
+            VALUES (?, ?, ?, ?)
+        """, (nome, link, turma, id_professor))
+        connectbd.commit()
+        
+        connectbd.close()
+        return flask.redirect(flask.url_for("mapa"))
+
+    sqlrunner.execute("SELECT id, ano, disciplina, codigo FROM turmas WHERE professor_id = ?", (id_professor,))
+    turmas = sqlrunner.fetchall()
+    connectbd.close()
+
+    try:
+        return flask.render_template("dashboard/dashboard-professor.html", turmas=turmas)
+    except Exception as e:
+        print(e)
+        return flask.redirect(flask.url_for('error'))
 
 @site.route("/dashboard/aluno")
 def dashboard_aluno():
@@ -236,7 +239,6 @@ def dashboard_aluno():
         return flask.render_template("dashboard/dashboard-aluno.html")
     except:
         return flask.redirect(flask.url_for('error'))
-
 
 @site.route('/trilhas/atividades')
 def atividades():
@@ -246,45 +248,35 @@ def atividades():
     except:
         return flask.redirect(flask.url_for('error'))
 
-
 @site.route("/turmas", methods=["GET", "POST"])
 def turmas():
-    # ALUNO 
     if "aluno" in flask.session:
         id_session = flask.session.get("aluno")
         id_aluno = codeBD.searcher_aluno_id(id_session)
 
-        # busca o nome do aluno
         connectbd = sqlite3.connect("dataBase.db")
         sqlrunner = connectbd.cursor()
         sqlrunner.execute("SELECT nome FROM alunos WHERE id = ?", (id_aluno,))
         r = sqlrunner.fetchone()
         nome_aluno = r[0] if r else "Usuário"
 
-        # POST
         if flask.request.method == "POST":
             codigo = flask.request.form.get("codigo", "").upper().strip()
-
             sqlrunner.execute("SELECT id FROM turmas WHERE codigo = ?", (codigo,))
             t = sqlrunner.fetchone()
             if t and id_aluno:
                 try:
-                    sqlrunner.execute(
-                        "INSERT INTO alunos_turmas (aluno_id, turma_id) VALUES (?, ?)",
-                        (id_aluno, t[0])
-                    )
+                    sqlrunner.execute("INSERT INTO alunos_turmas (aluno_id, turma_id) VALUES (?, ?)", (id_aluno, t[0]))
                     connectbd.commit()
                 except sqlite3.IntegrityError:
-                    pass  # já estava na turma
+                    pass
             connectbd.close()
             return flask.redirect(flask.url_for("turmas"))
 
-        # GET
         turmas = []
         atividades_aluno = []
         
         if id_aluno:
-            # Busca as turmas
             sqlrunner.execute("""
                 SELECT t.id, t.ano, t.disciplina, t.codigo
                 FROM turmas t
@@ -293,7 +285,6 @@ def turmas():
             """, (id_aluno,))
             turmas = sqlrunner.fetchall()
 
-            # Busca as atividades (NOVO)
             sqlrunner.execute("""
                 SELECT a.nome, a.link, p.nome 
                 FROM atividades a
@@ -305,16 +296,13 @@ def turmas():
             atividades_aluno = sqlrunner.fetchall()
 
         connectbd.close()
-
         return flask.render_template("turmas.html", nome_professor=nome_aluno, turmas=turmas, atividades=atividades_aluno)
 
-    # PROFESSOR 
     elif "professor" in flask.session:
         id_session = flask.session.get("professor")
         id_professor = codeBD.searcher_professor_id(id_session)
         professor = codeBD.searcher_professor_nome(id_professor) or "Usuário"
 
-        # POST
         if flask.request.method == "POST":
             ano = flask.request.form["ano"]
             disciplina = flask.request.form["disciplina"]
@@ -328,15 +316,11 @@ def turmas():
             """, (ano, disciplina, codigo, id_professor))
             connectbd.commit()
             connectbd.close()
-
             return flask.redirect(flask.url_for("turmas"))
 
-        # GET
         connectbd = sqlite3.connect("dataBase.db")
         sqlrunner = connectbd.cursor()
-        sqlrunner.execute("""
-            SELECT id, ano, disciplina, codigo FROM turmas WHERE professor_id = ?
-        """, (id_professor,))
+        sqlrunner.execute("SELECT id, ano, disciplina, codigo FROM turmas WHERE professor_id = ?", (id_professor,))
         turmas = sqlrunner.fetchall()
 
         sqlrunner.execute("""
@@ -348,12 +332,9 @@ def turmas():
         atividades_prof = sqlrunner.fetchall()
         
         connectbd.close()
-
         return flask.render_template("turmas.html", nome_professor=professor, turmas=turmas, atividades=atividades_prof)
 
-    #  SEM LOGIN 
     return flask.render_template("turmas.html", nome_professor="Usuário", turmas=[], atividades=[])
-
 
 @site.route("/perfil/aluno", methods=["POST", "GET"])
 def perfil_aluno():
@@ -375,26 +356,17 @@ def perfil_aluno():
 
             connectbd = sqlite3.connect("dataBase.db")
             sqlrunner = connectbd.cursor()
-
-            sqlrunner.execute("""
-                UPDATE alunos 
-                SET nome = ?, email = ? 
-                WHERE id = ?
-            """, (novo_nome, novo_email, id_aluno))
-            
+            sqlrunner.execute("UPDATE alunos SET nome = ?, email = ? WHERE id = ?", (novo_nome, novo_email, id_aluno))
             connectbd.commit()
             connectbd.close()
 
             flask.flash("Perfil alterado com sucesso!", "sucesso")
-
             return flask.redirect(flask.url_for('perfil_aluno'))
 
         elif acao == "alterar_senha":
-
             senha_atual = flask.request.form["senha_atual"]
             senha_nova = flask.request.form["senha_nova"]
             senha_atual_hash = hashlib.sha256(senha_atual.encode("utf-8")).hexdigest()
-
 
             connectbd = sqlite3.connect("dataBase.db")
             sqlrunner = connectbd.cursor()
@@ -405,31 +377,18 @@ def perfil_aluno():
 
             if senha_atual_hash == senha_real:
                 senha_nova_hash = hashlib.sha256(senha_nova.encode("utf-8")).hexdigest()
-
                 connectbd = sqlite3.connect("dataBase.db")
                 sqlrunner = connectbd.cursor()
-
-                sqlrunner.execute("""
-                    UPDATE alunos 
-                    SET senha = ? 
-                    WHERE id = ?
-                """, (senha_nova_hash, id_aluno))
-                
+                sqlrunner.execute("UPDATE alunos SET senha = ? WHERE id = ?", (senha_nova_hash, id_aluno))
                 connectbd.commit()
                 connectbd.close()
-
-                
                 flask.flash("Senha alterada com sucesso!", "sucesso")
             else:
                 flask.flash("A senha atual está incorreta. Tente novamente.", "erro")
 
-            
             return flask.redirect(flask.url_for('perfil_aluno'))
 
-        
-
     return flask.render_template("profile/perfil-aluno.html", nome=aluno_nome, email=aluno_email)
-
 
 @site.route("/perfil/professor", methods=["POST", "GET"])
 def perfil_professor():
@@ -453,26 +412,17 @@ def perfil_professor():
 
             connectbd = sqlite3.connect("dataBase.db")
             sqlrunner = connectbd.cursor()
-
-            sqlrunner.execute("""
-                UPDATE professores 
-                SET nome = ?, email = ?, disciplina = ? 
-                WHERE id = ?
-            """, (nome, email, disciplina, id_professor))
-            
+            sqlrunner.execute("UPDATE professores SET nome = ?, email = ?, disciplina = ? WHERE id = ?", (nome, email, disciplina, id_professor))
             connectbd.commit()
             connectbd.close()
 
             flask.flash("Perfil alterado com sucesso!", "sucesso")
-
             return flask.redirect(flask.url_for('perfil_professor'))
 
         elif acao == "alterar_senha":
-
             senha_atual = flask.request.form["senha_atual"]
             senha_nova = flask.request.form["senha_nova"]
             senha_atual_hash = hashlib.sha256(senha_atual.encode("utf-8")).hexdigest()
-
 
             connectbd = sqlite3.connect("dataBase.db")
             sqlrunner = connectbd.cursor()
@@ -483,30 +433,18 @@ def perfil_professor():
 
             if senha_atual_hash == senha_real:
                 senha_nova_hash = hashlib.sha256(senha_nova.encode("utf-8")).hexdigest()
-
                 connectbd = sqlite3.connect("dataBase.db")
                 sqlrunner = connectbd.cursor()
-
-                sqlrunner.execute("""
-                    UPDATE professores 
-                    SET senha = ? 
-                    WHERE id = ?
-                """, (senha_nova_hash, id_professor))
-                
+                sqlrunner.execute("UPDATE professores SET senha = ? WHERE id = ?", (senha_nova_hash, id_professor))
                 connectbd.commit()
                 connectbd.close()
-
-                
                 flask.flash("Senha alterada com sucesso!", "sucesso")
             else:
                 flask.flash("A senha atual está incorreta. Tente novamente.", "erro")
 
-            
             return flask.redirect(flask.url_for('perfil_professor')) 
 
     return flask.render_template("profile/perfil-professor.html", nome=professor_nome, email=professor_email, disciplina=professor_disciplina)
 
-
-# Condição que reconhece que o código está sendo rodado nesse arquivo como principal
 if __name__ == "__main__":
     site.run(host="0.0.0.0", port=5000, debug=True)

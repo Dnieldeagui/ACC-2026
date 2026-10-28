@@ -8,28 +8,32 @@
         (function() {
             const currentTheme = localStorage.getItem('theme');
             if (currentTheme) document.documentElement.classList.add(currentTheme);
+            const currentA11y = localStorage.getItem('accessibility');
+            if (currentA11y === 'dyslexia-mode') document.documentElement.classList.add('dyslexia-mode');
         })();
     </script>
-    <script src="{{ url_for('static', filename='js/config.js')}}"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700;800&family=Quicksand:wght@500;600;700&family=Lexend:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">   
     <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='pages/images/Otto-minimal.png') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='pages/images/Otto-minimal.png') }}">
     <link rel="icon" type="image/png" sizes="192x192" href="{{ url_for('static', filename='pages/images/Otto-minimal.png') }}">
 </head>
 <body>
-
     <header id="area-cabecalho">
         <div class="container-topo">
             <div class="logo-container">
+                <div class="otto-header-wrapper">
+                    {% if session.get('aluno') %}
+                        <img src="{{ url_for('static', filename='pages/images/Otto-student.png') }}" alt="Otto Aluno" class="otto-header">
+                    {% elif session.get('professor') %}
+                        <img src="{{ url_for('static', filename='pages/images/Otto-teacher.png') }}" alt="Otto Professor" class="otto-header">
+                    {% endif %}
+                </div>
                 <div id="area-logo">
                     <a href="{{ url_for('home') }}" class="link-octoler"><h1>OCTO<span class="destaque">LER</span></h1></a>
                 </div>
             </div>
-            
             <nav id="area-menu">
-                <!-- Esse IF pertence ao JINJA2, motor do FLASK no python -->
                 {% if session.get('aluno') or session.get('professor') %}
                 {% set pagina = request.endpoint or '' %}
                 <a href="{{ url_for('home') }}" class="{% if pagina == 'dashboard_professor' %}ativo{% endif %}">Início</a>
@@ -38,11 +42,10 @@
                 <a href="{{ url_for('contato') }}" class="{% if pagina == 'contato' %}ativo{% endif %}">Contato</a>
                 {% endif %}
             </nav>
-
             <div class="settings-container">
                 {% if session.get('aluno') or session.get('professor') %}
                 <a href="{% if session.get('professor') %}/perfil/professor{% else %}/perfil/aluno{% endif %}">
-                <img src="https://ui-avatars.com/api/?name={{ session.get('aluno') or session.get('professor') }}&background=504e80&color=fff&rounded=true" alt="Perfil" class="profile-pic-nav">
+                    <img src="https://ui-avatars.com/api/?name={{ session.get('aluno') or session.get('professor') }}&background=7C5CFF&color=fff&rounded=true" alt="Perfil" class="profile-pic-nav">
                 </a>
                 {% endif %}
                 <button id="btn-settings" class="btn-icon" aria-label="Configurações">⚙️</button>
@@ -69,13 +72,12 @@
                         </label>
                     </div>
                     {% if session.get('aluno') or session.get('professor') %}
-                        <div class="config-item mt-10">
-                            <span>Logout</span>
-                            <!-- Formulário POST para deslogar corretamente -->
-                            <form action="{{ url_for('logout_button') }}" method="POST">
-                                <button type="submit" class="btn-logout-nav">Sair →</button>
-                            </form>
-                        </div>
+                    <div class="config-item mt-10">
+                        <span>Logout</span>
+                        <form action="{{ url_for('logout_button') }}" method="POST">
+                            <button type="submit" class="btn-logout-nav">Sair →</button>
+                        </form>
+                    </div>
                     {% endif %}
                 </div>
             </div>
@@ -88,11 +90,11 @@
                 <h2 class="titulo-login">Olá, Professor! 👋</h2>
                 <p>Este é seu painel de controle. Aqui você pode criar novas atividades, acompanhar o progresso dos alunos e muito mais.</p>
                 <div style="margin-top: 20px; display: flex; gap: 10px; flex-wrap: wrap;">
-                    <a href="{{ url_for('mapa') }}" class="btn-secundario">Criar Atividade</a>
+                    <!-- Botão alterado para abrir o Modal em vez de ir para Trilha -->
+                    <button type="button" onclick="document.getElementById('btn-abrir-link').click()" class="btn-secundario">Criar Atividade</button>
                     <a href="{{ url_for('turmas') }}" class="btn-secundario">Ver Turmas</a>
                 </div>
             </div>
-
             <div class="ludico-card">
                 <h3>Últimas notícias</h3>
                 <ul style="list-style: none; padding: 0; margin-top: 15px;">
@@ -102,11 +104,56 @@
                 </ul>
             </div>
         </section>
-
     </main>
 
     <footer id="rodape">
         <p>✨ Feito com carinho para pequenos grandes pensadores ✨</p>
     </footer>
+
+    <!-- ADICIONADO O BOTÃO FLUTUANTE E O MODAL AQUI -->
+    {% if session.get('professor') %}
+        <button id="btn-abrir-link" class="fab-criar" type="button" style="display: none;"></button>
+
+        <div id="modal-link" class="modal-overlay hidden" role="dialog" aria-modal="true">
+            <div class="modal-content">
+                <button id="btn-fechar-modal" class="modal-close" aria-label="Fechar" type="button">✕</button>
+                <h2 id="modal-link-titulo" class="titulo-login"> Criar Atividade Personalizada </h2>
+                <p class="subtitulo-cadastro"> Cole abaixo o link de uma atividade do WordWall para adicioná-la. </p>
+                
+                <form id="form-link" action="{{ url_for('mapa') }}" method="POST">
+                    <div class="dados">
+                        <label for="input-nome">Nome da atividade</label>
+                        <input type="text" id="input-nome" name="atividade" placeholder="Ex.: Sinônimos" required>
+                    </div>
+                    <div class="dados">
+                        <label for="input-link">Link da atividade (WordWall)</label>
+                        <input type="url" id="input-link" name="link" placeholder="https://wordwall.net/pt/resource/..." required>
+                    </div>
+                    <div class="dados">
+                        <label for="input-turma">Turma</label>
+                        <select id="input-turma" name="turma" required style="width: 100%; padding: 10px; border-radius: 8px; background-color: var(--input-bg); color: var(--text-main); border: 1px solid var(--border-color);">
+                            <option value="" disabled selected>Selecione uma turma...</option>
+                            {% for t in turmas %}
+                                <option value="{{ t[0] }}">{{ t[1] }} - {{ t[2] }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="modal-botoes">
+                        <button id="btn-confirmar-link" class="btn-primario" type="submit">Confirmar</button>
+                        <button id="btn-limpar-link" class="btn-secundario" type="button">Limpar</button>
+                    </div>
+                </form>
+                <p id="modal-feedback" class="modal-feedback"></p>
+            </div>
+        </div>
+    {% endif %}
+
+   <!-- Mantenha o HTML igual, apenas garanta que o finalzinho (antes do </body>) esteja assim: -->
+<script src="{{ url_for('static', filename='js/config.js')}}"></script>
+{% if session.get('professor') %}
+    <script src="{{ url_for('static', filename='js/criar-atividade.js') }}"></script>
+{% endif %}
+</body>
+</html>
 </body>
 </html>

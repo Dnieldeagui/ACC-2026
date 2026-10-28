@@ -8,27 +8,32 @@
         (function() {
             const currentTheme = localStorage.getItem('theme');
             if (currentTheme) document.documentElement.classList.add(currentTheme);
+            const currentA11y = localStorage.getItem('accessibility');
+            if (currentA11y === 'dyslexia-mode') document.documentElement.classList.add('dyslexia-mode');
         })();
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700;800&family=Quicksand:wght@500;600;700&family=Lexend:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='pages/images/Otto-minimal.png') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='pages/images/Otto-minimal.png') }}">
     <link rel="icon" type="image/png" sizes="192x192" href="{{ url_for('static', filename='pages/images/Otto-minimal.png') }}">
 </head>
 <body>
-
     <header id="area-cabecalho">
         <div class="container-topo">
             <div class="logo-container">
+                <div class="otto-header-wrapper">
+                    {% if session.get('aluno') %}
+                        <img src="{{ url_for('static', filename='pages/images/Otto-student.png') }}" alt="Otto Aluno" class="otto-header">
+                    {% elif session.get('professor') %}
+                        <img src="{{ url_for('static', filename='pages/images/Otto-teacher.png') }}" alt="Otto Professor" class="otto-header">
+                    {% endif %}
+                </div>
                 <div id="area-logo">
                     <a href="{{ url_for('home') }}" class="link-octoler"><h1>OCTO<span class="destaque">LER</span></h1></a>
                 </div>
             </div>
-            
             <nav id="area-menu">
-                <!-- Esse IF pertence ao JINJA2, motor do FLASK no python -->
                 {% if session.get('aluno') or session.get('professor') %}
                 {% set pagina = request.endpoint or '' %}
                 <a href="{{ url_for('home') }}" class="{% if pagina == 'home' %}ativo{% endif %}">Início</a>
@@ -37,11 +42,10 @@
                 <a href="{{ url_for('contato') }}" class="{% if pagina == 'contato' %}ativo{% endif %}">Contato</a>
                 {% endif %}
             </nav>
-    
             <div class="settings-container">
                 {% if session.get('aluno') or session.get('professor') %}
                 <a href="{% if session.get('professor') %}/perfil/professor{% else %}/perfil/aluno{% endif %}">
-                <img src="https://ui-avatars.com/api/?name={{ session.get('aluno') or session.get('professor') }}&background=504e80&color=fff&rounded=true" alt="Perfil" class="profile-pic-nav">
+                    <img src="https://ui-avatars.com/api/?name={{ session.get('aluno') or session.get('professor') }}&background=7C5CFF&color=fff&rounded=true" alt="Perfil" class="profile-pic-nav">
                 </a>
                 {% endif %}
                 <button id="btn-settings" class="btn-icon" aria-label="Configurações">⚙️</button>
@@ -68,23 +72,21 @@
                         </label>
                     </div>
                     {% if session.get('aluno') or session.get('professor') %}
-                        <div class="config-item mt-10">
-                            <span>Logout</span>
-                            <form action="{{ url_for('logout_button') }}" method="POST">
-                                <button type="submit" class="btn-logout-nav">Sair →</button>
-                            </form>
-                        </div>
+                    <div class="config-item mt-10">
+                        <span>Logout</span>
+                        <form action="{{ url_for('logout_button') }}" method="POST">
+                            <button type="submit" class="btn-logout-nav">Sair →</button>
+                        </form>
+                    </div>
                     {% endif %}
                 </div>
             </div>
         </div>
     </header>
-
     <main id="area-principal-cadastro">
         <div class="card-central ludico-card">
             <h2 class="titulo-login">Criar conta de Professor 📚</h2>
             <p class="subtitulo-cadastro">Preencha os dados para começar a usar.</p>
-
             <form id="cadastro-professor-form" action="{{ url_for('register_professor') }}" method="POST">
                 <div class="dados">
                     <label for="nome-professor">Nome completo</label>
@@ -115,12 +117,10 @@
             </form>
         </div>
     </main>
-
     <footer id="rodape">
         <p>✨ Feito com carinho para pequenos grandes pensadores ✨</p>
     </footer>
-
     <script src="{{ url_for('static', filename='js/config.js')}}"></script>
     <script src="{{ url_for('static', filename='js/login.js')}}"></script>
 </body>
-</html> 
+</html>

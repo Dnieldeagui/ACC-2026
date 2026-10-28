@@ -4,20 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OCTOLER - Perfil do Professor</title>
-    
-    <!-- Importando a biblioteca Cropper.js (CSS) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.css">
-    
     <script>
         (function() {
             const currentTheme = localStorage.getItem('theme');
             if (currentTheme) document.documentElement.classList.add(currentTheme);
+            const currentA11y = localStorage.getItem('accessibility');
+            if (currentA11y === 'dyslexia-mode') document.documentElement.classList.add('dyslexia-mode');
         })();
     </script>
-    
-    <script src="{{ url_for('static', filename='js/config.js')}}"></script>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700;800&family=Quicksand:wght@500;600;700&family=Lexend:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 </head>
 <body>
@@ -30,15 +26,20 @@
         {% endfor %}
     {% endif %}
     {% endwith %}
-
     <header id="area-cabecalho">      
         <div class="container-topo">
             <div class="logo-container">
+                <div class="otto-header-wrapper">
+                    {% if session.get('aluno') %}
+                        <img src="{{ url_for('static', filename='pages/images/Otto-student.png') }}" alt="Otto Aluno" class="otto-header">
+                    {% elif session.get('professor') %}
+                        <img src="{{ url_for('static', filename='pages/images/Otto-teacher.png') }}" alt="Otto Professor" class="otto-header">
+                    {% endif %}
+                </div>
                 <div id="area-logo">
                     <a href="{{ url_for('home') }}" class="link-octoler"><h1>OCTO<span class="destaque">LER</span></h1></a>
                 </div>
             </div>
-            
             <nav id="area-menu">
                 {% if session.get('aluno') or session.get('professor') %}
                 {% set pagina = request.endpoint or '' %}
@@ -48,16 +49,11 @@
                 <a href="{{ url_for('contato') }}" class="{% if pagina == 'contato' %}ativo{% endif %}">Contato</a>
                 {% endif %}
             </nav>
-            
-
             <div class="settings-container" style="display: flex; align-items: center;">
-                <!-- ÚNICO ÍCONE DE PERFIL NA NAVBAR -->
                 <a href="/perfil/professor">
-                    <img src="https://ui-avatars.com/api/?name={{ session.get('professor', 'P') }}&background=504e80&color=fff&rounded=true" alt="Perfil" class="profile-pic-nav">
+                    <img src="https://ui-avatars.com/api/?name={{ session.get('professor', 'P') }}&background=7C5CFF&color=fff&rounded=true" alt="Perfil" class="profile-pic-nav">
                 </a>
-
                 <button id="btn-settings" class="btn-icon" aria-label="Configurações">⚙️</button>
-                
                 <div id="settings-dropdown" class="dropdown-menu hidden">
                     <p class="dropdown-title">Configurações</p>
                     <div class="config-item">
@@ -81,55 +77,42 @@
                         </label>
                     </div>
                     {% if session.get('aluno') or session.get('professor') %}
-                        <div class="config-item mt-10">
-                            <span>Logout</span>
-                            <form action="{{ url_for('logout_button') }}" method="POST">
-                                <button type="submit" class="btn-logout-nav">Sair →</button>
-                            </form>
-                        </div>
+                    <div class="config-item mt-10">
+                        <span>Logout</span>
+                        <form action="{{ url_for('logout_button') }}" method="POST">
+                            <button type="submit" class="btn-logout-nav">Sair →</button>
+                        </form>
+                    </div>
                     {% endif %}
                 </div>
             </div>
         </div>
     </header>
-
     <main id="area-principal">
         <div class="perfil-grid">
-            
-            <!-- COLUNA DA ESQUERDA -->
             <div>
                 <div class="ludico-card" style="margin-bottom: 30px; text-align: center;">
-                    
-                    <!-- Container da foto com hover e lápis -->
                     <div class="foto-perfil-container" id="container-foto-perfil">
-                        <img src="https://ui-avatars.com/api/?name={{ session.get('professor', 'P') }}&background=504e80&color=fff&size=150&rounded=true" alt="Foto de perfil" class="foto-perfil-grande">
+                        <img src="https://ui-avatars.com/api/?name={{ session.get('professor', 'P') }}&background=7C5CFF&color=fff&size=150&rounded=true" alt="Foto de perfil" class="foto-perfil-grande">
                         <div class="overlay-editar">
                             <span>✏️</span>
                         </div>
                     </div>
-                    <!-- Input invisível que abre ao clicar na foto -->
                     <input type="file" id="input-foto-real" accept="image/png, image/jpeg" style="display: none;">
-
                     <h2 class="resumo-nome">{{ nome }}</h2>
                     <span class="resumo-tipo">Professor</span>
                 </div>
-
                 <div class="ludico-card">
                     <h3 class="titulo-login" style="text-align: left; margin-bottom: 15px;">Dados da conta</h3>
                     <dl class="dados-lista">
                         <dt>E-mail</dt>
                         <dd>{{ email }}</dd>
-                        
                         <dt>Disciplina</dt>
                         <dd>{{ disciplina }}</dd>
                     </dl>
                 </div>
             </div>
-
-            <!-- COLUNA DA DIREITA -->
             <div>
-
-                <!-- Editar Dados -->
                 <div class="ludico-card" style="margin-bottom: 30px;">
                     <h3 class="titulo-login" style="text-align: left; margin-bottom: 15px;">Editar dados</h3>
                     <form action="{{ url_for('perfil_professor') }}" method="POST" id="form-editar-perfil">
@@ -148,8 +131,6 @@
                         <button type="submit" name="acao" value="editar_perfil" class="btn-primario" style="width: auto;">Salvar alterações</button>
                     </form>
                 </div>
-
-                <!-- Alterar Senha -->
                 <div class="ludico-card">
                     <h3 class="titulo-login" style="text-align: left; margin-bottom: 15px;">Alterar senha</h3>
                     <form action="{{ url_for('perfil_professor') }}" method="POST" id="form-alterar-senha">
@@ -169,34 +150,26 @@
                     </form>
                 </div>
             </div>
-
         </div>
     </main>
-
     <footer id="rodape">
         <p>✨ Feito com carinho para pequenos grandes pensadores ✨</p>
     </footer>
-
-    <!-- MODAL DE RECORTAR FOTO (CROPPER) -->
     <div id="modal-cropper" class="modal-overlay hidden" role="dialog" aria-modal="true">
         <div class="modal-content" style="max-width: 400px;">
             <h2 class="titulo-login" style="margin-bottom: 15px;">Ajustar Foto</h2>
             <p class="subtitulo-cadastro" style="margin-bottom: 15px;">Use o mouse para mover e a rodinha para dar zoom.</p>
-            
             <div class="cropper-container-custom">
                 <img id="imagem-para-recortar" src="" style="max-width: 100%; display: block;">
             </div>
-
             <div class="modal-botoes">
                 <button id="btn-confirmar-corte" class="btn-primario" type="button">Salvar Foto</button>
                 <button id="btn-cancelar-corte" class="btn-secundario" type="button">Cancelar</button>
             </div>
         </div>
     </div>
-
-    <!-- Biblioteca Cropper.js (JS) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.js"></script>
-    <!-- Nosso Script de Perfil -->
+    <script src="{{ url_for('static', filename='js/config.js')}}"></script>
     <script src="{{ url_for('static', filename='js/perfil.js') }}"></script>
 </body>
 </html>
